@@ -1,0 +1,15 @@
+{
+	"name": "authwave/www.authwave.com",
+	"description": "The Authwave website.",
+	"type": "project",
+
+	"require": {
+		"phpgt/webengine": "dev-master"
+	},
+
+	"autoload": {
+		"psr-4": {
+			"Authwave\\": "./class"
+		}
+	}
+}

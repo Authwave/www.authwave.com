@@ -30,7 +30,7 @@ main {
 	width: 8rem;
 	aspect-ratio: 1;
 	overflow: visible;
-	filter: url("#gooey");
+	filter: url("#gooey") drop-shadow(0 1rem 0rem rgba(0,0,0,0.2));
 }
 
 aw-pixel {

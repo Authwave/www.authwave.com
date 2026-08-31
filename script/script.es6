@@ -7,6 +7,12 @@ const DIRECTIONS = [
 	[0, 1],
 	[-1, 0],
 ];
+const NEIGHBOUR_DIRECTIONS = [
+	[-1, -1], [0, -1], [1, -1],
+	[-1, 0],           [1, 0],
+	[-1, 1],  [0, 1],  [1, 1],
+];
+const ISOLATION_PENALTY = 6;
 const INITIAL_PIXELS = [
 	[1, 2],
 	[2, 1],
@@ -79,6 +85,54 @@ function availableDestinations(position, occupied) {
 	return destinations;
 }
 
+function layoutScore(occupied) {
+	let neighbourLinks = 0;
+	let isolatedCells = 0;
+
+	for(const key of occupied) {
+		const [x, y] = key.split(",").map(Number);
+		let neighbours = 0;
+
+		for(const [deltaX, deltaY] of NEIGHBOUR_DIRECTIONS) {
+			if(occupied.has(cellKey(x + deltaX, y + deltaY))) {
+				neighbours++;
+			}
+		}
+
+		neighbourLinks += neighbours;
+		if(neighbours === 0) {
+			isolatedCells++;
+		}
+	}
+
+	return neighbourLinks / 2 - isolatedCells * ISOLATION_PENALTY;
+}
+
+function chooseDestination(from, destinations, occupied) {
+	const candidates = destinations.map(to => {
+		const resultingLayout = new Set(occupied);
+		resultingLayout.delete(cellKey(from.x, from.y));
+		resultingLayout.add(cellKey(to.x, to.y));
+		return {to, score: layoutScore(resultingLayout)};
+	});
+	const bestScore = Math.max(...candidates.map(({score}) => score));
+	const weightedCandidates = candidates.map(candidate => ({
+		...candidate,
+		weight: Math.exp(candidate.score - bestScore),
+	}));
+	const totalWeight = weightedCandidates.reduce((total, {weight}) => total + weight, 0);
+	let selection = Math.random() * totalWeight;
+
+	for(const candidate of weightedCandidates) {
+		selection -= candidate.weight;
+		if(selection <= 0) {
+			return candidate.to;
+		}
+	}
+
+	return weightedCandidates.at(-1).to;
+}
+
 function planShuffles(count) {
 	const positions = new Map(
 		pixels.map(state => [state, {x: state.x, y: state.y}]),
@@ -108,7 +162,7 @@ function planShuffles(count) {
 				continue;
 			}
 
-			const to = destinations[Math.floor(Math.random() * destinations.length)];
+			const to = chooseDestination(from, destinations, occupied);
 			move = {state, from: {...from}, to};
 			round.splice(i, 1);
 			break;

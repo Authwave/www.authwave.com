@@ -1,4 +1,5 @@
 const GRID_SIZE = 6;
+const CONCURRENT_MOVEMENTS = 3;
 const DIRECTIONS = [
 	[0, -1],
 	[1, 0],
@@ -125,7 +126,7 @@ function startAutomaticMovement() {
 
 	moveNextPixel();
 	const duration = getComputedStyle(pixels[0].element).transitionDuration.split(",")[0];
-	const cadence = cssTimeToMilliseconds(duration) / 2;
+	const cadence = cssTimeToMilliseconds(duration) / CONCURRENT_MOVEMENTS;
 
 	if(Number.isFinite(cadence) && cadence > 0) {
 		setTimeout(startAutomaticMovement, cadence);

@@ -1,6 +1,6 @@
 const GRID_SIZE = 6;
-const SHUFFLE_COUNT = 10;
 const CONCURRENT_MOVEMENTS = 3;
+let SHUFFLE_COUNT = 10;
 const DIRECTIONS = [
 	[0, -1],
 	[1, 0],
@@ -193,6 +193,7 @@ async function startAutomaticMovement() {
 	await playMoves(initialPlan, true);
 
 	while(true) {
+		SHUFFLE_COUNT = 10 + Math.floor(Math.random() * 10);
 		const plan = planShuffles(SHUFFLE_COUNT);
 		await playMoves(plan);
 		await playMoves(plan, true);

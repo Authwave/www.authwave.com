@@ -45,3 +45,7 @@ aw-pixel {
 	background-color: #75bbf0;
 	border-radius: 0.2rem;
 }
+
+main.is-instant aw-pixel {
+	transition: none;
+}

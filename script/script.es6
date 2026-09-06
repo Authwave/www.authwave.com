@@ -1,18 +1,5 @@
 const GRID_SIZE = 6;
-const CONCURRENT_MOVEMENTS = 3;
-let SHUFFLE_COUNT = 10;
-const DIRECTIONS = [
-	[0, -1],
-	[1, 0],
-	[0, 1],
-	[-1, 0],
-];
-const NEIGHBOUR_DIRECTIONS = [
-	[-1, -1], [0, -1], [1, -1],
-	[-1, 0],           [1, 0],
-	[-1, 1],  [0, 1],  [1, 1],
-];
-const ISOLATION_PENALTY = 6;
+const RESET_DELAY = 5000;
 const INITIAL_PIXELS = [
 	[1, 2],
 	[2, 1],
@@ -25,10 +12,12 @@ const INITIAL_PIXELS = [
 
 const main = document.querySelector("main");
 main.style.setProperty("--grid-size", GRID_SIZE);
-main.classList.add("is-instant");
 
+const occupiedCells = new Map();
+const DIRECTIONS = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+const pointers = new Map();
 const pixels = [];
-const occupiedCells = new Set();
+let resetTimer;
 
 function cellKey(x, y) {
 	return `${x},${y}`;
@@ -51,207 +40,124 @@ for(const [x, y] of INITIAL_PIXELS) {
 	}
 
 	const element = document.createElement("aw-pixel");
-	const state = {element, x, y};
 	setPixelPosition(element, x, y);
 	main.appendChild(element);
-	pixels.push(state);
-	occupiedCells.add(key);
+	const pixel = {element, x, y, initialX: x, initialY: y};
+	pixels.push(pixel);
+	occupiedCells.set(key, pixel);
+}
+
+function resetPixels() {
+	occupiedCells.clear();
+	for(const pixel of pixels) {
+		pixel.x = pixel.initialX;
+		pixel.y = pixel.initialY;
+		occupiedCells.set(cellKey(pixel.x, pixel.y), pixel);
+		setPixelPosition(pixel.element, pixel.x, pixel.y);
+	}
+	// Keep the last pointer position, but allow contact with the restored cell.
+	for(const pointer of pointers.values()) {
+		pointer.cell = null;
+	}
+}
+
+function inGrid(x, y) {
+	return x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE;
 }
 
 function shuffled(items) {
 	const result = [...items];
-
 	for(let i = result.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
 		[result[i], result[j]] = [result[j], result[i]];
 	}
-
 	return result;
 }
 
-function availableDestinations(position, occupied) {
-	const destinations = [];
+// Find a chain ending at a vacancy before changing any live coordinates.
+// Continue straight first; backtrack through random alternatives at a blockage.
+function planPush(x, y, direction, visited = new Set()) {
+	const key = cellKey(x, y);
+	if(!inGrid(x, y) || visited.has(key)) {
+		return null;
+	}
+	if(!occupiedCells.has(key)) {
+		return [];
+	}
+	visited.add(key);
+	const alternatives = shuffled(DIRECTIONS.filter(([dx, dy]) =>
+		dx !== direction[0] || dy !== direction[1],
+	));
 
-	for(const [deltaX, deltaY] of DIRECTIONS) {
-		const x = position.x + deltaX;
-		const y = position.y + deltaY;
-
-		if(x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE &&
-			!occupied.has(cellKey(x, y))) {
-			destinations.push({x, y});
+	for(const [dx, dy] of [direction, ...alternatives]) {
+		const tail = planPush(x + dx, y + dy, [dx, dy], visited);
+		if(tail !== null) {
+			return [...tail, {pixel: occupiedCells.get(key), x: x + dx, y: y + dy}];
 		}
 	}
-
-	return destinations;
+	return null;
 }
 
-function layoutScore(occupied) {
-	let neighbourLinks = 0;
-	let isolatedCells = 0;
-
-	for(const key of occupied) {
-		const [x, y] = key.split(",").map(Number);
-		let neighbours = 0;
-
-		for(const [deltaX, deltaY] of NEIGHBOUR_DIRECTIONS) {
-			if(occupied.has(cellKey(x + deltaX, y + deltaY))) {
-				neighbours++;
-			}
-		}
-
-		neighbourLinks += neighbours;
-		if(neighbours === 0) {
-			isolatedCells++;
-		}
-	}
-
-	return neighbourLinks / 2 - isolatedCells * ISOLATION_PENALTY;
-}
-
-function chooseDestination(from, destinations, occupied) {
-	const candidates = destinations.map(to => {
-		const resultingLayout = new Set(occupied);
-		resultingLayout.delete(cellKey(from.x, from.y));
-		resultingLayout.add(cellKey(to.x, to.y));
-		return {to, score: layoutScore(resultingLayout)};
-	});
-	const bestScore = Math.max(...candidates.map(({score}) => score));
-	const weightedCandidates = candidates.map(candidate => ({
-		...candidate,
-		weight: Math.exp(candidate.score - bestScore),
-	}));
-	const totalWeight = weightedCandidates.reduce((total, {weight}) => total + weight, 0);
-	let selection = Math.random() * totalWeight;
-
-	for(const candidate of weightedCandidates) {
-		selection -= candidate.weight;
-		if(selection <= 0) {
-			return candidate.to;
-		}
-	}
-
-	return weightedCandidates.at(-1).to;
-}
-
-function planShuffles(count) {
-	const positions = new Map(
-		pixels.map(state => [state, {x: state.x, y: state.y}]),
-	);
-	const occupied = new Set(
-		[...positions.values()].map(({x, y}) => cellKey(x, y)),
-	);
-	const recentlyMoved = [];
-	const moves = [];
-	let round = [];
-
-	while(moves.length < count) {
-		if(round.length === 0) {
-			round = shuffled(pixels);
-		}
-
-		let move = null;
-		for(let i = 0; i < round.length; i++) {
-			const state = round[i];
-			if(recentlyMoved.includes(state)) {
-				continue;
-			}
-
-			const from = positions.get(state);
-			const destinations = availableDestinations(from, occupied);
-			if(destinations.length === 0) {
-				continue;
-			}
-
-			const to = chooseDestination(from, destinations, occupied);
-			move = {state, from: {...from}, to};
-			round.splice(i, 1);
-			break;
-		}
-
-		if(!move) {
-			throw new Error("Unable to plan another shuffle without colliding pixels.");
-		}
-
-		occupied.delete(cellKey(move.from.x, move.from.y));
-		occupied.add(cellKey(move.to.x, move.to.y));
-		positions.set(move.state, {...move.to});
-		moves.push(move);
-		recentlyMoved.push(move.state);
-
-		if(recentlyMoved.length >= CONCURRENT_MOVEMENTS) {
-			recentlyMoved.shift();
-		}
-	}
-
-	return moves;
-}
-
-function applyMove(move, reverse = false) {
-	const destination = reverse ? move.from : move.to;
-	occupiedCells.delete(cellKey(move.state.x, move.state.y));
-	occupiedCells.add(cellKey(destination.x, destination.y));
-	move.state.x = destination.x;
-	move.state.y = destination.y;
-	setPixelPosition(move.state.element, destination.x, destination.y);
-}
-
-function cssTimeToMilliseconds(value) {
-	const time = Number.parseFloat(value);
-	return value.trim().endsWith("ms") ? time : time * 1000;
-}
-
-function movementDuration() {
-	const value = getComputedStyle(pixels[0].element).transitionDuration.split(",")[0];
-	return cssTimeToMilliseconds(value);
-}
-
-function wait(milliseconds) {
-	return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
-
-function nextFrame() {
-	return new Promise(resolve => requestAnimationFrame(resolve));
-}
-
-async function playMoves(moves, reverse = false) {
-	const sequence = reverse ? [...moves].reverse() : moves;
-	const duration = movementDuration();
-	const cadence = duration / CONCURRENT_MOVEMENTS;
-
-	for(let i = 0; i < sequence.length; i++) {
-		applyMove(sequence[i], reverse);
-
-		if(i < sequence.length - 1) {
-			await wait(cadence);
-		}
-	}
-
-	await wait(duration);
-}
-
-async function startAutomaticMovement() {
-	if(pixels.length === 0 || SHUFFLE_COUNT <= 0) {
+function pushPixel(x, y, direction) {
+	const moves = planPush(x, y, direction);
+	if(!moves || moves.length === 0) {
 		return;
 	}
-
-	const initialPlan = planShuffles(SHUFFLE_COUNT);
-	for(const move of initialPlan) {
-		applyMove(move);
+	// Vacancy first: every destination is free before its neighbour moves in.
+	for(const {pixel, x, y} of moves) {
+		occupiedCells.delete(cellKey(pixel.x, pixel.y));
+		pixel.x = x;
+		pixel.y = y;
+		occupiedCells.set(cellKey(x, y), pixel);
+		setPixelPosition(pixel.element, x, y);
 	}
-
-	await nextFrame();
-	await nextFrame();
-	main.classList.remove("is-instant");
-	await nextFrame();
-
-	await playMoves(initialPlan, true);
-
-	while(true) {
-		SHUFFLE_COUNT = 10 + Math.floor(Math.random() * 10);
-		const plan = planShuffles(SHUFFLE_COUNT);
-		await playMoves(plan);
-		await playMoves(plan, true);
-	}
+	clearTimeout(resetTimer);
+	resetTimer = setTimeout(resetPixels, RESET_DELAY);
 }
 
-startAutomaticMovement();
+function quantise(dx, dy) {
+	return Math.abs(dx) >= Math.abs(dy)
+		? [dx < 0 ? -1 : 1, 0]
+		: [0, dy < 0 ? -1 : 1];
+}
+
+function interact(event) {
+	if(!event.isPrimary) {
+		return;
+	}
+	const bounds = main.getBoundingClientRect();
+	const point = {
+		x: (event.clientX - bounds.left) / bounds.width * GRID_SIZE,
+		y: (event.clientY - bounds.top) / bounds.height * GRID_SIZE,
+	};
+	const previous = pointers.get(event.pointerId);
+	const dx = previous ? point.x - previous.x : 0;
+	const dy = previous ? point.y - previous.y : 0;
+	let lastCell = previous?.cell ?? null;
+	// Sample the swept path so fast swipes cannot skip over a pixel.
+	const steps = Math.max(1, Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)) * 4));
+	for(let i = 1; i <= steps; i++) {
+		const x = point.x - dx * (1 - i / steps);
+		const y = point.y - dy * (1 - i / steps);
+		const cellX = Math.floor(x);
+		const cellY = Math.floor(y);
+		const key = inGrid(cellX, cellY) ? cellKey(cellX, cellY) : null;
+		if(key !== null && key !== lastCell && occupiedCells.has(key)) {
+			// A stationary tap pushes away from the contact toward the cell centre.
+			const direction = dx || dy ? quantise(dx, dy)
+				: quantise(cellX + 0.5 - x, cellY + 0.5 - y);
+			pushPixel(cellX, cellY, direction);
+		}
+		lastCell = key;
+	}
+	pointers.set(event.pointerId, {...point, cell: lastCell});
+}
+
+window.addEventListener("pointermove", interact);
+main.addEventListener("pointerdown", event => {
+	pointers.delete(event.pointerId);
+	interact(event);
+});
+window.addEventListener("pointerup", event => pointers.delete(event.pointerId));
+window.addEventListener("pointercancel", event => pointers.delete(event.pointerId));
+window.addEventListener("blur", () => pointers.clear());

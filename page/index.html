@@ -1,1 +1,712 @@
-<interactive-logo />
+<header class="authwave-header">
+	<a class="authwave-brand" href="#hero-title" aria-label="Authwave home">
+		<svg
+			class="authwave-placeholder authwave-symbol"
+			viewBox="0 0 32 32"
+			width="32"
+			height="32"
+			role="img"
+			aria-label="Logo placeholder"
+		>
+			<rect x="0.5" y="0.5" width="31" height="31" />
+			<path d="M0.5 0.5L31.5 31.5M31.5 0.5L0.5 31.5" />
+		</svg>
+		<span>Authwave</span>
+	</a>
+	<nav class="authwave-navigation" aria-label="Authwave">
+		<ul>
+			<li><a href="#about">About</a></li>
+			<li><a href="#product">Product</a></li>
+			<li><a href="#solutions">Solutions</a></li>
+			<li><a href="#pricing">Pricing</a></li>
+		</ul>
+	</nav>
+	<a class="authwave-header-action" href="#pricing">Get Started</a>
+</header>
+
+<main id="main-content" class="authwave-page">
+	<section class="authwave-hero" aria-labelledby="hero-title">
+		<div class="authwave-hero-heading">
+			<h1 id="hero-title"><span>Agnostic</span> <span>by Design</span></h1>
+			<p>Learn how to launch login, signup and identity tools</p>
+			<a class="authwave-action" href="#pricing">
+				<span>Get Started</span>
+				<span class="action-arrow" aria-hidden="true">→</span>
+			</a>
+		</div>
+		<div class="authwave-stage authwave-shell">
+			<article class="authwave-login" aria-labelledby="login-title">
+				<header class="login-heading">
+					<svg class="authwave-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" /></svg>
+					<h2 id="login-title">Welcome back</h2>
+					<p>Sign in to your account</p>
+				</header>
+				<form class="authwave-form" action="/#preview-note" method="get" data-authwave-form>
+					<!-- Preview fields have no names so the fallback does not send credentials. -->
+					<label>
+						<span>Email</span>
+						<input type="email" autocomplete="off" placeholder="you@example.com" required />
+					</label>
+					<label>
+						<span>Password</span>
+						<input type="password" autocomplete="off" required />
+					</label>
+					<div class="login-options">
+						<label class="login-remember"><input type="checkbox" /><span>Remember me</span></label>
+						<a href="#preview-note">Forgot password?</a>
+					</div>
+					<div class="actions"><button class="primary" type="submit">Log in</button></div>
+				</form>
+				<p class="login-signup">Don’t have an account? <a href="#preview-note">Sign up</a></p>
+				<p class="login-result" role="status" data-authwave-result></p>
+			</article>
+			<aside class="authwave-hero-aside authwave-security" aria-labelledby="security-title">
+				<svg class="authwave-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7v5c0 5 9 9 9 9s9-4 9-9V7ZM8 12l3 3 5-6" /></svg>
+				<div>
+					<h2 id="security-title">Secured by Authwave</h2>
+					<p>Enterprise-grade security &amp; reliability</p>
+				</div>
+			</aside>
+			<aside class="authwave-hero-aside authwave-protection" aria-labelledby="protection-title">
+				<svg class="authwave-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3" /></svg>
+				<h2 id="protection-title">Two factor ready</h2>
+				<p>Add one-time codes for extra security</p>
+				<a class="protection-action" href="#preview-note">Enable protection</a>
+			</aside>
+		</div>
+	</section>
+	<section
+		class="authwave-introduction"
+		id="about"
+		aria-labelledby="introduction-title"
+	>
+		<div class="authwave-shell">
+			<header class="authwave-section-heading">
+				<span class="authwave-kicker">About product</span>
+				<h2 id="introduction-title">Introduction</h2>
+			</header>
+			<div class="authwave-intro-list">
+				<details name="authwave-introduction" open>
+					<summary>
+						<h3><span class="highlight">Add auth when you’re ready</span></h3>
+					</summary>
+					<div class="disclosure-content">
+						<p>
+							Authwave lets you build your application first, without thinking
+							about authentication. When your app works, you can add Authwave in
+							under a minute with only a few lines of code. It drops in cleanly
+							and stays out of your way.
+						</p>
+						<a class="authwave-action" href="#pricing">
+							<span>Get Started</span>
+							<span class="action-arrow" aria-hidden="true">→</span>
+						</a>
+						<svg
+							class="authwave-placeholder"
+							viewBox="0 0 640 400"
+							width="640"
+							height="400"
+							role="img"
+							aria-label="Introduction illustration 1 placeholder"
+						>
+							<rect x="0.5" y="0.5" width="639" height="399" />
+							<path d="M0.5 0.5L639.5 399.5M639.5 0.5L0.5 399.5" />
+						</svg>
+					</div>
+				</details>
+				<details name="authwave-introduction">
+					<summary>
+						<h3>
+							<span class="highlight">Open source and simple to run</span>
+						</h3>
+					</summary>
+					<div class="disclosure-content">
+						<p>
+							Run Authwave on your own infrastructure or choose managed hosting.
+							The source is available to inspect and contribute to.
+						</p>
+						<a class="authwave-action" href="#pricing">
+							<span>Get Started</span>
+							<span class="action-arrow" aria-hidden="true">→</span>
+						</a>
+						<svg
+							class="authwave-placeholder"
+							viewBox="0 0 640 400"
+							width="640"
+							height="400"
+							role="img"
+							aria-label="Introduction illustration 2 placeholder"
+						>
+							<rect x="0.5" y="0.5" width="639" height="399" />
+							<path d="M0.5 0.5L639.5 399.5M639.5 0.5L0.5 399.5" />
+						</svg>
+					</div>
+				</details>
+				<details name="authwave-introduction">
+					<summary>
+						<h3>
+							<span class="highlight">One straightforward user flow</span>
+						</h3>
+					</summary>
+					<div class="disclosure-content">
+						<p>
+							Use the same sign-in, recovery and account-management flow across
+							your applications.
+						</p>
+						<a class="authwave-action" href="#pricing">
+							<span>Get Started</span>
+							<span class="action-arrow" aria-hidden="true">→</span>
+						</a>
+						<svg
+							class="authwave-placeholder"
+							viewBox="0 0 640 400"
+							width="640"
+							height="400"
+							role="img"
+							aria-label="Introduction illustration 3 placeholder"
+						>
+							<rect x="0.5" y="0.5" width="639" height="399" />
+							<path d="M0.5 0.5L639.5 399.5M639.5 0.5L0.5 399.5" />
+						</svg>
+					</div>
+				</details>
+				<details name="authwave-introduction">
+					<summary>
+						<h3>
+							<span class="highlight">
+								A clear dashboard for managing your projects
+							</span>
+						</h3>
+					</summary>
+					<div class="disclosure-content">
+						<p>
+							Manage applications, users and configuration together in the
+							administration area.
+						</p>
+						<a class="authwave-action" href="#pricing">
+							<span>Get Started</span>
+							<span class="action-arrow" aria-hidden="true">→</span>
+						</a>
+						<svg
+							class="authwave-placeholder"
+							viewBox="0 0 640 400"
+							width="640"
+							height="400"
+							role="img"
+							aria-label="Introduction illustration 4 placeholder"
+						>
+							<rect x="0.5" y="0.5" width="639" height="399" />
+							<path d="M0.5 0.5L639.5 399.5M639.5 0.5L0.5 399.5" />
+						</svg>
+					</div>
+				</details>
+			</div>
+		</div>
+	</section>
+	<section
+		class="authwave-audience"
+		id="solutions"
+		aria-labelledby="audience-title"
+	>
+		<div class="authwave-shell authwave-audience-layout">
+			<header class="authwave-section-heading">
+				<span class="authwave-kicker">For who</span>
+				<h2 id="audience-title">Who is Authwave for?</h2>
+				<a class="authwave-action" href="#preview-note">
+					<span>Book a Demo</span>
+					<span class="action-arrow" aria-hidden="true">→</span>
+				</a>
+			</header>
+			<details class="authwave-audience-card">
+				<summary>
+					<span class="audience-caption">The developer experience</span>
+					<span class="audience-name">Developers</span>
+				</summary>
+				<div class="disclosure-content">
+					<p>
+						Connect authentication to your application using a client library.
+						Keep your application code separate from account management.
+					</p>
+				</div>
+			</details>
+			<details class="authwave-audience-card">
+				<summary>
+					<span class="audience-caption">Project administration</span>
+					<span class="audience-name">Administrators</span>
+				</summary>
+				<div class="disclosure-content">
+					<p>Manage users, access and configuration across your projects.</p>
+				</div>
+			</details>
+			<details class="authwave-audience-card">
+				<summary>
+					<span class="audience-caption">Signing in and managing accounts</span>
+					<span class="audience-name">End-users</span>
+				</summary>
+				<div class="disclosure-content">
+					<p>Use a consistent sign-in and account-recovery experience.</p>
+				</div>
+			</details>
+		</div>
+	</section>
+	<section
+		class="authwave-features"
+		id="product"
+		aria-labelledby="features-title"
+	>
+		<div class="authwave-shell">
+			<header class="authwave-section-heading">
+				<span class="authwave-kicker">What you get</span>
+				<h2 id="features-title">Features</h2>
+				<a class="authwave-action" href="#pricing">
+					<span>Get Started</span>
+					<span class="action-arrow" aria-hidden="true">→</span>
+				</a>
+			</header>
+			<div class="authwave-feature-showcase" data-authwave-features>
+				<div class="authwave-feature-list">
+					<article class="authwave-feature">
+						<svg
+							class="authwave-placeholder authwave-symbol"
+							viewBox="0 0 32 32"
+							width="32"
+							height="32"
+							role="img"
+							aria-label="Simple client libraries icon placeholder"
+						>
+							<rect x="0.5" y="0.5" width="31" height="31" />
+							<path d="M0.5 0.5L31.5 31.5M31.5 0.5L0.5 31.5" />
+						</svg>
+						<h3>Simple client libraries</h3>
+						<p>
+							PHP, Python, C#, Node.js and more to come. Officially supported
+							client libraries get you set up in less than a minute.
+						</p>
+					</article>
+					<article class="authwave-feature">
+						<svg
+							class="authwave-placeholder authwave-symbol"
+							viewBox="0 0 32 32"
+							width="32"
+							height="32"
+							role="img"
+							aria-label="Branding and customisation icon placeholder"
+						>
+							<rect x="0.5" y="0.5" width="31" height="31" />
+							<path d="M0.5 0.5L31.5 31.5M31.5 0.5L0.5 31.5" />
+						</svg>
+						<h3>Branding &amp; customisation</h3>
+						<p>
+							Add your application’s logo and colour scheme to your
+							authentication and administration area.
+						</p>
+					</article>
+					<article class="authwave-feature">
+						<svg
+							class="authwave-placeholder authwave-symbol"
+							viewBox="0 0 32 32"
+							width="32"
+							height="32"
+							role="img"
+							aria-label="Security by default icon placeholder"
+						>
+							<rect x="0.5" y="0.5" width="31" height="31" />
+							<path d="M0.5 0.5L31.5 31.5M31.5 0.5L0.5 31.5" />
+						</svg>
+						<h3>Security by default</h3>
+						<p>
+							Sensible defaults and central account management help you
+							configure authentication consistently across your applications.
+						</p>
+					</article>
+					<article class="authwave-feature">
+						<svg
+							class="authwave-placeholder authwave-symbol"
+							viewBox="0 0 32 32"
+							width="32"
+							height="32"
+							role="img"
+							aria-label="Fully open source icon placeholder"
+						>
+							<rect x="0.5" y="0.5" width="31" height="31" />
+							<path d="M0.5 0.5L31.5 31.5M31.5 0.5L0.5 31.5" />
+						</svg>
+						<h3>Fully open source</h3>
+						<p>
+							Get the Authwave source code and deploy it on your own servers.
+							Inspect how it works and contribute changes.
+						</p>
+					</article>
+				</div>
+				<figure class="authwave-feature-media">
+					<svg
+						class="authwave-placeholder"
+						viewBox="0 0 560 560"
+						width="560"
+						height="560"
+						role="img"
+						aria-label="Product feature illustration placeholder"
+					>
+						<rect x="0.5" y="0.5" width="559" height="559" />
+						<path d="M0.5 0.5L559.5 559.5M559.5 0.5L0.5 559.5" />
+					</svg>
+				</figure>
+				<div class="authwave-feature-controls" hidden>
+					<button
+						type="button"
+						data-feature-previous
+						aria-label="Previous feature"
+					>
+						←
+					</button>
+					<progress value="1" max="4" aria-label="Feature position">
+						1 of 4
+					</progress>
+					<button type="button" data-feature-next aria-label="Next feature">
+						→
+					</button>
+					<p class="feature-status" role="status">
+						1 of 4: Simple client libraries
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="authwave-contribution" aria-labelledby="contribution-title">
+		<div class="authwave-shell authwave-contribution-panel">
+			<div class="authwave-section-heading">
+				<h2 id="contribution-title">
+					Looking to make your first open source contribution?
+				</h2>
+				<p>
+					We will provide free mentorship to help you make your first commit on
+					GitHub.
+				</p>
+				<a class="authwave-action" href="#preview-note">
+					<span>Book a Demo</span>
+					<span class="action-arrow" aria-hidden="true">→</span>
+				</a>
+			</div>
+			<figure>
+				<svg
+					class="authwave-placeholder"
+					viewBox="0 0 640 460"
+					width="640"
+					height="460"
+					role="img"
+					aria-label="Contribution code illustration placeholder"
+				>
+					<rect x="0.5" y="0.5" width="639" height="459" />
+					<path d="M0.5 0.5L639.5 459.5M639.5 0.5L0.5 459.5" />
+				</svg>
+			</figure>
+		</div>
+	</section>
+	<section
+		class="authwave-pricing"
+		id="pricing"
+		aria-labelledby="pricing-title"
+	>
+		<div class="authwave-shell">
+			<header class="authwave-section-heading">
+				<span class="authwave-kicker">Simple and transparent</span>
+				<h2 id="pricing-title">Pricing</h2>
+			</header>
+			<div class="authwave-plans">
+				<article
+					class="authwave-plan"
+					data-plan="self-hosted"
+					aria-labelledby="plan-self-hosted"
+				>
+					<header>
+						<div class="plan-title">
+							<h3 id="plan-self-hosted">Self-hosted</h3>
+							<span class="authwave-kicker">Base</span>
+						</div>
+						<div class="plan-cost">
+							<p>
+								<span class="plan-price">$0</span>
+								<span class="plan-unit">/month</span>
+							</p>
+							<p class="plan-allowance">1 application per host</p>
+						</div>
+						<a
+							class="plan-action"
+							href="#preview-note"
+							aria-label="Get started with Self-hosted"
+						>
+							Get Started
+						</a>
+					</header>
+					<div class="plan-includes">
+						<p>Includes:</p>
+						<ul>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>User management</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>Single-sign-on</span>
+							</li>
+							<li data-available="false">
+								<span
+									class="checklist-marker"
+									role="img"
+									aria-label="Not included"
+								>
+									×
+								</span>
+								<span>Managed emails &amp; SMS</span>
+							</li>
+							<li data-available="false">
+								<span
+									class="checklist-marker"
+									role="img"
+									aria-label="Not included"
+								>
+									×
+								</span>
+								<span>Managed hosting</span>
+							</li>
+							<li data-available="false">
+								<span
+									class="checklist-marker"
+									role="img"
+									aria-label="Not included"
+								>
+									×
+								</span>
+								<span>DDoS protection</span>
+							</li>
+							<li data-available="false">
+								<span
+									class="checklist-marker"
+									role="img"
+									aria-label="Not included"
+								>
+									×
+								</span>
+								<span>SAML integration</span>
+							</li>
+						</ul>
+					</div>
+				</article>
+				<article
+					class="authwave-plan"
+					data-plan="professional"
+					aria-labelledby="plan-professional"
+				>
+					<header>
+						<div class="plan-title">
+							<h3 id="plan-professional">Professional</h3>
+							<span class="authwave-kicker">Most popular</span>
+						</div>
+						<div class="plan-cost">
+							<p>
+								<span class="plan-price">$10</span>
+								<span class="plan-unit">/month</span>
+							</p>
+							<p class="plan-allowance">5,000 users · 5 domains</p>
+						</div>
+						<a
+							class="plan-action"
+							href="#preview-note"
+							aria-label="Get started with Professional"
+						>
+							Get Started
+						</a>
+					</header>
+					<div class="plan-includes">
+						<p>Includes:</p>
+						<ul>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>User management</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>Single-sign-on</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>Managed emails &amp; SMS</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>Managed hosting</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>DDoS protection</span>
+							</li>
+							<li data-available="false">
+								<span
+									class="checklist-marker"
+									role="img"
+									aria-label="Not included"
+								>
+									×
+								</span>
+								<span>SAML integration</span>
+							</li>
+						</ul>
+					</div>
+				</article>
+				<article
+					class="authwave-plan"
+					data-plan="enterprise"
+					aria-labelledby="plan-enterprise"
+				>
+					<header>
+						<div class="plan-title">
+							<h3 id="plan-enterprise">Enterprise</h3>
+							<span class="authwave-kicker">Advanced</span>
+						</div>
+						<div class="plan-cost">
+							<p>
+								<span class="plan-price">$50</span>
+								<span class="plan-unit">/month</span>
+							</p>
+							<p class="plan-allowance">Unlimited users &amp; applications</p>
+						</div>
+						<a
+							class="plan-action"
+							href="#preview-note"
+							aria-label="Get started with Enterprise"
+						>
+							Get Started
+						</a>
+					</header>
+					<div class="plan-includes">
+						<p>Includes:</p>
+						<ul>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>User management</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>Single-sign-on</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>Managed emails &amp; SMS</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>Managed hosting</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>DDoS protection</span>
+							</li>
+							<li data-available="true">
+								<span class="checklist-marker" role="img" aria-label="Included">
+									✓
+								</span>
+								<span>SAML integration</span>
+							</li>
+						</ul>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+</main>
+<footer class="authwave-footer">
+	<div class="authwave-shell">
+		<div class="footer-top">
+			<div class="footer-invitation">
+				<h2>Need simple admin controls?</h2>
+				<a class="authwave-action" href="#preview-note">
+					<span>Book a Demo</span>
+					<span class="action-arrow" aria-hidden="true">→</span>
+				</a>
+			</div>
+			<div class="footer-links">
+				<nav aria-label="Footer navigation">
+					<h3>Navigation</h3>
+					<ul>
+						<li><a href="#about">About</a></li>
+						<li><a href="#pricing">Pricing</a></li>
+						<li><a href="#solutions">Solutions</a></li>
+						<li><a href="#product">Product</a></li>
+					</ul>
+				</nav>
+				<div>
+					<h3>Social</h3>
+					<ul>
+						<li>
+							<span>
+								Twitter
+								<span aria-hidden="true">↗</span>
+							</span>
+						</li>
+						<li>
+							<span>
+								LinkedIn
+								<span aria-hidden="true">↗</span>
+							</span>
+						</li>
+						<li>
+							<span>
+								Facebook
+								<span aria-hidden="true">↗</span>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-wordmark" aria-label="Authwave">
+			<svg
+				class="authwave-placeholder authwave-symbol"
+				viewBox="0 0 100 100"
+				width="100"
+				height="100"
+				role="img"
+				aria-label="Logo placeholder"
+			>
+				<rect x="0.5" y="0.5" width="99" height="99" />
+				<path d="M0.5 0.5L99.5 99.5M99.5 0.5L0.5 99.5" />
+			</svg>
+			<span aria-hidden="true">Authwave</span>
+		</div>
+		<div class="footer-bottom">
+			<p>© 2026 Authwave, Inc. All rights reserved.</p>
+			<ul>
+				<li><a href="#preview-note">Cookie preferences</a></li>
+				<li><a href="#preview-note">Privacy &amp; terms</a></li>
+			</ul>
+		</div>
+	</div>
+	<p class="preview-note" id="preview-note" tabindex="-1">
+		Homepage layout preview. Booking, account, billing and policy destinations
+		are not connected.
+	</p>
+</footer>

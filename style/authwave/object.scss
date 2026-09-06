@@ -1,0 +1,199 @@
+@use "flair";
+@use "decoration";
+@use "theme";
+
+%o-authwave-kicker {
+	@extend %o-badge;
+	--flair-badge-background: var(--flair-color-surface-disabled);
+	--flair-badge-radius: 0;
+	font-family: var(--authwave-font-body);
+	font-size: 0.6875rem;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+%o-authwave-action {
+	@extend %o-button-primary;
+	gap: 0;
+	padding: 0;
+	border: 0;
+	&:not(:disabled),
+	&:hover:not(:disabled) {
+		background: transparent;
+		color: var(--authwave-ink);
+	}
+	> span {
+		padding: var(--flair-space-3) var(--flair-space-4);
+		border-radius: var(--authwave-button-radius);
+		background: var(--authwave-soft);
+	}
+	> .action-arrow {
+		margin-inline-start: var(--flair-space-1);
+		background: var(--authwave-action-accent, var(--authwave-mid));
+		border-radius: 0;
+	}
+	&:hover > span {
+		background: var(--authwave-strong);
+	}
+}
+
+%o-authwave-placeholder {
+	display: block;
+	inline-size: 100%;
+	block-size: auto;
+	color: var(--flair-color-border);
+	background: var(--authwave-placeholder-background, transparent);
+	> :where(rect, path) {
+		fill: none;
+		stroke: currentColor;
+		stroke-width: 1;
+		vector-effect: non-scaling-stroke;
+	}
+}
+
+%o-authwave-disclosure {
+	@extend %o-disclosure;
+	--flair-surface-border-width: 0px;
+	--flair-surface-radius: 0;
+	--flair-surface-shadow: none;
+	--flair-disclosure-padding: var(--authwave-space-panel);
+	border-block-end: var(--authwave-border-width) solid var(--flair-color-border);
+	> summary {
+		list-style: none;
+		&::-webkit-details-marker {
+			display: none;
+		}
+		&:hover {
+			background: var(--authwave-soft);
+		}
+		h3 {
+			@extend %d-authwave-heading;
+			font-size: clamp(1.375rem, 2vw, 2rem);
+			line-height: 1.2;
+		}
+		.highlight {
+			@extend %d-authwave-frame;
+			display: inline-block;
+			max-inline-size: 100%;
+			padding: var(--flair-space-1) var(--flair-space-2);
+			background-color: var(--authwave-highlight, var(--authwave-soft));
+		}
+	}
+	&[open] > summary {
+		border-block-end: 0;
+	}
+	> .disclosure-content {
+		padding-block-start: 0;
+	}
+}
+
+%o-authwave-audience {
+	@extend %o-disclosure;
+	@include theme.light;
+	--flair-surface-background: var(
+		--authwave-audience-fill,
+		var(--authwave-soft)
+	);
+	--flair-surface-radius: 0;
+	--flair-surface-shadow: none;
+	--flair-surface-border-width: 0px;
+	inline-size: min(100%, var(--authwave-card-size));
+	background-color: var(--flair-surface-background);
+	> summary {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: var(--flair-space-8);
+		min-block-size: 14rem;
+		padding: var(--flair-space-4);
+		list-style: none;
+		&::-webkit-details-marker {
+			display: none;
+		}
+		&:hover {
+			background: transparent;
+		}
+		.audience-caption {
+			font-size: 0.625rem;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+			border-block-end: var(--authwave-border-width) solid
+				var(--authwave-strong);
+			padding-block-end: var(--flair-space-2);
+		}
+		.audience-name {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: var(--flair-space-2);
+			font-size: 1.5rem;
+			font-weight: 400;
+			&::after {
+				content: "+";
+				background: var(--authwave-ink);
+				color: var(--authwave-paper);
+				padding-inline: var(--flair-space-1);
+				line-height: 1;
+			}
+		}
+	}
+	&[open] > summary .audience-name::after {
+		content: "−";
+	}
+}
+
+%o-authwave-plan {
+	@extend %o-card;
+	--flair-surface-radius: 0;
+	--flair-surface-padding: 0;
+	--flair-surface-shadow: none;
+	--flair-surface-background: var(--authwave-plan-fill, var(--authwave-paper));
+	--flair-stack-gap: 0;
+	> header {
+		@extend %p-stack;
+		--flair-stack-gap: var(--flair-space-4);
+		padding: var(--authwave-space-panel);
+	}
+	.plan-title,
+	.plan-cost {
+		@extend %p-cluster;
+		justify-content: space-between;
+	}
+	h3 {
+		margin: 0;
+		font-family: var(--authwave-font-body);
+		font-weight: 400;
+		font-size: 1.25rem;
+	}
+	.plan-price {
+		font-size: clamp(2.75rem, 4vw, 3.5rem);
+		line-height: 1.1;
+	}
+	.plan-unit,
+	.plan-allowance {
+		color: var(--authwave-muted);
+		font-size: 0.8125rem;
+	}
+	.plan-cost {
+		margin-block-start: var(--flair-space-4);
+		align-items: baseline;
+	}
+	.plan-action {
+		@extend %o-button-primary;
+		inline-size: 100%;
+	}
+	.plan-includes {
+		@extend %p-stack;
+		--flair-stack-gap: var(--flair-space-6);
+		padding: var(--authwave-space-panel);
+		border-block-start: var(--authwave-border-width) solid
+			var(--flair-color-border);
+	}
+	ul {
+		@extend %p-checklist;
+		--flair-checklist-gap: var(--flair-space-6);
+		font-size: 0.9375rem;
+		color: var(--authwave-muted);
+	}
+}

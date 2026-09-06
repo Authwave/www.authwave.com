@@ -1,0 +1,79 @@
+@use "flair";
+
+$wide: 60rem;
+
+// Application tokens; changing these does not alter Flair's definitions.
+:root {
+	@include flair.defaults;
+	--authwave-wide-breakpoint: #{$wide};
+	--authwave-paper: #fff;
+	--authwave-ink: #222;
+	--authwave-muted: #595959;
+	--authwave-line: #dedede;
+	--authwave-dark: #242424;
+	--authwave-panel-background: #292929;
+	--authwave-panel-frame: #ffffff0d;
+	--authwave-input-background: #333;
+	--authwave-on-dark: #fff;
+	--authwave-dark-muted: #ccc;
+	--authwave-dark-line: #555;
+	--authwave-soft: #f4f4f4;
+	--authwave-mid: #e2e2e2;
+	--authwave-strong: #ccc;
+	--authwave-font-body: "Ubuntu", sans-serif;
+	--authwave-font-heading: "Morion", Georgia, serif;
+	--authwave-gutter: clamp(1.25rem, 5.5vw, 5rem);
+	--authwave-space-section: clamp(4rem, 8vw, 8rem);
+	--authwave-space-panel: clamp(1.25rem, 2vw, 2rem);
+	--authwave-content-width: 90rem;
+	--authwave-title-size: clamp(3rem, 5vw, 5rem);
+	--authwave-hero-size: clamp(3.5rem, 7vw, 7rem);
+	--authwave-heading-leading: 0.98;
+	--authwave-control-radius: 0.25rem;
+	--authwave-button-radius: 999px;
+	--authwave-border-width: 1px;
+	--authwave-frame-marker-size: 0.375rem;
+	--authwave-card-size: 16rem;
+	--flair-font-body: var(--authwave-font-body);
+	--flair-font-heading: var(--authwave-font-heading);
+	--flair-heading-weight: 400;
+	--flair-heading-leading: var(--authwave-heading-leading);
+	--flair-button-weight: 400;
+	--flair-button-radius: var(--authwave-button-radius);
+	--flair-button-primary-decoration-hover: none;
+	--flair-control-radius: var(--authwave-control-radius);
+	background: var(--authwave-paper);
+	color: var(--authwave-ink);
+	font-family: var(--authwave-font-body);
+	font-synthesis: none;
+}
+
+@mixin light {
+	--flair-color-text: var(--authwave-ink);
+	--flair-color-muted: var(--authwave-muted);
+	--flair-color-surface: var(--authwave-paper);
+	--flair-color-surface-disabled: var(--authwave-soft);
+	--flair-color-border: var(--authwave-line);
+	--flair-color-accent: var(--authwave-ink);
+	--flair-color-on-accent: var(--authwave-paper);
+	--flair-button-primary-background-hover: #444;
+	--flair-button-primary-text: var(--authwave-paper);
+	color: var(--flair-color-text);
+	background: var(--flair-color-surface);
+	color-scheme: light;
+}
+
+@mixin dark {
+	--flair-color-text: var(--authwave-on-dark);
+	--flair-color-muted: var(--authwave-dark-muted);
+	--flair-color-surface: var(--authwave-dark);
+	--flair-color-surface-disabled: #333;
+	--flair-color-border: var(--authwave-dark-line);
+	--flair-color-accent: var(--authwave-on-dark);
+	--flair-color-on-accent: var(--authwave-dark);
+	--flair-button-primary-background-hover: #ddd;
+	--flair-button-primary-text: var(--authwave-dark);
+	color: var(--flair-color-text);
+	background: var(--flair-color-surface);
+	color-scheme: dark;
+}

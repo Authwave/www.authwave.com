@@ -1,0 +1,523 @@
+@use "flair";
+@use "theme";
+@use "decoration";
+@use "object";
+@use "pattern";
+
+.authwave-page,
+.authwave-footer {
+	@include theme.light;
+	@extend %d-typography;
+}
+.authwave-page [id],
+.authwave-footer [id] {
+	scroll-margin-block-start: var(--flair-space-6);
+}
+.authwave-page [hidden] {
+	display: none;
+}
+.authwave-page p,
+.authwave-footer p {
+	margin: 0;
+	line-height: 1.5;
+}
+.authwave-placeholder {
+	@extend %o-authwave-placeholder;
+}
+.authwave-symbol {
+	inline-size: 2rem;
+	block-size: 2rem;
+	flex: none;
+}
+.authwave-action {
+	@extend %o-authwave-action;
+}
+.authwave-kicker {
+	@extend %o-authwave-kicker;
+}
+.authwave-section-heading {
+	@extend %p-authwave-heading;
+}
+.authwave-shell {
+	@extend %p-authwave-shell;
+}
+.authwave-header {
+	@include theme.dark;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--flair-space-4);
+	padding: var(--flair-space-4) var(--authwave-gutter);
+	border-block-end: var(--authwave-border-width) solid var(--flair-color-border);
+}
+.authwave-brand {
+	@extend %p-cluster;
+	gap: var(--flair-space-2);
+	font: 400 1.5rem/1 var(--authwave-font-heading);
+	text-decoration: none;
+	color: inherit;
+}
+.authwave-navigation {
+	@extend %p-navigation;
+	display: none;
+}
+.authwave-header-action {
+	@extend %o-button-primary;
+	justify-self: end;
+}
+.authwave-hero {
+	@include theme.dark;
+	padding-block: var(--authwave-space-section);
+}
+.authwave-hero-heading {
+	@extend %p-stack;
+	align-items: center;
+	text-align: center;
+	padding-inline: var(--authwave-gutter);
+	h1 {
+		@extend %d-authwave-heading;
+		max-inline-size: 10ch;
+		font-size: var(--authwave-hero-size);
+		> span {
+			display: block;
+		}
+	}
+	> p {
+		max-inline-size: 42ch;
+		color: var(--flair-color-muted);
+	}
+	.authwave-action {
+		margin-block-start: var(--flair-space-6);
+	}
+}
+.authwave-stage {
+	position: relative;
+	padding-block-start: var(--authwave-space-section);
+}
+.authwave-icon {
+	inline-size: 2rem;
+	block-size: 2rem;
+	flex: none;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.authwave-login {
+	@extend %o-card;
+	@extend %d-authwave-panel;
+	inline-size: min(100%, 30rem);
+	margin-inline: auto;
+	--flair-control-background: var(--authwave-input-background);
+	--flair-button-radius: var(--authwave-control-radius);
+	.login-heading {
+		@extend %p-stack;
+		align-items: center;
+		text-align: center;
+		--flair-stack-gap: var(--flair-space-2);
+		h2 {
+			font-family: var(--authwave-font-body);
+			font-size: 1.5rem;
+			font-weight: 500;
+		}
+		p {
+			color: var(--flair-color-muted);
+		}
+	}
+	a {
+		@extend %o-link;
+	}
+	.login-signup,
+	.login-result {
+		font-size: 0.875rem;
+		text-align: center;
+		color: var(--flair-color-muted);
+	}
+	.login-result:empty {
+		display: none;
+	}
+}
+.authwave-form {
+	@extend %p-form-fields;
+	.login-options {
+		@extend %p-cluster;
+		justify-content: space-between;
+		font-size: 0.8125rem;
+	}
+	.login-remember {
+		@extend %o-choice-field;
+	}
+	> .actions > .primary {
+		inline-size: 100%;
+	}
+}
+.authwave-hero-aside {
+	@extend %o-card;
+	@extend %d-authwave-panel;
+	display: none;
+	margin: 0;
+	--flair-surface-padding: var(--flair-space-4);
+	--flair-stack-gap: var(--flair-space-2);
+	h2 {
+		margin: 0;
+		font-family: var(--authwave-font-body);
+		font-size: 1rem;
+		font-weight: 500;
+	}
+	p {
+		font-size: 0.8125rem;
+		color: var(--flair-color-muted);
+	}
+	.protection-action {
+		@extend %o-button-primary;
+		--flair-button-radius: var(--authwave-control-radius);
+		margin-block-start: var(--flair-space-2);
+	}
+}
+.authwave-introduction {
+	@extend %p-authwave-section;
+	> .authwave-shell {
+		@extend %d-authwave-frame;
+		display: grid;
+	}
+	.authwave-section-heading {
+		padding: var(--authwave-space-panel);
+	}
+}
+.authwave-intro-list {
+	@extend %p-accordion;
+	--flair-accordion-gap: 0;
+	min-inline-size: 0;
+	> details {
+		@extend %o-authwave-disclosure;
+	}
+	.disclosure-content {
+		@extend %p-stack;
+		align-items: start;
+		> p {
+			color: var(--flair-color-muted);
+		}
+	}
+	.authwave-placeholder {
+		margin-block-start: var(--flair-space-4);
+	}
+}
+.authwave-audience {
+	@include theme.dark;
+	@extend %p-authwave-section;
+}
+.authwave-audience-layout {
+	@extend %p-stack;
+	gap: var(--flair-space-8);
+	align-items: start;
+	> .authwave-section-heading {
+		margin-block-end: var(--flair-space-4);
+	}
+}
+.authwave-audience-card {
+	@extend %o-authwave-audience;
+	&:nth-of-type(2) {
+		--authwave-audience-fill: var(--authwave-mid);
+	}
+	&:nth-of-type(3) {
+		--authwave-audience-fill: var(--authwave-strong);
+	}
+}
+.authwave-features {
+	@extend %p-authwave-section;
+	.authwave-section-heading {
+		padding: 0 var(--authwave-space-panel) var(--authwave-space-section);
+	}
+}
+.authwave-feature-showcase {
+	@extend %d-authwave-frame;
+	display: grid;
+}
+.authwave-feature-list {
+	display: contents;
+}
+.authwave-feature {
+	@extend %p-stack;
+	padding: var(--authwave-space-panel);
+	border-block-end: var(--authwave-border-width) solid var(--flair-color-border);
+	> h3 {
+		font-family: var(--authwave-font-body);
+		font-size: 1.25rem;
+		font-weight: 500;
+		margin: var(--flair-space-6) 0 0;
+	}
+	> p {
+		color: var(--flair-color-muted);
+	}
+}
+.authwave-feature-media {
+	@extend %d-authwave-frame;
+	margin: 0;
+	padding: var(--authwave-space-panel);
+	align-content: center;
+}
+.authwave-feature-controls {
+	@extend %p-cluster;
+	padding: var(--authwave-space-panel);
+	justify-content: space-between;
+	button {
+		@extend %o-button;
+		--flair-button-radius: 0;
+	}
+	progress {
+		@extend %o-progress;
+		--flair-progress-height: 0.125rem;
+		flex: 1;
+		min-inline-size: 0;
+		inline-size: auto;
+	}
+	.feature-status {
+		flex-basis: 100%;
+		font-size: 0.875rem;
+		color: var(--flair-color-muted);
+	}
+}
+.authwave-contribution {
+	@extend %p-authwave-section;
+	padding-block-start: 0;
+}
+.authwave-contribution-panel {
+	@include theme.dark;
+	@extend %p-stack;
+	gap: var(--authwave-space-panel);
+	padding: var(--authwave-space-panel);
+	.authwave-section-heading {
+		padding-block: var(--flair-space-6);
+		h2 {
+			font-size: clamp(2.125rem, 3.5vw, 3.75rem);
+			max-inline-size: 18ch;
+		}
+		> p {
+			max-inline-size: 35ch;
+			color: var(--flair-color-muted);
+		}
+	}
+	figure {
+		margin: 0;
+		min-inline-size: 0;
+		align-content: center;
+	}
+}
+.authwave-pricing {
+	@extend %p-authwave-section;
+	padding-block-start: 0;
+	.authwave-section-heading {
+		align-items: center;
+		text-align: center;
+		padding-block-end: var(--authwave-space-section);
+	}
+}
+.authwave-plans {
+	@extend %p-grid;
+	@extend %d-authwave-frame;
+	--flair-grid-min: 20rem;
+	--flair-grid-gap: 0rem;
+	--flair-grid-columns: 3;
+}
+.authwave-plan {
+	@extend %o-authwave-plan;
+	&[data-plan="professional"] {
+		--authwave-plan-fill: var(--authwave-mid);
+		--flair-color-border: #bbb;
+	}
+	&[data-plan="enterprise"] {
+		--authwave-plan-fill: var(--authwave-soft);
+	}
+}
+.authwave-footer {
+	> .authwave-shell {
+		@extend %d-authwave-frame;
+	}
+	.footer-top {
+		display: grid;
+		gap: var(--authwave-space-section);
+		padding: var(--authwave-space-panel);
+	}
+	.footer-invitation {
+		@extend %p-stack;
+		align-items: start;
+		h2 {
+			margin: 0;
+			font-family: var(--authwave-font-body);
+			font-size: 1.5rem;
+			font-weight: 500;
+		}
+	}
+	.footer-links {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--flair-space-8);
+		h3 {
+			font-family: var(--authwave-font-body);
+			font-size: 0.6875rem;
+			font-weight: 400;
+			letter-spacing: 0.1em;
+			text-transform: uppercase;
+			color: var(--flair-color-muted);
+			margin: 0 0 var(--flair-space-4);
+		}
+		ul {
+			@extend %p-stack;
+			--flair-stack-gap: var(--flair-space-2);
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		a {
+			@extend %o-link;
+		}
+	}
+	.footer-wordmark {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--flair-space-2);
+		padding: var(--authwave-space-section) var(--flair-space-4)
+			var(--flair-space-6);
+		font-family: var(--authwave-font-heading);
+		font-size: clamp(2.5rem, 14vw, 13rem);
+		line-height: 1;
+		letter-spacing: -0.05em;
+		.authwave-symbol {
+			inline-size: 0.8em;
+			block-size: 0.8em;
+		}
+	}
+	.footer-bottom {
+		@extend %p-cluster;
+		justify-content: space-between;
+		padding: var(--flair-space-4) var(--authwave-space-panel);
+		border-block-start: var(--authwave-border-width) solid
+			var(--flair-color-border);
+		color: var(--flair-color-muted);
+		font-size: 0.75rem;
+		ul {
+			@extend %p-cluster;
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+	}
+	.preview-note {
+		padding: var(--flair-space-4) var(--authwave-gutter);
+		font-size: 0.75rem;
+		color: var(--flair-color-muted);
+	}
+}
+
+@media (min-width: theme.$wide) {
+	.authwave-header {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+	}
+	.authwave-navigation {
+		display: block;
+	}
+	.authwave-hero-heading h1 {
+		max-inline-size: none;
+		> span {
+			display: inline;
+		}
+	}
+	.authwave-hero-aside {
+		display: flex;
+		position: absolute;
+		inline-size: min(28%, 20rem);
+	}
+	.authwave-security {
+		flex-direction: row;
+		align-items: center;
+		inset-inline-start: calc(50% + 9rem);
+		inset-block-start: calc(var(--authwave-space-section) - var(--flair-space-4));
+	}
+	.authwave-protection {
+		inset-inline-end: calc(50% + 14rem);
+		inset-block-end: var(--flair-space-8);
+	}
+	.authwave-introduction > .authwave-shell {
+		grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+	}
+	.authwave-intro-list {
+		border-inline-start: var(--authwave-border-width) solid
+			var(--flair-color-border);
+	}
+	.authwave-audience-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr);
+		grid-template-rows: auto auto auto;
+		gap: var(--flair-space-8);
+		align-items: start;
+		> .authwave-section-heading {
+			grid-column: 2;
+			grid-row: 2;
+			align-items: center;
+			text-align: center;
+			margin: 0;
+			h2 {
+				font-size: clamp(3.25rem, 6vw, 6.5rem);
+			}
+		}
+		> details:nth-of-type(1) {
+			grid-column: 1;
+			grid-row: 1 / span 2;
+		}
+		> details:nth-of-type(2) {
+			grid-column: 3;
+			grid-row: 1 / span 2;
+			margin-block-start: var(--flair-space-8);
+			justify-self: end;
+		}
+		> details:nth-of-type(3) {
+			grid-column: 2;
+			grid-row: 3;
+			justify-self: center;
+		}
+	}
+	.authwave-features .authwave-section-heading {
+		align-items: center;
+		text-align: center;
+	}
+	.authwave-feature-showcase {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+		grid-template-rows: auto auto;
+	}
+	.authwave-feature {
+		&:nth-child(1) {
+			grid-column: 1;
+			grid-row: 1;
+		}
+		&:nth-child(2) {
+			grid-column: 1;
+			grid-row: 2;
+		}
+		&:nth-child(3) {
+			grid-column: 3;
+			grid-row: 1;
+		}
+		&:nth-child(4) {
+			grid-column: 3;
+			grid-row: 2;
+		}
+		&[data-active="true"] {
+			box-shadow: inset 0 -2px var(--authwave-ink);
+		}
+	}
+	.authwave-feature-media {
+		grid-column: 2;
+		grid-row: 1 / span 2;
+	}
+	.authwave-contribution-panel {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		padding: var(--authwave-space-panel);
+	}
+	.authwave-footer .footer-top {
+		grid-template-columns: minmax(0, 1fr) auto;
+	}
+}

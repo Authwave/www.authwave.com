@@ -1,0 +1,60 @@
+// Application baseline; library definitions remain opt-in.
+* {
+	box-sizing: border-box;
+}
+html {
+	scroll-behavior: smooth;
+	color-scheme: light;
+}
+body {
+	margin: 0;
+}
+[hidden] {
+	display: none !important;
+}
+h1,
+h2,
+p {
+	margin: 0;
+}
+h1,
+h2 {
+	font-family: var(--authwave-font-heading);
+	font-weight: 400;
+}
+p {
+	line-height: 1.65;
+}
+a {
+	color: inherit;
+	text-underline-offset: 0.2em;
+	text-decoration-thickness: var(--flair-link-thickness, 1px);
+}
+button,
+select {
+	font: inherit;
+	color: inherit;
+}
+button {
+	cursor: pointer;
+}
+::selection {
+	background: var(--authwave-ink);
+	color: var(--authwave-paper);
+}
+:focus-visible {
+	outline: 3px solid currentColor;
+	outline-offset: 5px;
+}
+.skip-link {
+	position: fixed;
+	inset: var(--flair-space-3) auto auto var(--flair-space-3);
+	z-index: 100;
+	padding: var(--flair-space-3);
+	background: var(--authwave-ink);
+	color: var(--authwave-paper);
+	transform: translateY(-200%);
+	&:focus {
+		transform: none;
+	}
+}

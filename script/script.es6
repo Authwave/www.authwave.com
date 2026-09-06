@@ -1,4 +1,5 @@
 const GRID_SIZE = 6;
+const FAVICON_COLOUR = "#164e80";
 const RESET_DELAY = 5000;
 const INITIAL_PIXELS = [
 	[1, 2],
@@ -18,6 +19,15 @@ const DIRECTIONS = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 const pointers = new Map();
 const pixels = [];
 let resetTimer;
+const faviconCanvas = document.createElement("canvas");
+faviconCanvas.width = 64;
+faviconCanvas.height = 64;
+const faviconContext = faviconCanvas.getContext("2d");
+const favicon = document.createElement("link");
+favicon.rel = "icon";
+favicon.type = "image/png";
+favicon.sizes = "64x64";
+let faviconUpdatePending = false;
 
 function cellKey(x, y) {
 	return `${x},${y}`;
@@ -47,6 +57,43 @@ for(const [x, y] of INITIAL_PIXELS) {
 	occupiedCells.set(key, pixel);
 }
 
+function updateFavicon() {
+	if(!faviconContext) {
+		return;
+	}
+	const size = faviconCanvas.width;
+	const cellSize = size / GRID_SIZE;
+	// Clearing restores transparent pixels; no page background or shadow is drawn.
+	faviconContext.clearRect(0, 0, size, size);
+	for(const pixel of pixels) {
+		const style = getComputedStyle(pixel.element);
+		const radius = Number.parseFloat(style.borderTopLeftRadius)
+			/ Number.parseFloat(style.width) * cellSize;
+		faviconContext.fillStyle = FAVICON_COLOUR;
+		faviconContext.beginPath();
+		faviconContext.roundRect(
+			pixel.x * cellSize, pixel.y * cellSize, cellSize, cellSize,
+			Number.isFinite(radius) ? Math.min(radius, cellSize / 2) : 0,
+		);
+		faviconContext.fill();
+	}
+	favicon.href = faviconCanvas.toDataURL("image/png");
+}
+
+function scheduleFaviconUpdate() {
+	if(faviconUpdatePending) {
+		return;
+	}
+	faviconUpdatePending = true;
+	requestAnimationFrame(() => {
+		faviconUpdatePending = false;
+		updateFavicon();
+	});
+}
+
+updateFavicon();
+document.head.appendChild(favicon);
+
 function resetPixels() {
 	occupiedCells.clear();
 	for(const pixel of pixels) {
@@ -59,6 +106,7 @@ function resetPixels() {
 	for(const pointer of pointers.values()) {
 		pointer.cell = null;
 	}
+	scheduleFaviconUpdate();
 }
 
 function inGrid(x, y) {
@@ -113,6 +161,7 @@ function pushPixel(x, y, direction) {
 	}
 	clearTimeout(resetTimer);
 	resetTimer = setTimeout(resetPixels, RESET_DELAY);
+	scheduleFaviconUpdate();
 }
 
 function quantise(dx, dy) {

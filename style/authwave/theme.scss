@@ -1,23 +1,28 @@
 @use "flair";
+@use "colour";
 
 $wide: 60rem;
 
 // Application tokens; changing these does not alter Flair's definitions.
 :root {
 	@include flair.defaults;
+	// Keep mobile and ordinary desktop sizing; scale the rem-based Flair
+	// primitives continuously from 16px at 1440px to 32px at 2880px.
+	// Relative bounds also respect the browser's default font-size preference.
+	font-size: clamp(1rem, calc(100vw / 90), 2rem);
 	--authwave-wide-breakpoint: #{$wide};
-	--authwave-paper: #fff;
-	--authwave-ink: #222;
+	--authwave-paper: var(--authwave-white);
+	--authwave-ink: var(--authwave-charcoal);
 	--authwave-muted: #595959;
-	--authwave-line: #dedede;
-	--authwave-dark: #242424;
-	--authwave-panel-background: #292929;
+	--authwave-line: #eae9e9;
+	--authwave-dark: var(--authwave-charcoal);
+	--authwave-panel-background: var(--authwave-charcoal-deep);
 	--authwave-panel-frame: #ffffff0d;
-	--authwave-input-background: #333;
+	--authwave-input-background: #2e2929;
 	--authwave-on-dark: #fff;
 	--authwave-dark-muted: #ccc;
 	--authwave-dark-line: #555;
-	--authwave-soft: #f4f4f4;
+	--authwave-soft: #f6f6f6;
 	--authwave-mid: #e2e2e2;
 	--authwave-strong: #ccc;
 	--authwave-font-body: "Ubuntu", sans-serif;
@@ -31,7 +36,7 @@ $wide: 60rem;
 	--authwave-heading-leading: 0.98;
 	--authwave-control-radius: 0.25rem;
 	--authwave-button-radius: 999px;
-	--authwave-border-width: 1px;
+	--authwave-border-width: 0.0625rem;
 	--authwave-frame-marker-size: 0.375rem;
 	--authwave-card-size: 16rem;
 	--flair-font-body: var(--authwave-font-body);

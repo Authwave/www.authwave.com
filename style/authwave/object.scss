@@ -14,23 +14,22 @@
 }
 
 %o-authwave-action {
-	@extend %o-button-primary;
+	@extend %o-button;
+	--flair-button-background: transparent;
+	--flair-button-background-hover: transparent;
+	--flair-button-background-active: transparent;
+	--flair-button-text: var(--authwave-ink);
 	gap: 0;
 	padding: 0;
 	border: 0;
-	&:not(:disabled),
-	&:hover:not(:disabled) {
-		background: transparent;
-		color: var(--authwave-ink);
-	}
 	> span {
 		padding: var(--flair-space-3) var(--flair-space-4);
 		border-radius: var(--authwave-button-radius);
-		background: var(--authwave-soft);
+		background: var(--authwave-cream);
 	}
 	> .action-arrow {
 		margin-inline-start: var(--flair-space-1);
-		background: var(--authwave-action-accent, var(--authwave-mid));
+		background: var(--authwave-action-accent, var(--authwave-blue));
 		border-radius: 0;
 	}
 	&:hover > span {
@@ -78,6 +77,10 @@
 			max-inline-size: 100%;
 			padding: var(--flair-space-1) var(--flair-space-2);
 			background-color: var(--authwave-highlight, var(--authwave-soft));
+			--flair-highlight-border-color: var(--authwave-highlight-accent);
+			&::before {
+				color: var(--authwave-highlight-accent);
+			}
 		}
 	}
 	&[open] > summary {

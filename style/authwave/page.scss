@@ -13,9 +13,6 @@
 .authwave-footer [id] {
 	scroll-margin-block-start: var(--flair-space-6);
 }
-.authwave-page [hidden] {
-	display: none;
-}
 .authwave-page p,
 .authwave-footer p {
 	margin: 0;
@@ -43,12 +40,11 @@
 }
 .authwave-header {
 	@include theme.dark;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: var(--flair-space-4);
-	padding: var(--flair-space-4) var(--authwave-gutter);
-	border-block-end: var(--authwave-border-width) solid var(--flair-color-border);
+	@extend %p-page-header;
+	--flair-header-gap: var(--flair-space-4);
+	--flair-border-width: var(--authwave-border-width);
+	flex-wrap: nowrap;
+	padding-inline: var(--authwave-gutter);
 }
 .authwave-brand {
 	@extend %p-cluster;
@@ -57,12 +53,18 @@
 	text-decoration: none;
 	color: inherit;
 }
+.authwave-logo-mirror {
+	fill: var(--authwave-pink);
+}
 .authwave-navigation {
 	@extend %p-navigation;
 	display: none;
 }
 .authwave-header-action {
 	@extend %o-button-primary;
+	--flair-button-primary-background: var(--authwave-blue);
+	--flair-button-primary-background-hover: var(--authwave-blue-pale);
+	--flair-button-primary-text: var(--authwave-ink);
 	justify-self: end;
 }
 .authwave-hero {
@@ -111,6 +113,10 @@
 	margin-inline: auto;
 	--flair-control-background: var(--authwave-input-background);
 	--flair-button-radius: var(--authwave-control-radius);
+	--flair-color-accent: var(--authwave-blue);
+	--flair-button-primary-background: var(--authwave-pink);
+	--flair-button-primary-background-hover: var(--authwave-pink-pale);
+	--flair-button-primary-text: var(--authwave-ink);
 	.login-heading {
 		@extend %p-stack;
 		align-items: center;
@@ -191,6 +197,20 @@
 	min-inline-size: 0;
 	> details {
 		@extend %o-authwave-disclosure;
+		--authwave-highlight: var(--authwave-pink-pale);
+		--authwave-highlight-accent: var(--authwave-pink);
+		&:nth-of-type(2) {
+			--authwave-highlight: var(--authwave-coral-pale);
+			--authwave-highlight-accent: var(--authwave-coral);
+		}
+		&:nth-of-type(3) {
+			--authwave-highlight: var(--authwave-blue-pale);
+			--authwave-highlight-accent: var(--authwave-blue);
+		}
+		&:nth-of-type(4) {
+			--authwave-highlight: var(--authwave-lime-pale);
+			--authwave-highlight-accent: var(--authwave-lime);
+		}
 	}
 	.disclosure-content {
 		@extend %p-stack;
@@ -204,6 +224,7 @@
 	}
 }
 .authwave-audience {
+	--authwave-action-accent: var(--authwave-coral);
 	@include theme.dark;
 	@extend %p-authwave-section;
 }
@@ -217,11 +238,12 @@
 }
 .authwave-audience-card {
 	@extend %o-authwave-audience;
+	--authwave-audience-fill: var(--authwave-pink);
 	&:nth-of-type(2) {
-		--authwave-audience-fill: var(--authwave-mid);
+		--authwave-audience-fill: var(--authwave-lime);
 	}
 	&:nth-of-type(3) {
-		--authwave-audience-fill: var(--authwave-strong);
+		--authwave-audience-fill: var(--authwave-blue);
 	}
 }
 .authwave-features {
@@ -323,11 +345,21 @@
 .authwave-plan {
 	@extend %o-authwave-plan;
 	&[data-plan="professional"] {
-		--authwave-plan-fill: var(--authwave-mid);
-		--flair-color-border: #bbb;
+		--authwave-plan-fill: var(--authwave-blue-pale);
+		.plan-action {
+			--flair-button-primary-background: var(--authwave-white);
+			--flair-button-primary-text: var(--authwave-ink);
+			--flair-button-primary-background-hover: var(--authwave-cream);
+		}
+		.authwave-kicker {
+			--flair-badge-background: var(--authwave-blue);
+		}
 	}
 	&[data-plan="enterprise"] {
-		--authwave-plan-fill: var(--authwave-soft);
+		--authwave-plan-fill: var(--authwave-pink-pale);
+		.authwave-kicker {
+			--flair-badge-background: var(--authwave-pink);
+		}
 	}
 }
 .authwave-footer {
@@ -374,29 +406,30 @@
 		}
 	}
 	.footer-wordmark {
-		display: flex;
-		align-items: center;
+		@extend %p-cluster;
+		--flair-cluster-gap: var(--flair-space-2);
+		flex-wrap: nowrap;
 		justify-content: center;
-		gap: var(--flair-space-2);
 		padding: var(--authwave-space-section) var(--flair-space-4)
 			var(--flair-space-6);
 		font-family: var(--authwave-font-heading);
 		font-size: clamp(2.5rem, 14vw, 13rem);
 		line-height: 1;
 		letter-spacing: -0.05em;
-		.authwave-symbol {
-			inline-size: 0.8em;
-			block-size: 0.8em;
+		interactive-logo {
+			--interactive-logo-colour: var(--authwave-coral);
+			--interactive-logo-shadow: drop-shadow(0 0 0 transparent);
+			inline-size: 0.9em;
+			block-size: 0.9em;
+			flex: none;
 		}
 	}
 	.footer-bottom {
-		@extend %p-cluster;
-		justify-content: space-between;
-		padding: var(--flair-space-4) var(--authwave-space-panel);
-		border-block-start: var(--authwave-border-width) solid
-			var(--flair-color-border);
+		@extend %p-page-footer;
+		--flair-border-width: var(--authwave-border-width);
+		--flair-small-size: 0.75rem;
+		padding-inline: var(--authwave-space-panel);
 		color: var(--flair-color-muted);
-		font-size: 0.75rem;
 		ul {
 			@extend %p-cluster;
 			list-style: none;

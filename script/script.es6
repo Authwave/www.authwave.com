@@ -1,3 +1,5 @@
+import "./component/interactive-logo.es6";
+
 // Without JavaScript every feature stays readable.
 // TODO: Extract into their own script files.
 for(const showcase of document.querySelectorAll("[data-authwave-features]")) {

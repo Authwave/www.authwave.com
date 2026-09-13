@@ -1,7 +1,8 @@
 <svg class="goo-filters" aria-hidden="true" focusable="false">
 	<defs>
-		<filter id="gooey" x="-50%" y="-50%" width="200%" height="200%">
-			<feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+		<filter id="gooey" primitiveUnits="objectBoundingBox" x="-50%" y="-50%" width="200%" height="200%">
+			<!-- 3 / 128 preserves the original blur strength at every logo size. -->
+			<feGaussianBlur in="SourceGraphic" stdDeviation="0.0234375" result="blur" />
 			<feColorMatrix
 				in="blur"
 				mode="matrix"

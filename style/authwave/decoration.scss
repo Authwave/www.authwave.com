@@ -8,10 +8,8 @@
 }
 
 %d-authwave-heading {
-	@extend %d-heading;
-	font-family: var(--authwave-font-heading);
-	font-weight: 400;
-	letter-spacing: -0.035em;
+	@extend %d-typography-heading;
+	--flair-heading-tracking: -0.035em;
 	margin: 0;
 }
 

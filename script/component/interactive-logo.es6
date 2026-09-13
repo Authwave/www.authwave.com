@@ -33,6 +33,10 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	favicon.type = "image/png";
 	favicon.sizes = "64x64";
 	let faviconUpdatePending = false;
+	const mirrors = index === 0 ? [...document.querySelectorAll("[data-logo-mirror]")] : [];
+	for(const mirror of mirrors) {
+		mirror.setAttribute("viewBox", `0 0 ${GRID_SIZE} ${GRID_SIZE}`);
+	}
 
 	function cellKey(x, y) {
 		return `${x},${y}`;
@@ -63,6 +67,18 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	}
 
 	function updateFavicon() {
+		// Mirror the same logical layout in the header, retaining its own colour.
+		for(const mirror of mirrors) {
+			mirror.replaceChildren(...pixels.map(pixel => {
+				const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+				rect.setAttribute("x", pixel.x);
+				rect.setAttribute("y", pixel.y);
+				rect.setAttribute("width", 1);
+				rect.setAttribute("height", 1);
+				rect.setAttribute("rx", 0.12);
+				return rect;
+			}));
+		}
 		if(index !== 0 || !faviconContext) {
 			return;
 		}
@@ -72,8 +88,10 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 		faviconContext.clearRect(0, 0, size, size);
 		for(const pixel of pixels) {
 			const style = getComputedStyle(pixel.element);
-			const radius = Number.parseFloat(style.borderTopLeftRadius)
-				/ Number.parseFloat(style.width) * cellSize;
+			const cornerRadius = style.borderTopLeftRadius;
+			const radius = cornerRadius.endsWith("%")
+				? Number.parseFloat(cornerRadius) / 100 * cellSize
+				: Number.parseFloat(cornerRadius) / Number.parseFloat(style.width) * cellSize;
 			faviconContext.fillStyle = FAVICON_COLOUR;
 			faviconContext.beginPath();
 			faviconContext.roundRect(

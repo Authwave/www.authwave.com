@@ -1,16 +1,9 @@
-// Application baseline; library definitions remain opt-in.
-* {
-	box-sizing: border-box;
-}
+@use "flair";
+
+@include flair.base;
 html {
 	scroll-behavior: smooth;
 	color-scheme: light;
-}
-body {
-	margin: 0;
-}
-[hidden] {
-	display: none !important;
 }
 h1,
 h2,
@@ -43,18 +36,16 @@ button {
 	color: var(--authwave-paper);
 }
 :focus-visible {
-	outline: 3px solid currentColor;
-	outline-offset: 5px;
+	@extend %d-focus-ring;
+	--flair-focus-width: 3px;
+	--flair-focus-color: currentColor;
+	--flair-focus-offset: 5px;
 }
 .skip-link {
-	position: fixed;
-	inset: var(--flair-space-3) auto auto var(--flair-space-3);
-	z-index: 100;
+	@extend %o-skip-link;
+	inset-block-start: var(--flair-space-3);
+	inset-inline-start: var(--flair-space-3);
 	padding: var(--flair-space-3);
 	background: var(--authwave-ink);
 	color: var(--authwave-paper);
-	transform: translateY(-200%);
-	&:focus {
-		transform: none;
-	}
 }

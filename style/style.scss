@@ -1,8 +1,13 @@
-// Composition root: load selector modules in cascade order.
-@use "font/ubuntu";
+@use "../node_modules/flair/style/lib/flair";
+@use "font/inter";
 @use "font/morion";
+
 @use "component/interactive-logo";
 
-// These definition-only modules emit CSS only when explicitly included.
-@include ubuntu.ubuntu;
-@include morion.morion;
+:root {
+	--theme-font-heading: "Morion", serif;
+	--theme-font-body: "Inter", sans-serif;
+}
+
+@include flair.init;
+@include flair.typography;

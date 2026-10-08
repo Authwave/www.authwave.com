@@ -8,24 +8,28 @@ The page follows the supplied mobile and desktop designs, using the existing mon
 
 | Layer | Definitions used |
 | --- | --- |
-| Flair decorations | `%d-heading`, `%d-typography`, `%d-highlight` |
+| Flair decorations | `%d-typography-heading`, `%d-typography`, `%d-highlight` |
 | Flair objects | `%o-card`, `%o-disclosure`, `%o-badge`, `%o-button`, `%o-button-primary`, `%o-link`, `%o-progress` |
 | Flair patterns | `%p-stack`, `%p-cluster`, `%p-navigation`, `%p-grid`, `%p-accordion`, `%p-checklist` |
-| Authwave decorations | `%d-authwave-frame` (selection-style border corners), `%d-authwave-heading` (display typography) |
-| Authwave objects | `%o-authwave-kicker`, `%o-authwave-action`, `%o-authwave-placeholder`, `%o-authwave-disclosure`, `%o-authwave-audience`, `%o-authwave-plan` |
-| Authwave patterns | `%p-authwave-heading`, `%p-authwave-shell`, `%p-authwave-section` |
+| Local decorations | `%d-frame`, `%d-heading`, `%d-panel` |
+| Local objects | `%o-kicker`, `%o-action`, `%o-placeholder`, `%o-intro-disclosure`, `%o-audience`, `%o-plan` |
+| Local patterns | `%p-heading`, `%p-shell`, `%p-section` |
 | Page | Specific section arrangements, element bindings and desktop enhancements |
 
-`%p-checklist` is a general-purpose Flair pattern. The four external corner markers are provided by Flair’s `%d-highlight`; `%d-authwave-frame` maps the application’s marker and border sizes onto it. It arranges explicit inclusion/exclusion markers beside text and is independent of pricing. The price-card layout, amounts, plan labels, selection-frame settings and two-part action links remain Authwave-specific.
+`%p-checklist` is a general-purpose Flair pattern. The four external corner markers are provided by Flair’s `%d-highlight`; `%d-frame` maps the application’s marker and border sizes onto it. The checklist arranges explicit inclusion/exclusion markers beside text and is independent of pricing. The price-card layout, amounts, plan labels, selection-frame settings and two-part action links remain Authwave-specific.
 
-The entry point is `style/style.scss`. The `style/authwave/` directory contains:
+The entry point is `style/style.scss`, which composes the following layers:
 
-- `font.scss`: all licensed Morion face declarations.
-- `theme.scss`: defaults, monochrome tokens, light/dark scope mixins and the wide-layout breakpoint.
-- `decoration.scss`: Authwave-specific visual treatments.
-- `object.scss`: reusable Authwave objects built from Flair definitions.
-- `pattern.scss`: heading groups, content shell and section spacing.
-- `page.scss`: selectors and responsive arrangements for this homepage.
+- `variable/`: `palette.scss`, `defaults.scss`, `light.scss`, `dark.scss` and `breakpoint.scss`. Palette and theme files each expose one mixin and emit nothing on import.
+- `font/`: one definition-only font mixin per family, explicitly included by the entry point.
+- `decoration/`: one visual placeholder per file, such as `frame.scss` defining `%d-frame`.
+- `object/`: one reusable object placeholder per file. `%o-intro-disclosure` has a distinct name to avoid colliding with Flair's `%o-disclosure`.
+- `pattern/`: one composition placeholder per file, such as `%p-shell` and `%p-heading`.
+- `element/`: document selectors, accessibility rules and the root that applies palette/defaults.
+- `layout/`: one page selector (or related selector group) per file, with its descendants and responsive variants kept together.
+- `component/`: separate selectors for the interactive logo, its pixel and its filter container.
+
+Reusable definitions import only the definitions they need, without applying root themes or fonts. Selector files emit only their own styling; `style.scss` determines their cascade order. Existing `authwave-*` HTML classes and custom properties are retained so this organisation does not change markup, JavaScript hooks or appearance.
 
 Changes to `--authwave-*` properties stay in this application. The light/dark mixins map those properties onto Flair's semantic colours. The page initializes `flair.defaults` once at its own root. The application owns its root tokens and does not load Flair’s website styles or theme selector.
 

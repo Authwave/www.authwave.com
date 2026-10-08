@@ -1,6 +1,8 @@
+// Composition root: load selector modules in cascade order.
 @use "font/ubuntu";
-@use "authwave/font";
-@use "authwave/theme";
-@use "base";
-@use "authwave/page";
+@use "font/morion";
 @use "component/interactive-logo";
+
+// These definition-only modules emit CSS only when explicitly included.
+@include ubuntu.ubuntu;
+@include morion.morion;

@@ -1,18 +1,21 @@
+import {createLogoFavicon} from "./logo-favicon.es6";
+
 document.querySelectorAll("interactive-logo").forEach((element, index) => {
-	const GRID_SIZE = 6;
-	const FAVICON_COLOUR = "#164e80";
+	const GRID_SIZE = 12;
+	const PIXEL_SIZE = 2;
 	const RESET_DELAY = 5000;
 	const INITIAL_PIXELS = [
 		[1, 2],
 		[2, 1],
 		[3, 2],
-		[3, 3],
-		[4, 4],
-		[5, 3],
+		[3, 2.5],
+		[4, 3.5],
+		[5, 2.5],
 		[5, 2],
-	];
+	].map(([x, y]) => [x * PIXEL_SIZE, y * PIXEL_SIZE]);
 
 	element.style.setProperty("--grid-size", GRID_SIZE);
+	element.style.setProperty("--pixel-size", PIXEL_SIZE);
 	const filter = element.querySelector(".goo-filters filter");
 	if(filter) {
 		filter.id = `interactive-logo-gooey-${index}`;
@@ -24,14 +27,12 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	const pointers = new Map();
 	const pixels = [];
 	let resetTimer;
-	const faviconCanvas = document.createElement("canvas");
-	faviconCanvas.width = 64;
-	faviconCanvas.height = 64;
-	const faviconContext = faviconCanvas.getContext("2d");
 	const favicon = document.createElement("link");
 	favicon.rel = "icon";
-	favicon.type = "image/png";
-	favicon.sizes = "64x64";
+	favicon.type = "image/vnd.microsoft.icon";
+	favicon.sizes = "16x16 21x21 32x32 48x48";
+	let faviconURL;
+	let faviconRevision = 0;
 	let faviconUpdatePending = false;
 	const mirrors = index === 0 ? [...document.querySelectorAll("[data-logo-mirror]")] : [];
 	for(const mirror of mirrors) {
@@ -44,63 +45,76 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 
 	function setPixelPosition(pixel, x, y) {
 		if(!Number.isInteger(x) || !Number.isInteger(y) ||
-			x < 0 || x >= GRID_SIZE || y < 0 || y >= GRID_SIZE) {
-			throw new RangeError(`Pixel coordinates must be between 0 and ${GRID_SIZE - 1}.`);
+			!inGrid(x, y) || !inGrid(x + PIXEL_SIZE - 1, y + PIXEL_SIZE - 1)) {
+			throw new RangeError(`Pixel coordinates must be between 0 and ${GRID_SIZE - PIXEL_SIZE}.`);
 		}
 
-		pixel.style.setProperty("--x", `${x * 100}%`);
-		pixel.style.setProperty("--y", `${y * 100}%`);
+		pixel.style.setProperty("--x", `${x * 100 / PIXEL_SIZE}%`);
+		pixel.style.setProperty("--y", `${y * 100 / PIXEL_SIZE}%`);
+	}
+
+	function occupyPixel(pixel) {
+		for(let dx = 0; dx < PIXEL_SIZE; dx++) {
+			for(let dy = 0; dy < PIXEL_SIZE; dy++) {
+				const key = cellKey(pixel.x + dx, pixel.y + dy);
+				if(!occupiedCells.has(key)) {
+					occupiedCells.set(key, new Set());
+				}
+				occupiedCells.get(key).add(pixel);
+			}
+		}
 	}
 
 	for(const [x, y] of INITIAL_PIXELS) {
-		const key = cellKey(x, y);
-		if(occupiedCells.has(key)) {
-			throw new Error(`The cell at (${x}, ${y}) is occupied by more than one pixel.`);
-		}
-
 		const pixelElement = document.createElement("aw-pixel");
 		setPixelPosition(pixelElement, x, y);
 		element.appendChild(pixelElement);
 		const pixel = {element: pixelElement, x, y, initialX: x, initialY: y};
 		pixels.push(pixel);
-		occupiedCells.set(key, pixel);
+		occupyPixel(pixel);
 	}
 
-	function updateFavicon() {
+	async function updateFavicon() {
 		// Mirror the same logical layout in the header, retaining its own colour.
 		for(const mirror of mirrors) {
 			mirror.replaceChildren(...pixels.map(pixel => {
 				const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 				rect.setAttribute("x", pixel.x);
 				rect.setAttribute("y", pixel.y);
-				rect.setAttribute("width", 1);
-				rect.setAttribute("height", 1);
-				rect.setAttribute("rx", 0.12);
+				rect.setAttribute("width", PIXEL_SIZE);
+				rect.setAttribute("height", PIXEL_SIZE);
+				rect.setAttribute("rx", 0.12 * PIXEL_SIZE);
 				return rect;
 			}));
 		}
-		if(index !== 0 || !faviconContext) {
+		if(index !== 0) {
 			return;
 		}
-		const size = faviconCanvas.width;
-		const cellSize = size / GRID_SIZE;
-		// Clearing restores transparent pixels; no page background or shadow is drawn.
-		faviconContext.clearRect(0, 0, size, size);
-		for(const pixel of pixels) {
+		const revision = ++faviconRevision;
+		const snapshot = pixels.map(pixel => {
 			const style = getComputedStyle(pixel.element);
 			const cornerRadius = style.borderTopLeftRadius;
 			const radius = cornerRadius.endsWith("%")
-				? Number.parseFloat(cornerRadius) / 100 * cellSize
-				: Number.parseFloat(cornerRadius) / Number.parseFloat(style.width) * cellSize;
-			faviconContext.fillStyle = FAVICON_COLOUR;
-			faviconContext.beginPath();
-			faviconContext.roundRect(
-				pixel.x * cellSize, pixel.y * cellSize, cellSize, cellSize,
-				Number.isFinite(radius) ? Math.min(radius, cellSize / 2) : 0,
-			);
-			faviconContext.fill();
+				? Number.parseFloat(cornerRadius) / 100 * PIXEL_SIZE
+				: Number.parseFloat(cornerRadius) / Number.parseFloat(style.width) * PIXEL_SIZE;
+			return {x: pixel.x, y: pixel.y, colour: style.backgroundColor,
+				radius: Number.isFinite(radius) ? Math.min(radius, PIXEL_SIZE / 2) : 0};
+		});
+		try {
+			const icon = await createLogoFavicon(snapshot, GRID_SIZE, PIXEL_SIZE, filter);
+			// An older asynchronous render must never replace a newer layout.
+			if(revision !== faviconRevision) {
+				return;
+			}
+			const previousURL = faviconURL;
+			faviconURL = URL.createObjectURL(icon);
+			favicon.href = faviconURL;
+			if(previousURL) {
+				URL.revokeObjectURL(previousURL);
+			}
+		} catch(error) {
+			console.error("Unable to update the interactive favicon.", error);
 		}
-		favicon.href = faviconCanvas.toDataURL("image/png");
 	}
 
 	function scheduleFaviconUpdate() {
@@ -117,6 +131,17 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	updateFavicon();
 	if(index === 0) {
 		document.head.appendChild(favicon);
+		window.addEventListener("pageshow", event => {
+			if(event.persisted) {
+				updateFavicon();
+			}
+		});
+		window.addEventListener("pagehide", () => {
+			++faviconRevision;
+			if(faviconURL) {
+				URL.revokeObjectURL(faviconURL);
+			}
+		});
 	}
 
 	function resetPixels() {
@@ -124,7 +149,7 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 		for(const pixel of pixels) {
 			pixel.x = pixel.initialX;
 			pixel.y = pixel.initialY;
-			occupiedCells.set(cellKey(pixel.x, pixel.y), pixel);
+			occupyPixel(pixel);
 			setPixelPosition(pixel.element, pixel.x, pixel.y);
 		}
 		// Keep the last pointer position, but allow contact with the restored cell.
@@ -147,42 +172,72 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 		return result;
 	}
 
-	// Find a chain ending at a vacancy before changing any live coordinates.
-	// Continue straight first; backtrack through random alternatives at a blockage.
-	function planPush(x, y, direction, visited = new Set()) {
-		const key = cellKey(x, y);
-		if(!inGrid(x, y) || visited.has(key)) {
+	function conflicts(a, b) {
+		const dx = Math.abs(a.x - b.x);
+		const dy = Math.abs(a.y - b.y);
+		if(dx >= PIXEL_SIZE || dy >= PIXEL_SIZE) {
+			return false;
+		}
+		// Only a one-cell squeeze along a shared row or column is allowed.
+		return !((dx === 1 && dy === 0) || (dx === 0 && dy === 1));
+	}
+
+	// Plan against tentative positions, allowing aligned one-cell squeezes.
+	// Each block moves at most one half-step; failed branches leave no live changes.
+	function planPush(pixel, direction, moves = new Map(), visiting = new Set(), canTurn = true) {
+		if(visiting.has(pixel) || moves.has(pixel)) {
 			return null;
 		}
-		if(!occupiedCells.has(key)) {
-			return [];
-		}
-		visited.add(key);
-		const alternatives = shuffled(DIRECTIONS.filter(([dx, dy]) =>
+		const nextVisiting = new Set(visiting).add(pixel);
+		const alternatives = canTurn ? shuffled(DIRECTIONS.filter(([dx, dy]) =>
 			dx !== direction[0] || dy !== direction[1],
-		));
-
+		)) : [];
 		for(const [dx, dy] of [direction, ...alternatives]) {
-			const tail = planPush(x + dx, y + dy, [dx, dy], visited);
-			if(tail !== null) {
-				return [...tail, {pixel: occupiedCells.get(key), x: x + dx, y: y + dy}];
+			const destination = {x: pixel.x + dx, y: pixel.y + dy};
+			if(!inGrid(destination.x, destination.y) ||
+				!inGrid(destination.x + PIXEL_SIZE - 1, destination.y + PIXEL_SIZE - 1)) {
+				continue;
+			}
+			let branch = new Map(moves);
+			branch.set(pixel, destination);
+			for(const other of pixels) {
+				if(other !== pixel && conflicts(destination, branch.get(other) ?? other)) {
+					const position = moves.get(other) ?? other;
+					const squeezedRow = pixel.y === position.y && Math.abs(pixel.x - position.x) === 1;
+					const squeezedColumn = pixel.x === position.x && Math.abs(pixel.y - position.y) === 1;
+					const separating = (squeezedRow && dy !== 0) || (squeezedColumn && dx !== 0);
+					// A perpendicular move releases the squeeze by pushing the neighbour outward.
+					const pushDirection = separating
+						? squeezedRow ? [Math.sign(position.x - pixel.x), 0] : [0, Math.sign(position.y - pixel.y)]
+						: [dx, dy];
+					branch = planPush(other, pushDirection, branch, nextVisiting, !separating);
+					if(branch === null) {
+						break;
+					}
+				}
+			}
+			if(branch !== null && pixels.every(other =>
+				other === pixel || !conflicts(destination, branch.get(other) ?? other),
+			)) {
+				return branch;
 			}
 		}
 		return null;
 	}
 
-	function pushPixel(x, y, direction) {
-		const moves = planPush(x, y, direction);
-		if(!moves || moves.length === 0) {
+	function pushPixel(pixel, direction) {
+		const moves = planPush(pixel, direction);
+		if(!moves) {
 			return;
 		}
-		// Vacancy first: every destination is free before its neighbour moves in.
-		for(const {pixel, x, y} of moves) {
-			occupiedCells.delete(cellKey(pixel.x, pixel.y));
+		for(const [pixel, {x, y}] of moves) {
 			pixel.x = x;
 			pixel.y = y;
-			occupiedCells.set(cellKey(x, y), pixel);
 			setPixelPosition(pixel.element, x, y);
+		}
+		occupiedCells.clear();
+		for(const pixel of pixels) {
+			occupyPixel(pixel);
 		}
 		clearTimeout(resetTimer);
 		resetTimer = setTimeout(resetPixels, RESET_DELAY);
@@ -217,10 +272,12 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 			const cellY = Math.floor(y);
 			const key = inGrid(cellX, cellY) ? cellKey(cellX, cellY) : null;
 			if(key !== null && key !== lastCell && occupiedCells.has(key)) {
-				// A stationary tap pushes away from the contact toward the cell centre.
+				// A stationary tap pushes away from the contact toward the block centre.
+				// Match the last-painted block when the pointer touches a shared cell.
+				const pixel = [...occupiedCells.get(key)].at(-1);
 				const direction = dx || dy ? quantise(dx, dy)
-					: quantise(cellX + 0.5 - x, cellY + 0.5 - y);
-				pushPixel(cellX, cellY, direction);
+					: quantise(pixel.x + PIXEL_SIZE / 2 - x, pixel.y + PIXEL_SIZE / 2 - y);
+				pushPixel(pixel, direction);
 			}
 			lastCell = key;
 		}

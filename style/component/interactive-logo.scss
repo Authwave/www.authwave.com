@@ -1,5 +1,6 @@
 interactive-logo {
-	--grid-size: 7;
+	--grid-size: 12;
+	--pixel-size: 2;
 
 	position: relative;
 	display: grid;
@@ -22,8 +23,8 @@ interactive-logo {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: calc(100% / var(--grid-size));
-		height: calc(100% / var(--grid-size));
+		width: calc(100% * var(--pixel-size) / var(--grid-size));
+		height: calc(100% * var(--pixel-size) / var(--grid-size));
 		transform: translate(var(--x, 0%), var(--y, 0%));
 		transition: transform 120ms ease-out;
 		background-color: var(--interactive-logo-colour, #75bbf0);

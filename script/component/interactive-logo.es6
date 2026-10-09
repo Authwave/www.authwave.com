@@ -4,6 +4,7 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	const GRID_SIZE = 12;
 	const PIXEL_SIZE = 2;
 	const RESET_DELAY = 5000;
+	const REWIND_STEP_DELAY = 20;
 	const INITIAL_PIXELS = [
 		[1, 2],
 		[2, 1],
@@ -26,6 +27,8 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	const DIRECTIONS = [[0, -1], [1, 0], [0, 1], [-1, 0]];
 	const pointers = new Map();
 	const pixels = [];
+	const movementHistory = [];
+	let rewinding = false;
 	let resetTimer;
 	const favicon = document.createElement("link");
 	favicon.rel = "icon";
@@ -144,19 +147,34 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 		});
 	}
 
-	function resetPixels() {
+	function applyPositions(positions) {
+		for(const [pixel, {x, y}] of positions) {
+			pixel.x = x;
+			pixel.y = y;
+			setPixelPosition(pixel.element, x, y);
+		}
 		occupiedCells.clear();
 		for(const pixel of pixels) {
-			pixel.x = pixel.initialX;
-			pixel.y = pixel.initialY;
 			occupyPixel(pixel);
-			setPixelPosition(pixel.element, pixel.x, pixel.y);
 		}
-		// Keep the last pointer position, but allow contact with the restored cell.
+		scheduleFaviconUpdate();
+	}
+
+	function rewindPixels() {
+		const previousPositions = movementHistory.pop();
+		rewinding = Boolean(previousPositions);
+		element.style.setProperty("--pixel-move-duration", rewinding ? `${REWIND_STEP_DELAY}ms` : "120ms");
+		if(!previousPositions) {
+			resetTimer = undefined;
+			return;
+		}
+		// Undo the whole push together, including any neighbours it moved.
+		applyPositions(previousPositions);
+		// Keep the last pointer position, but allow contact with a rewound block.
 		for(const pointer of pointers.values()) {
 			pointer.cell = null;
 		}
-		scheduleFaviconUpdate();
+		resetTimer = setTimeout(rewindPixels, REWIND_STEP_DELAY);
 	}
 
 	function inGrid(x, y) {
@@ -230,18 +248,16 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 		if(!moves) {
 			return;
 		}
-		for(const [pixel, {x, y}] of moves) {
-			pixel.x = x;
-			pixel.y = y;
-			setPixelPosition(pixel.element, x, y);
-		}
-		occupiedCells.clear();
-		for(const pixel of pixels) {
-			occupyPixel(pixel);
-		}
+		movementHistory.push(new Map([...moves.keys()].map(pixel =>
+			[pixel, {x: pixel.x, y: pixel.y}],
+		)));
+		// Preserve the remaining history, but give every new push a full idle
+		// delay before rewinding again, including pushes during a rewind.
+		rewinding = false;
+		element.style.setProperty("--pixel-move-duration", "120ms");
+		applyPositions(moves);
 		clearTimeout(resetTimer);
-		resetTimer = setTimeout(resetPixels, RESET_DELAY);
-		scheduleFaviconUpdate();
+		resetTimer = setTimeout(rewindPixels, RESET_DELAY);
 	}
 
 	function quantise(dx, dy) {

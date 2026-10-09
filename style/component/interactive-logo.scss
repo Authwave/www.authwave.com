@@ -26,7 +26,7 @@ interactive-logo {
 		width: calc(100% * var(--pixel-size) / var(--grid-size));
 		height: calc(100% * var(--pixel-size) / var(--grid-size));
 		transform: translate(var(--x, 0%), var(--y, 0%));
-		transition: transform 120ms ease-out;
+		transition: transform var(--pixel-move-duration, 120ms) ease-out;
 		background-color: var(--interactive-logo-colour, #75bbf0);
 		// Keep rounded-square corners proportional to the cell at every size.
 		border-radius: 12%;

@@ -1,0 +1,181 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../pattern/section-frame";
+@use "../object/get-started";
+
+.features-area {
+	padding-block-start: var(--authwave-section-block-space);
+
+	> .section-box {
+		@extend %p-section-frame;
+		@extend %p-stack;
+		--theme-stack-gap: 0;
+		align-items: flex-start;
+	}
+
+	.features-action {
+		@extend %o-get-started;
+	}
+
+	.features-carousel {
+		position: relative;
+		inline-size: 100%;
+		font-family: var(--theme-font-body);
+	}
+
+	.feature-frames {
+		display: flex;
+		gap: var(--theme-space-8);
+		overflow-x: auto;
+		overscroll-behavior-inline: contain;
+		scroll-snap-type: inline mandatory;
+
+		&:focus-visible {
+			@extend %d-focus-ring;
+		}
+	}
+
+	.feature-frame {
+		@extend %p-stack;
+		--theme-stack-gap: var(--theme-space-6);
+		flex: 0 0 100%;
+		min-inline-size: 0;
+		// Leave room for the highlight's external corner markers in the scroller.
+		padding: var(--theme-space-2);
+		scroll-snap-align: start;
+		scroll-snap-stop: always;
+
+		> h3 {
+			margin: 0;
+			font-family: var(--theme-font-body);
+			font-size: 1.75rem;
+			font-weight: 400;
+		}
+
+		> p {
+			margin: 0;
+		}
+	}
+
+	.feature-icon {
+		inline-size: 3rem;
+		block-size: 3rem;
+		flex-shrink: 0;
+	}
+
+	.feature-picture {
+		@extend %d-highlight;
+		padding: var(--authwave-section-inset);
+
+		> img {
+			display: block;
+			inline-size: 100%;
+			block-size: auto;
+		}
+	}
+
+	.feature-fallback {
+		display: flex;
+		justify-content: space-between;
+		margin-block-start: var(--theme-space-8);
+
+		> a {
+			@extend %o-button;
+			inline-size: max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height)));
+			block-size: max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height)));
+			flex-shrink: 0;
+			padding: 0;
+		}
+	}
+
+	// Native controls handle scrolling, keyboard activation and disabled ends.
+	@supports selector(::scroll-button(inline-end)) and selector(::scroll-marker:target-before) {
+		.features-carousel {
+			padding-block-end: calc(2.75rem + var(--theme-space-8));
+		}
+
+		.feature-fallback {
+			display: none;
+		}
+
+		.feature-frames {
+			scrollbar-width: none;
+			scroll-marker-group: after;
+
+			&::scroll-button(*) {
+				// Do not extend Flair here: unsupported pseudo-elements would
+				// invalidate the shared selector lists for ordinary buttons.
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				box-sizing: border-box;
+				border: var(--theme-border-width) solid var(--theme-control-border, var(--theme-color-border));
+				border-radius: var(--theme-control-radius, var(--theme-radius));
+				background: var(--theme-button-background, var(--theme-color-surface));
+				color: var(--theme-button-text, var(--theme-color-text));
+				cursor: pointer;
+				position: absolute;
+				inset-block-end: 0;
+				inline-size: 2.75rem;
+				block-size: 2.75rem;
+				padding: 0;
+				font-family: var(--theme-font-body);
+				font-size: 1.5rem;
+
+				&:hover:enabled {
+					background: var(--theme-button-background-hover, var(--theme-color-surface-disabled));
+					border-color: var(--theme-control-border-hover, var(--theme-color-text));
+				}
+
+				&:focus-visible {
+					outline: var(--theme-focus-width) solid var(--theme-focus-color, var(--theme-color-accent));
+					outline-offset: var(--theme-focus-offset);
+				}
+
+				&:disabled {
+					background: var(--theme-control-background-disabled, var(--theme-color-surface-disabled));
+					color: var(--theme-control-text-disabled, var(--theme-color-muted));
+					cursor: not-allowed;
+				}
+			}
+
+			&::scroll-button(inline-start) {
+				content: "←" / "Previous feature";
+				inset-inline-start: 0;
+			}
+
+			&::scroll-button(inline-end) {
+				content: "→" / "Next feature";
+				inset-inline-end: 0;
+			}
+
+			&::scroll-marker-group {
+				position: absolute;
+				inset-block-end: 0;
+				inset-inline: calc(2.75rem + var(--theme-space-4));
+				block-size: 2.75rem;
+				display: flex;
+			}
+		}
+
+		.feature-frame::scroll-marker {
+			content: "" / attr(data-label);
+			flex: 1;
+			min-inline-size: 0;
+			border: 0;
+			padding: 0;
+			background: linear-gradient(var(--theme-color-surface-disabled), var(--theme-color-surface-disabled)) center / 100% 0.5rem no-repeat;
+			cursor: pointer;
+		}
+
+		.feature-frame::scroll-marker:target-current,
+		.feature-frame::scroll-marker:target-before {
+			background-image: linear-gradient(var(--theme-color-text), var(--theme-color-text));
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.feature-frames {
+			scroll-behavior: smooth;
+		}
+	}
+}

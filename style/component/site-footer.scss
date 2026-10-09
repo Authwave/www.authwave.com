@@ -1,0 +1,102 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../object/get-started";
+
+.site-footer {
+	padding-block: var(--authwave-section-block-space) var(--authwave-section-gutter);
+	padding-inline: var(--authwave-section-gutter);
+	font-family: var(--theme-font-body);
+
+	.footer-box {
+		@extend %d-highlight;
+		@extend %p-stack;
+		--theme-stack-gap: var(--theme-space-12);
+		padding: var(--authwave-section-inset);
+		container-type: inline-size;
+	}
+
+	.footer-intro > h2 {
+		margin: 0;
+		font-family: var(--theme-font-body);
+		font-size: 2rem;
+		font-weight: 400;
+	}
+
+	.footer-action {
+		@extend %o-get-started;
+	}
+
+	.footer-columns {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--theme-space-6);
+	}
+
+	.footer-navigation {
+		@extend %p-navigation;
+
+		> h3 {
+			margin: 0 0 var(--theme-space-4);
+			font-family: var(--theme-font-body);
+			font-size: 0.875rem;
+			font-weight: 400;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		> ul {
+			flex-direction: column;
+		}
+
+		> ul > li > a {
+			padding-inline: 0;
+		}
+	}
+
+	.external-label {
+		@extend %d-visually-hidden;
+	}
+
+	.footer-brand {
+		display: flex;
+		align-items: center;
+		gap: var(--theme-space-4);
+		margin-inline: calc(-1 * var(--authwave-section-inset));
+		container-type: inline-size;
+
+		> interactive-logo {
+			flex: 0 0 20%;
+			inline-size: 20%;
+
+			// Keep a visible logo when the existing interactive script is disabled.
+			&:not(:has(aw-pixel))::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				background: var(--interactive-logo-colour, #75bbf0);
+				mask: url("/asset/logo.svg") center / contain no-repeat;
+			}
+		}
+	}
+
+	.footer-name {
+		min-inline-size: 0;
+		font-family: var(--theme-font-heading);
+		font-size: clamp(1.5rem, 17cqi, 16rem);
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	.footer-bottom {
+		@extend %p-page-footer;
+		font-size: 0.875rem;
+
+		> p {
+			margin: 0;
+		}
+
+		> nav {
+			@extend %p-cluster;
+			gap: var(--theme-space-6);
+		}
+	}
+}

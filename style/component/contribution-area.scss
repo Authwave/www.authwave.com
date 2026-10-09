@@ -1,0 +1,36 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../pattern/section-frame";
+@use "../object/get-started";
+
+.contribution-area {
+	padding-block-start: var(--authwave-section-block-space);
+
+	> .section-box {
+		@extend %p-section-frame;
+		@extend %p-stack;
+		--theme-stack-gap: 0;
+		align-items: flex-start;
+
+		> p {
+			margin: var(--theme-space-6) 0 0;
+		}
+	}
+
+	.contribution-action {
+		@extend %o-get-started;
+	}
+
+	.contribution-placeholder {
+		@extend %o-card;
+		--theme-surface-radius: 0;
+		inline-size: 100%;
+		margin-block-start: var(--theme-space-12);
+		padding: 0;
+
+		> img {
+			display: block;
+			inline-size: 100%;
+			block-size: auto;
+		}
+	}
+}

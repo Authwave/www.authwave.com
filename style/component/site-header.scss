@@ -1,0 +1,89 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+.site-header {
+	@extend %o-panel;
+	--theme-surface-radius: 0;
+	--authwave-site-name-size: 2.25rem;
+	--authwave-logo-colour: blue;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--theme-space-1);
+	padding: var(--authwave-header-inset);
+	border: 0;
+	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
+
+	@media (min-width: 22rem) {
+		gap: var(--theme-space-6);
+	}
+
+	.site-name {
+		@extend %d-typography-heading;
+		display: inline-flex;
+		align-items: center;
+		flex: 0 0 auto;
+		gap: var(--theme-space-2);
+		font-size: var(--authwave-site-name-size);
+		font-weight: 600;
+		line-height: 1;
+		text-decoration: none;
+
+		&::before {
+			content: "";
+			flex: 0 0 auto;
+			inline-size: 1.25em;
+			block-size: 1.25em;
+			background: var(--authwave-logo-colour);
+			mask: url("/asset/logo.svg") center / contain no-repeat;
+			margin-right: -0.15em;
+		}
+	}
+
+	.site-menu-button {
+		@extend %o-button;
+		flex: 0 0 auto;
+		font-family: var(--theme-font-body);
+	}
+
+	.site-menu-popover {
+		@extend %o-popover;
+		@extend %p-navigation;
+		--theme-popover-width: 12rem;
+
+		> ul {
+			flex-direction: column;
+		}
+
+		@supports selector(:popover-open) {
+			// Keep the native top-layer surface below the header and to the right.
+			inset-block-start: calc(
+				2 * var(--authwave-header-inset) +
+				max(2.75rem, var(--authwave-site-name-size)) +
+				var(--theme-space-4)
+			);
+			inset-inline-end: var(--authwave-header-inset);
+			inset-block-end: auto;
+			inset-inline-start: auto;
+			margin: 0;
+			max-block-size: calc(100dvh - 12rem);
+		}
+	}
+
+	.site-desktop-navigation {
+		@extend %p-navigation;
+		display: none;
+	}
+
+	@media (min-width: flair.$break-shell) {
+		// Separate in-flow links keep desktop navigation visible even when a
+		// mobile popover was left open before resizing.
+		.site-menu-button,
+		.site-menu-popover {
+			display: none;
+		}
+
+		.site-desktop-navigation {
+			display: block;
+		}
+	}
+}

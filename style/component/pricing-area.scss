@@ -1,0 +1,100 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../pattern/section-frame";
+@use "../object/get-started";
+
+.pricing-area {
+	padding-block-start: var(--authwave-section-block-space);
+
+	> .section-box {
+		@extend %p-section-frame;
+		@extend %p-stack;
+		--theme-stack-gap: var(--theme-space-12);
+	}
+
+	.pricing-panels {
+		@extend %l-grid;
+		--theme-grid-min: 24rem;
+		--theme-grid-gap: var(--authwave-section-inset);
+		margin-inline: calc(-1 * var(--authwave-section-inset));
+	}
+
+	.pricing-panel {
+		@extend %d-highlight;
+		display: flex;
+		flex-direction: column;
+		gap: var(--theme-space-6);
+		padding: var(--authwave-section-inset);
+		font-family: var(--theme-font-body);
+	}
+
+	.pricing-panel-header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		gap: var(--theme-space-3);
+
+		> h3 {
+			margin: 0;
+			font-family: var(--theme-font-body);
+			font-size: 1.75rem;
+			font-weight: 400;
+		}
+	}
+
+	.pricing-badge {
+		@extend %o-badge;
+		margin-inline-start: auto;
+		text-transform: uppercase;
+	}
+
+	.pricing-panel-summary {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: var(--theme-space-4);
+	}
+
+	.pricing-price {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: var(--theme-space-1);
+		margin: 0;
+
+		> span {
+			font-size: clamp(2rem, 8cqi, 4.5rem);
+			line-height: 1.1;
+		}
+
+		> small {
+			font-size: 0.875rem;
+		}
+	}
+
+	.pricing-descriptor {
+		flex: 1 1 8rem;
+		min-inline-size: min(100%, 8rem);
+		margin: 0;
+		margin-inline-start: auto;
+		text-align: end;
+	}
+
+	.pricing-action {
+		@extend %o-get-started;
+		align-self: flex-start;
+		margin-block-start: 0;
+	}
+
+	.pricing-includes {
+		margin: 0;
+	}
+
+	.pricing-checklist {
+		@extend %p-checklist;
+
+		.checklist-marker {
+			border: var(--theme-border-width) solid var(--theme-color-border);
+		}
+	}
+}

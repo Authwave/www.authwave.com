@@ -1,13 +1,30 @@
 @use "../node_modules/flair/style/lib/flair";
+@use "../node_modules/flair/style/lib/theme/base" as theme;
 @use "font/inter";
 @use "font/morion";
 
 @use "component/interactive-logo";
+@use "component/site-header";
+@use "component/hero-area";
+@use "component/introduction-area";
+@use "component/audience-area";
+@use "component/features-area";
+@use "component/contribution-area";
+@use "component/pricing-area";
+@use "component/site-footer";
+@use "variable/space";
 
 :root {
+	@include theme.base;
+	@include space.space;
 	--theme-font-heading: "Morion", serif;
 	--theme-font-body: "Inter", sans-serif;
 }
 
 @include flair.init;
 @include flair.typography;
+
+body {
+	@extend %d-typography;
+	background: var(--theme-color-surface);
+}

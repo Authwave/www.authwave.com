@@ -1,0 +1,110 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../pattern/section-frame";
+@use "../object/get-started";
+
+.audience-area {
+	padding-block-start: var(--authwave-section-block-space);
+
+	> .section-box {
+		@extend %p-section-frame;
+		@extend %p-stack;
+		--theme-stack-gap: 0;
+		align-items: flex-start;
+
+		> .audience-action {
+			@extend %o-get-started;
+		}
+
+		> .audience-panels {
+			@extend %p-stack;
+			--theme-stack-gap: var(--authwave-audience-panel-gap);
+			inline-size: 100%;
+			margin-block-start: var(--authwave-section-block-space);
+		}
+	}
+
+	.audience-panel {
+		@extend %o-disclosure;
+		--theme-font-heading: var(--theme-font-body);
+		--theme-surface-radius: 0;
+		--theme-disclosure-hover-background: var(--theme-color-surface);
+		position: relative;
+
+		> summary {
+			position: relative;
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) 2.75rem;
+			grid-template-rows: auto 1fr auto;
+			gap: var(--theme-space-2);
+			min-block-size: clamp(32rem, 80vw, 40rem);
+			padding: var(--authwave-section-inset);
+			list-style: none;
+			font-family: var(--theme-font-body);
+
+			&::-webkit-details-marker {
+				display: none;
+			}
+
+			> .audience-subheading {
+				grid-column: 1 / -1;
+				grid-row: 1;
+				font-size: 1rem;
+				font-weight: 400;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+
+			> h3 {
+				grid-column: 1;
+				grid-row: 3;
+				align-self: end;
+				margin: 0;
+				font-family: var(--theme-font-body);
+				font-size: clamp(1.5rem, 6vw, 2.5rem);
+				font-weight: 400;
+				line-height: 1.2;
+			}
+
+			> .audience-toggle {
+				@extend %o-button;
+				grid-column: 2;
+				grid-row: 3;
+				align-self: end;
+				position: relative;
+				z-index: 2;
+				padding: 0;
+				font-size: 1.5rem;
+
+				&::before {
+					content: "+";
+				}
+			}
+
+		}
+
+		> .disclosure-content {
+			@extend %d-surface;
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+			border: 0;
+			padding: var(--authwave-section-inset);
+			padding-block-end: calc(var(--authwave-section-inset) + 2.75rem + var(--theme-space-4));
+			font-family: var(--theme-font-body);
+			// Let clicks anywhere on the overlay reach the native summary below.
+			pointer-events: none;
+
+			> p {
+				margin: 0;
+			}
+		}
+
+		&[open] > summary {
+			border-block-end: 0;
+
+			> .audience-toggle::before {
+				content: "−";
+			}
+		}
+	}
+}

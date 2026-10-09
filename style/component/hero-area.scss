@@ -1,0 +1,51 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../object/get-started";
+
+.hero-area {
+	@extend %p-stack;
+	--theme-stack-gap: 0;
+	align-items: center;
+	// Extra height belongs above the content, keeping its bottom inset fixed.
+	justify-content: flex-end;
+	text-align: center;
+	min-block-size: min(112.375rem, 214.047619vw);
+	padding-block: clamp(4rem, 12vw, 7rem) var(--authwave-hero-bottom-space);
+	padding-inline: var(--authwave-hero-inset);
+	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
+
+	> h1 {
+		font-size: clamp(3rem, 14vw, 6.5rem);
+		font-weight: 400;
+		line-height: 1.1;
+
+		> span {
+			display: block;
+		}
+	}
+
+	> .hero-tagline {
+		max-inline-size: 26ch;
+		margin-block-start: var(--theme-space-6);
+		font-size: clamp(1rem, 3.5vw, 2rem);
+	}
+
+	> .hero-action {
+		@extend %o-get-started;
+	}
+
+	> .hero-placeholder {
+		@extend %o-card;
+		--theme-surface-radius: 0;
+		inline-size: 100%;
+		aspect-ratio: 618 / 692;
+		margin-block-start: var(--authwave-hero-art-space);
+		padding: 0;
+		background: var(--theme-color-surface-disabled);
+	}
+
+	@media (min-width: flair.$break-shell) {
+		> h1 > span {
+			display: inline;
+		}
+	}
+}

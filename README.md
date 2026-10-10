@@ -23,14 +23,22 @@ including when resizing with the mobile popover open.
 
 The hero uses Flair's stack, button and card definitions. Its heading, tagline,
 CTA and illustration placeholder are centred. `style/variable/space.scss`
-contains the fluid spacing based on the 840px reference: 42px header padding,
+contains the full-size fluid spacing based on the 840px reference: 42px header padding,
 204px between the CTA and illustration, and a section spacing capped at 256px.
 The hero bottom padding and Introduction top padding share that spacing.
 Introduction, audience and Features use the shared frame in `style/pattern/section-frame.scss`,
-with 2.5rem (40px) outside and inside horizontal spacing. The hero retains its own
+with 2.5rem (40px) outside and inside horizontal spacing at full size. The hero retains its own
 fluid horizontal inset, capped at 76px. Its placeholder keeps the 618:692 aspect ratio. Smaller
 screens reduce the spacing; content can expand the section on wider screens.
 The Get started button has no action attached yet.
+
+`style/variable/size.scss` defines a fluid sizing unit, growing from 0.5rem at
+20rem (320px) to 1rem at 37.5rem (600px). Shared spacing, icons and large
+typography follow this unit. Its `fluid()` function interpolates individual
+sizes such as panel heights and pricing numbers between the same widths.
+Section insets grow smoothly from 20px to 40px. Body copy stays at least 16px
+and buttons at least 44px tall. The existing wider layout is retained from
+600px upwards, with no sudden size changes at that breakpoint.
 
 Introduction uses Flair's accordion pattern and native `details` elements with
 a shared name, so only one item opens at a time without JavaScript. Each summary

@@ -1,5 +1,6 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../object/get-started";
+@use "../variable/size";
 
 .site-footer {
 	padding-block: var(--authwave-section-block-space) var(--authwave-section-gutter);
@@ -17,7 +18,7 @@
 	.footer-intro > h2 {
 		margin: 0;
 		font-family: var(--theme-font-body);
-		font-size: 2rem;
+		font-size: calc(2 * var(--authwave-size-unit));
 		font-weight: 400;
 	}
 
@@ -81,9 +82,13 @@
 	.footer-name {
 		min-inline-size: 0;
 		font-family: var(--theme-font-heading);
-		font-size: clamp(1.5rem, 17cqi, 16rem);
+		font-size: size.fluid(2.78rem, 5.50375rem);
 		font-weight: 600;
 		line-height: 1;
+
+		@media (min-width: size.$reference) {
+			font-size: clamp(1.5rem, 17cqi, 16rem);
+		}
 	}
 
 	.footer-bottom {

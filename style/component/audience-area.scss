@@ -1,6 +1,7 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../pattern/section-frame";
 @use "../object/get-started";
+@use "../variable/size";
 
 .audience-area {
 	padding-block-start: var(--authwave-section-block-space);
@@ -36,10 +37,14 @@
 			grid-template-columns: minmax(0, 1fr) 2.75rem;
 			grid-template-rows: auto 1fr auto;
 			gap: var(--theme-space-2);
-			min-block-size: clamp(32rem, 80vw, 40rem);
+			min-block-size: size.fluid(16rem, 32rem);
 			padding: var(--authwave-section-inset);
 			list-style: none;
 			font-family: var(--theme-font-body);
+
+			@media (min-width: size.$reference) {
+				min-block-size: clamp(32rem, 80vw, 40rem);
+			}
 
 			&::-webkit-details-marker {
 				display: none;
@@ -48,7 +53,7 @@
 			> .audience-subheading {
 				grid-column: 1 / -1;
 				grid-row: 1;
-				font-size: 1rem;
+				font-size: max(0.75rem, calc(1 * var(--authwave-size-unit)));
 				font-weight: 400;
 				letter-spacing: 0.08em;
 				text-transform: uppercase;
@@ -60,9 +65,13 @@
 				align-self: end;
 				margin: 0;
 				font-family: var(--theme-font-body);
-				font-size: clamp(1.5rem, 6vw, 2.5rem);
+				font-size: size.fluid(1.25rem, 2.25rem);
 				font-weight: 400;
 				line-height: 1.2;
+
+				@media (min-width: size.$reference) {
+					font-size: clamp(1.5rem, 6vw, 2.5rem);
+				}
 			}
 
 			> .audience-toggle {

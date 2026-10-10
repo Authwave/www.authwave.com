@@ -1,6 +1,7 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../pattern/section-frame";
 @use "../object/get-started";
+@use "../variable/size";
 
 .pricing-area {
 	padding-block-start: var(--authwave-section-block-space);
@@ -36,7 +37,7 @@
 		> h3 {
 			margin: 0;
 			font-family: var(--theme-font-body);
-			font-size: 1.75rem;
+			font-size: max(1rem, calc(1.75 * var(--authwave-size-unit)));
 			font-weight: 400;
 		}
 	}
@@ -63,8 +64,12 @@
 		margin: 0;
 
 		> span {
-			font-size: clamp(2rem, 8cqi, 4.5rem);
+			font-size: size.fluid(2.25rem, 2.19rem);
 			line-height: 1.1;
+
+			@media (min-width: size.$reference) {
+				font-size: clamp(2rem, 8cqi, 4.5rem);
+			}
 		}
 
 		> small {

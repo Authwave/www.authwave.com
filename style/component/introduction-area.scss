@@ -1,5 +1,6 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../pattern/section-frame";
+@use "../variable/size";
 
 .introduction-area {
 	padding-block-start: var(--authwave-section-block-space);
@@ -13,6 +14,7 @@
 	.introduction-concertina {
 		@extend %p-accordion;
 		--theme-accordion-gap: 0;
+		--introduction-toggle-duration: 250ms;
 
 		> details {
 			position: relative;
@@ -34,12 +36,12 @@
 				@extend %d-highlight;
 				display: inline-block;
 				max-inline-size: 100%;
-				margin-block-start: 4rem;
-				margin-block-end: 4rem;
+				margin-block-start: calc(4 * var(--authwave-size-unit));
+				margin-block-end: calc(4 * var(--authwave-size-unit));
 				padding: var(--theme-space-1) var(--theme-space-6);
 				list-style: none;
 				font-family: var(--theme-font-heading);
-				font-size: 1.75rem;
+				font-size: max(1rem, calc(1.75 * var(--authwave-size-unit)));
 				font-weight: 400;
 
 				&::-webkit-details-marker {
@@ -48,18 +50,92 @@
 			}
 
 			&[open]>summary {
-				margin-block-end: 2rem;
+				margin-block-end: calc(2 * var(--authwave-size-unit));
 			}
 
 			> .disclosure-content {
-				padding: var(--theme-space-4) 0 2rem;
+				padding: var(--theme-space-4) 0 0;
 
 				> p {
 					margin: 0;
-					font-size: 1.5rem;
+					font-size: max(1rem, calc(1.5 * var(--authwave-size-unit)));
 					max-width: 28ch;
+				}
+
+				> .introduction-illustration {
+					display: block;
+					// Break out of both the text inset and the section's outer gutter.
+					inline-size: 100vw;
+					max-inline-size: none;
+					block-size: auto;
+					margin-block-start: calc(4 * var(--authwave-size-unit));
+					margin-inline: calc(50% - 50vw);
+
+					// Keep the 600px reference edge-to-edge; inset on wider screens.
+					@media (min-width: size.$reference + 0.0625rem) {
+						inline-size: calc(100% + 2 * var(--authwave-section-inset));
+						margin-inline: calc(-1 * var(--authwave-section-inset));
+					}
 				}
 			}
 		}
+
+		@media (prefers-reduced-motion: no-preference) {
+			> details[open] > summary {
+				// A small overshoot lifts the whole highlight, including its corners.
+				animation: introduction-summary-bounce
+					calc(2 * var(--introduction-toggle-duration))
+					cubic-bezier(0.34, 1.56, 0.64, 1);
+			}
+		}
+
+		@supports selector(details::details-content) and (transition-behavior: allow-discrete) {
+			@media (prefers-reduced-motion: no-preference) {
+				> details::details-content {
+					display: grid;
+					grid-template-rows: 0fr;
+					// Clip vertically without cutting off the full-width illustrations.
+					margin-inline: calc(50% - 50vw);
+					padding-inline: calc(50vw - 50%);
+					overflow: clip;
+					transition:
+						grid-template-rows var(--introduction-toggle-duration) ease,
+						content-visibility var(--introduction-toggle-duration) allow-discrete;
+				}
+
+				> details[open]::details-content {
+					grid-template-rows: 1fr;
+					// Finish collapsing the previous item before expanding this one.
+					transition-delay: var(--introduction-toggle-duration), 0s;
+				}
+
+				> details > summary {
+					transition: margin-block-end var(--introduction-toggle-duration) ease;
+				}
+
+				> details[open] > summary {
+					transition-delay: var(--introduction-toggle-duration);
+				}
+
+				> details > .disclosure-content {
+					min-block-size: 0;
+					padding-block-start: 0;
+
+					> p {
+						padding-block-start: var(--theme-space-4);
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes introduction-summary-bounce {
+	0%, 100% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.025);
 	}
 }

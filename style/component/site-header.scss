@@ -3,7 +3,7 @@
 .site-header {
 	@extend %o-panel;
 	--theme-surface-radius: 0;
-	--authwave-site-name-size: 2.25rem;
+	--authwave-site-name-size: calc(2.25 * var(--authwave-size-unit));
 	--authwave-logo-colour: blue;
 	display: flex;
 	align-items: center;

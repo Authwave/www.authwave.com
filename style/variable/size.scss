@@ -1,0 +1,15 @@
+@use "sass:math";
+
+// Grow smoothly between the small-screen and reference widths.
+$minimum: 20rem;
+$reference: 37.5rem;
+
+@function fluid($small, $large) {
+	$slope: math.div($large - $small, $reference - $minimum);
+	@return clamp(#{math.min($small, $large)}, calc(#{$small} + (100vw - #{$minimum}) * #{$slope}), #{math.max($small, $large)});
+}
+
+@mixin size {
+	// A length-based unit allows portable CSS arithmetic: 8px → 16px.
+	--authwave-size-unit: #{fluid(0.5rem, 1rem)};
+}

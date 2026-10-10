@@ -1,5 +1,6 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../object/get-started";
+@use "../variable/size";
 
 .hero-area {
 	@extend %p-stack;
@@ -8,15 +9,23 @@
 	// Extra height belongs above the content, keeping its bottom inset fixed.
 	justify-content: flex-end;
 	text-align: center;
-	min-block-size: min(112.375rem, 214.047619vw);
-	padding-block: clamp(4rem, 12vw, 7rem) var(--authwave-hero-bottom-space);
+	min-block-size: size.fluid(21.4047619rem, 80.2678571rem);
+	padding-block: var(--authwave-hero-top-space) var(--authwave-hero-bottom-space);
 	padding-inline: var(--authwave-hero-inset);
 	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
 
+	@media (min-width: size.$reference) {
+		min-block-size: min(112.375rem, 214.047619vw);
+	}
+
 	> h1 {
-		font-size: clamp(3rem, 14vw, 6.5rem);
+		font-size: size.fluid(3.25rem, 5.25rem);
 		font-weight: 400;
 		line-height: 1.1;
+
+		@media (min-width: size.$reference) {
+			font-size: clamp(3rem, 14vw, 6.5rem);
+		}
 
 		> span {
 			display: block;
@@ -26,7 +35,11 @@
 	> .hero-tagline {
 		max-inline-size: 26ch;
 		margin-block-start: var(--theme-space-6);
-		font-size: clamp(1rem, 3.5vw, 2rem);
+		font-size: size.fluid(1rem, 1.3125rem);
+
+		@media (min-width: size.$reference) {
+			font-size: clamp(1rem, 3.5vw, 2rem);
+		}
 	}
 
 	> .hero-action {

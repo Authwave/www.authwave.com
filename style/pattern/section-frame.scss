@@ -11,7 +11,7 @@
 
 	> h2 {
 		margin-block: 0;
-		font-size: 3.75rem;
+		font-size: calc(3.75 * var(--authwave-size-unit));
 		font-weight: 400;
 	}
 }

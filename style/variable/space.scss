@@ -1,12 +1,23 @@
-// Proportions from the 840px mobile reference, capped in rem on larger screens.
-// Header and vertical spacing stay fluid; section gutters and insets are shared.
+@use "size";
+
+// Interpolate the existing 320px and 600px spacing, then retain the wider layout.
 @mixin space {
-	--authwave-header-inset: clamp(1.25rem, 5vw, 2.625rem);
-	--authwave-hero-inset: clamp(1.5rem, 9.047619vw, 4.75rem);
-	--authwave-section-gutter: 2.5rem;
-	--authwave-section-inset: 2.5rem;
-	--authwave-hero-art-space: clamp(4rem, 24.285714vw, 12.75rem);
-	--authwave-hero-bottom-space: clamp(5rem, 30.476190vw, 16rem);
+	--theme-space-unit: calc(0.25 * var(--authwave-size-unit));
+	--authwave-header-inset: #{size.fluid(0.625rem, 1.875rem)};
+	--authwave-hero-inset: #{size.fluid(0.9047619rem, 3.3928571rem)};
+	--authwave-section-gutter: calc(2.5 * var(--authwave-size-unit));
+	--authwave-section-inset: calc(2.5 * var(--authwave-size-unit));
+	--authwave-hero-top-space: #{size.fluid(2rem, 4.5rem)};
+	--authwave-hero-art-space: #{size.fluid(2.4285714rem, 9.1071429rem)};
+	--authwave-hero-bottom-space: #{size.fluid(3.047619rem, 11.4285714rem)};
 	--authwave-section-block-space: var(--authwave-hero-bottom-space);
-	--authwave-audience-panel-gap: 6rem;
+	--authwave-audience-panel-gap: calc(6 * var(--authwave-size-unit));
+
+	@media (min-width: size.$reference) {
+		--authwave-header-inset: clamp(1.25rem, 5vw, 2.625rem);
+		--authwave-hero-inset: clamp(1.5rem, 9.047619vw, 4.75rem);
+		--authwave-hero-top-space: clamp(4rem, 12vw, 7rem);
+		--authwave-hero-art-space: clamp(4rem, 24.285714vw, 12.75rem);
+		--authwave-hero-bottom-space: clamp(5rem, 30.476190vw, 16rem);
+	}
 }

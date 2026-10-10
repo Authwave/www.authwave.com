@@ -14,14 +14,20 @@
 @use "component/pricing-area";
 @use "component/site-footer";
 @use "variable/space";
+@use "variable/size";
 
 :root {
 	@include theme.base;
-	@include space.space;
 	&[data-flair-theme="awpixel"] {
 		@include awpixel.awpixel;
 	}
+}
 
+// Project sizing applies after the selected theme's default tokens.
+:root,
+:root[data-flair-theme="awpixel"] {
+	@include size.size;
+	@include space.space;
 	--theme-font-heading: "Morion", serif;
 	--theme-font-body: "Inter", sans-serif;
 }

@@ -1,5 +1,6 @@
 @use "sass:list";
 @use "../../node_modules/flair/style/lib/theme/base";
+@use "../variable/size";
 
 // Local Authwave theme. Component files continue to define the base layout.
 @mixin dark-block {
@@ -43,7 +44,7 @@
 	--pal-9: #a33118;
 	--theme-font-heading: "Morion", serif;
 	--theme-font-body: "Inter", sans-serif;
-	--theme-highlight-marker-size: 0.5rem;
+	--theme-highlight-marker-size: calc(0.5 * var(--authwave-size-unit));
 	--theme-focus-color: #275f89;
 	--theme-button-background: var(--aw-ink);
 	--theme-button-background-hover: #443e3d;
@@ -52,7 +53,8 @@
 	--theme-button-border: transparent;
 	--theme-button-border-hover: transparent;
 	--theme-button-radius: 999rem;
-	--theme-button-min-height: 3rem;
+	--theme-button-font-size: #{size.fluid(1rem, 1.5rem)};
+	--theme-button-min-height: max(2.75rem, calc(3.75 * var(--authwave-size-unit)));
 	--theme-button-padding-block: var(--theme-space-3);
 	--theme-button-padding-inline: var(--theme-space-6);
 	--theme-button-weight: 500;
@@ -76,6 +78,10 @@
 
 	.hero-tagline,
 	.contribution-area > .section-box > p {
+		color: var(--theme-color-muted);
+	}
+
+	.introduction-concertina > details > .disclosure-content {
 		color: var(--theme-color-muted);
 	}
 
@@ -119,9 +125,9 @@
 			display: grid;
 			place-items: center;
 			align-self: center;
-			flex: 0 0 3rem;
-			inline-size: 3rem;
-			block-size: 3rem;
+			flex: 0 0 var(--theme-button-min-height);
+			inline-size: var(--theme-button-min-height);
+			block-size: var(--theme-button-min-height);
 			border-radius: 0.125rem;
 			background: var(--aw-action-colour);
 			font-size: 1.5rem;

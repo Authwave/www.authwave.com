@@ -1,5 +1,6 @@
 @use "../node_modules/flair/style/lib/flair";
 @use "../node_modules/flair/style/lib/theme/base" as theme;
+@use "theme/awpixel";
 @use "font/inter";
 @use "font/morion";
 
@@ -17,6 +18,10 @@
 :root {
 	@include theme.base;
 	@include space.space;
+	&[data-flair-theme="awpixel"] {
+		@include awpixel.awpixel;
+	}
+
 	--theme-font-heading: "Morion", serif;
 	--theme-font-body: "Inter", sans-serif;
 }

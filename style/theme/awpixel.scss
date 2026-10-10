@@ -1,0 +1,244 @@
+@use "sass:list";
+@use "../../node_modules/flair/style/lib/theme/base";
+
+// Local Authwave theme. Component files continue to define the base layout.
+@mixin dark-block {
+	--theme-color-text: var(--aw-white);
+	--theme-color-heading: var(--aw-white);
+	--theme-color-muted: #cbc8c7;
+	--theme-color-surface: var(--aw-ink);
+	--theme-color-surface-disabled: #443e3d;
+	--theme-color-border: #443e3d;
+	--theme-nav-hover-background: #443e3d;
+	--theme-focus-color: var(--aw-blue);
+	--theme-focus-outline: var(--theme-focus-width) solid var(--aw-blue);
+	background: var(--aw-ink);
+	color: var(--aw-white);
+}
+
+@mixin awpixel {
+	@include base.base;
+	// The reference deliberately alternates light and dark sections.
+	color-scheme: light;
+	--aw-ink: #2b2524;
+	--aw-white: #fff;
+	--aw-cream: #f2ede3;
+	--aw-blue: #75bbf0;
+	--aw-blue-soft: #d6ebfb;
+	--aw-pink: #ec89f8;
+	--aw-pink-soft: #f9dcfd;
+	--aw-lime: #d7fd9a;
+	--aw-lime-soft: #f3fee1;
+	--aw-coral: #ff805f;
+	--aw-coral-soft: #fddacf;
+
+	--pal-1: var(--aw-ink);
+	--pal-2: var(--aw-white);
+	--pal-3: #f6f6f6;
+	--pal-4: #eae9e9;
+	--pal-5: #555150;
+	--pal-6: #275f89;
+	--pal-7: var(--aw-white);
+	--pal-8: #42671b;
+	--pal-9: #a33118;
+	--theme-font-heading: "Morion", serif;
+	--theme-font-body: "Inter", sans-serif;
+	--theme-highlight-marker-size: 0.5rem;
+	--theme-focus-color: #275f89;
+	--theme-button-background: var(--aw-ink);
+	--theme-button-background-hover: #443e3d;
+	--theme-button-background-active: #201d1c;
+	--theme-button-text: var(--aw-white);
+	--theme-button-border: transparent;
+	--theme-button-border-hover: transparent;
+	--theme-button-radius: 999rem;
+	--theme-button-min-height: 3rem;
+	--theme-button-padding-block: var(--theme-space-3);
+	--theme-button-padding-inline: var(--theme-space-6);
+	--theme-button-weight: 500;
+	--theme-badge-border: transparent;
+	--theme-badge-radius: 0.125rem;
+	--theme-badge-background: #f6f6f6;
+	--theme-badge-text: var(--aw-ink);
+
+	.site-header,
+	.hero-area,
+	.audience-area,
+	.contribution-area {
+		@include dark-block;
+	}
+
+	// Theme the containing surfaces without changing their layout or insets.
+	:is(.introduction-area, .audience-area, .features-area, .contribution-area, .pricing-area) > .section-box {
+		background: transparent;
+		border-color: transparent;
+	}
+
+	.hero-tagline,
+	.contribution-area > .section-box > p {
+		color: var(--theme-color-muted);
+	}
+
+	.site-header {
+		--authwave-logo-colour: var(--aw-pink);
+
+		.site-menu-button {
+			--theme-button-padding-inline: var(--theme-space-2);
+			--theme-button-background: var(--aw-blue);
+			--theme-button-background-hover: var(--aw-blue-soft);
+			--theme-button-background-active: var(--aw-blue-soft);
+			--theme-button-text: var(--aw-ink);
+		}
+	}
+
+	// A light pill and coloured square share one native button and focus area.
+	.hero-action,
+	.audience-action,
+	.features-action,
+	.contribution-action {
+		--aw-action-colour: var(--aw-blue);
+		--theme-button-background: transparent;
+		--theme-button-background-hover: transparent;
+		--theme-button-background-active: transparent;
+		--theme-button-text: var(--aw-ink);
+		--theme-button-radius: 0;
+		padding: 0;
+		gap: var(--theme-space-1);
+
+		> .action-label {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			align-self: stretch;
+			padding: var(--theme-button-padding-block) var(--theme-button-padding-inline);
+			border-radius: 999rem;
+			background: var(--aw-cream);
+		}
+
+		> .action-icon {
+			display: grid;
+			place-items: center;
+			align-self: center;
+			flex: 0 0 3rem;
+			inline-size: 3rem;
+			block-size: 3rem;
+			border-radius: 0.125rem;
+			background: var(--aw-action-colour);
+			font-size: 1.5rem;
+		}
+
+		&:hover > .action-label {
+			background: color-mix(in srgb, var(--aw-cream), var(--aw-ink) 8%);
+		}
+
+		&:hover > .action-icon {
+			background: color-mix(in srgb, var(--aw-action-colour), var(--aw-white) 20%);
+		}
+
+		&:active > .action-label {
+			background: color-mix(in srgb, var(--aw-cream), var(--aw-ink) 15%);
+		}
+	}
+
+	.audience-action {
+		--aw-action-colour: var(--aw-coral);
+	}
+
+	.footer-action {
+		--theme-button-background: var(--aw-cream);
+		--theme-button-background-hover: color-mix(in srgb, var(--aw-cream), var(--aw-ink) 8%);
+		--theme-button-background-active: color-mix(in srgb, var(--aw-cream), var(--aw-ink) 15%);
+		--theme-button-text: var(--aw-ink);
+	}
+
+	$introduction-colours: (
+		1: (var(--aw-pink), var(--aw-pink-soft)),
+		2: (var(--aw-coral), var(--aw-coral-soft)),
+		3: (var(--aw-blue), var(--aw-blue-soft)),
+		4: (var(--aw-lime), var(--aw-lime-soft))
+	);
+	@each $item, $colours in $introduction-colours {
+		.introduction-concertina > details:nth-child(#{$item}) > summary {
+			--aw-highlight-colour: #{list.nth($colours, 1)};
+			--theme-highlight-border-color: #{list.nth($colours, 2)};
+			background: #{list.nth($colours, 2)};
+
+			&::before {
+				color: var(--aw-highlight-colour);
+			}
+		}
+	}
+
+	.audience-panel {
+		--theme-color-text: var(--aw-ink);
+		--theme-color-heading: var(--aw-ink);
+		--theme-color-border: transparent;
+		--theme-color-surface: var(--aw-panel-colour);
+		--theme-disclosure-hover-background: var(--aw-panel-colour);
+		--theme-button-radius: 0.125rem;
+		--theme-button-min-height: 2.75rem;
+		--theme-button-background: var(--aw-ink);
+		--theme-button-text: var(--aw-white);
+		background: var(--aw-panel-colour);
+		color: var(--aw-ink);
+
+		&:nth-child(1) { --aw-panel-colour: var(--aw-pink); }
+		&:nth-child(2) { --aw-panel-colour: var(--aw-lime); }
+		&:nth-child(3) { --aw-panel-colour: var(--aw-blue); }
+
+		> .disclosure-content {
+			background: var(--aw-panel-colour);
+		}
+	}
+
+	.pricing-panel {
+		background: var(--aw-white);
+		--theme-highlight-border-color: var(--theme-color-border);
+
+		&:nth-child(2) {
+			background: var(--aw-blue-soft);
+			--aw-unavailable-background: var(--aw-white);
+			--theme-badge-background: var(--aw-blue);
+			--theme-button-background: var(--aw-white);
+			--theme-button-background-hover: var(--aw-cream);
+			--theme-button-background-active: var(--aw-cream);
+			--theme-button-text: var(--aw-ink);
+		}
+
+		&:nth-child(3) {
+			background: var(--aw-pink-soft);
+			--aw-unavailable-background: var(--aw-white);
+			--theme-badge-background: var(--aw-pink);
+		}
+
+		.pricing-action {
+			align-self: stretch;
+		}
+	}
+
+	.pricing-checklist {
+		.checklist-marker {
+			border-color: transparent;
+			border-radius: 0.125rem;
+		}
+
+		[data-available="false"] .checklist-marker {
+			background: var(--aw-unavailable-background, #f6f6f6);
+		}
+	}
+
+	.site-footer {
+		--interactive-logo-colour: var(--aw-coral);
+		// `none` cannot be combined with the logo's SVG filter in a filter list.
+		--interactive-logo-shadow: drop-shadow(0 0 0 transparent);
+
+		.footer-navigation {
+			color: var(--theme-color-muted);
+			--theme-nav-text: var(--theme-color-muted);
+		}
+	}
+
+	.feature-fallback > a {
+		--theme-button-radius: 0.125rem;
+	}
+}

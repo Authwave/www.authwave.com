@@ -5,4 +5,12 @@
 	@extend %o-button;
 	margin-block-start: var(--theme-space-8);
 	font-family: var(--theme-font-body);
+
+	> .action-label {
+		display: contents;
+	}
+
+	> .action-icon {
+		display: none;
+	}
 }

@@ -103,13 +103,17 @@
 	.features-action,
 	.contribution-action {
 		--aw-action-colour: var(--aw-blue);
+		--aw-action-colour-hover: var(--aw-coral);
+		--aw-action-icon-size: calc(0.9 * var(--theme-button-min-height));
+		--aw-action-pill-radius: calc(0.5 * var(--theme-button-min-height));
+		--aw-action-square-radius: 0.125rem;
 		--theme-button-background: transparent;
 		--theme-button-background-hover: transparent;
 		--theme-button-background-active: transparent;
 		--theme-button-text: var(--aw-ink);
 		--theme-button-radius: 0;
 		padding: 0;
-		gap: var(--theme-space-1);
+		gap: 0;
 
 		> .action-label {
 			display: inline-flex;
@@ -117,28 +121,49 @@
 			justify-content: center;
 			align-self: stretch;
 			padding: var(--theme-button-padding-block) var(--theme-button-padding-inline);
-			border-radius: 999rem;
+			// A finite radius interpolates smoothly instead of remaining clamped.
+			border-radius: var(--aw-action-pill-radius);
 			background: var(--aw-cream);
 		}
 
 		> .action-icon {
+			--theme-icon-size: 1.5rem;
 			display: grid;
 			place-items: center;
 			align-self: center;
-			flex: 0 0 var(--theme-button-min-height);
-			inline-size: var(--theme-button-min-height);
-			block-size: var(--theme-button-min-height);
-			border-radius: 0.125rem;
+			flex: 0 0 var(--aw-action-icon-size);
+			inline-size: var(--aw-action-icon-size);
+			block-size: var(--aw-action-icon-size);
+			border-radius: var(--aw-action-square-radius);
 			background: var(--aw-action-colour);
-			font-size: 1.5rem;
 		}
 
-		&:hover > .action-label {
+		&:is(:hover, :focus) > .action-label {
+			border-radius: var(--aw-action-square-radius);
 			background: color-mix(in srgb, var(--aw-cream), var(--aw-ink) 8%);
 		}
 
-		&:hover > .action-icon {
-			background: color-mix(in srgb, var(--aw-action-colour), var(--aw-white) 20%);
+		&:is(:hover, :focus) > .action-icon {
+			border-radius: var(--aw-action-pill-radius);
+			background: var(--aw-action-colour-hover);
+		}
+
+		@media (prefers-reduced-motion: no-preference) {
+			> .action-label,
+			> .action-icon {
+				transition:
+					border-radius 240ms ease,
+					background-color 240ms ease,
+					scale 240ms ease;
+			}
+
+			&:is(:hover, :focus) > .action-icon {
+				//animation: awpixel-action-icon-bounce 360ms cubic-bezier(0.34, 1.56, 0.64, 1);
+			}
+			&:is(:active) > .action-icon {
+				scale: 0.75;
+				transition: none;
+			}
 		}
 
 		&:active > .action-label {
@@ -148,6 +173,7 @@
 
 	.audience-action {
 		--aw-action-colour: var(--aw-coral);
+		--aw-action-colour-hover: var(--aw-blue);
 	}
 
 	.footer-action {

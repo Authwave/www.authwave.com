@@ -5,6 +5,7 @@
 	--theme-surface-radius: 0;
 	--authwave-site-name-size: calc(2.25 * var(--authwave-size-unit));
 	--authwave-logo-colour: blue;
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -69,21 +70,30 @@
 		}
 	}
 
-	.site-desktop-navigation {
-		@extend %p-navigation;
-		display: none;
-	}
-
 	@media (min-width: flair.$break-shell) {
-		// Separate in-flow links keep desktop navigation visible even when a
-		// mobile popover was left open before resizing.
-		.site-menu-button,
-		.site-menu-popover {
+		.site-menu-button {
 			display: none;
 		}
 
-		.site-desktop-navigation {
+		.site-menu-popover {
 			display: block;
+			// These offsets also work if a mobile popover is still in the top layer.
+			position: absolute;
+			inset-block-start: var(--authwave-header-inset);
+			inset-inline-end: var(--authwave-header-inset);
+			inset-block-end: auto;
+			inset-inline-start: auto;
+			inline-size: auto;
+			max-block-size: none;
+			margin: 0;
+			padding: 0;
+			border: 0;
+			background: transparent;
+			overflow: visible;
+
+			> ul {
+				flex-direction: row;
+			}
 		}
 	}
 }

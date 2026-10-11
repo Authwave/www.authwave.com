@@ -4,7 +4,7 @@
 
 .features-area {
 	@extend %p-section-guides;
-	padding-block-start: var(--authwave-section-block-space);
+	padding-block-start: 5rem;
 
 	> .section-box {
 		@extend %p-section-frame;
@@ -98,11 +98,16 @@
 	}
 
 	.feature-picture {
-		@extend %d-highlight;
+		@extend %d-highlight-centered;
 		margin-inline: calc(-1 * var(--authwave-section-inset));
 		// The gutter guides supply these edges; avoid painting a second line.
 		border-inline-color: transparent;
 		padding: var(--authwave-section-inset);
+
+		&::before {
+			// Centred markers must sit above the continuous gutter guides.
+			z-index: 2;
+		}
 
 		> img {
 			display: block;

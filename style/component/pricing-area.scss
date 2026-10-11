@@ -1,7 +1,6 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../pattern/section-frame";
 @use "../object/get-started";
-@use "../variable/size";
 
 .pricing-area {
 	padding-block-start: var(--authwave-section-block-space);
@@ -14,18 +13,36 @@
 
 	.pricing-panels {
 		@extend %l-grid;
+		@extend %d-highlight-centered;
 		--theme-grid-min: 24rem;
 		--theme-grid-gap: var(--authwave-section-inset);
 		margin-inline: calc(-1 * var(--authwave-section-inset));
+		// Full-width dividers supply the horizontal edges; the highlight owns the sides.
+		border-block-width: 0;
+
+		&::before {
+			// There is no block border to include in the corner marker offset.
+			inset-block: calc(-0.75 * var(--theme-highlight-marker-size, 0.375rem));
+		}
+
+		&::after {
+			content: "";
+			position: absolute;
+			inset-block: 0;
+			inset-inline: calc(50% - 50vw);
+			border-block: var(--theme-border-width) solid var(--theme-color-border);
+			pointer-events: none;
+		}
 	}
 
 	.pricing-panel {
-		@extend %d-highlight;
 		display: flex;
 		flex-direction: column;
 		gap: var(--theme-space-6);
 		padding: var(--authwave-section-inset);
 		font-family: var(--theme-font-body);
+		container-type: inline-size;
+		container-name: pricing-panel;
 	}
 
 	.pricing-panel-header {
@@ -49,11 +66,18 @@
 	}
 
 	.pricing-panel-summary {
-		display: flex;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		justify-items: center;
 		flex-wrap: wrap;
 		align-items: flex-start;
 		justify-content: space-between;
 		gap: var(--theme-space-4);
+
+		@container pricing-panel (min-width: 32ch) {
+			grid-template-columns: auto minmax(0, 1fr);
+			justify-items: start;
+		}
 	}
 
 	.pricing-price {
@@ -63,13 +87,16 @@
 		gap: var(--theme-space-1);
 		margin: 0;
 
-		> span {
-			font-size: size.fluid(2.25rem, 2.19rem);
-			line-height: 1.1;
+		> span,
+		> small {
+			text-box-trim: trim-both;
+			text-box-edge: cap alphabetic;
+		}
 
-			@media (min-width: size.$reference) {
-				font-size: clamp(2rem, 8cqi, 4.5rem);
-			}
+		> span {
+			// Reference price lettering is about one fifth of the panel's inner width.
+			font-size: 20cqi;
+			line-height: 1.1;
 		}
 
 		> small {
@@ -79,10 +106,21 @@
 
 	.pricing-descriptor {
 		flex: 1 1 8rem;
+		align-self: flex-end;
 		min-inline-size: min(100%, 8rem);
 		margin: 0;
-		margin-inline-start: auto;
-		text-align: end;
+		margin-block: var(--theme-space-4);
+		margin-inline: auto;
+		text-align: center;
+		text-box-trim: trim-both;
+		text-box-edge: cap alphabetic;
+
+		@container pricing-panel (min-width: 32ch) {
+			justify-self: end;
+			margin-block: 0;
+			margin-inline: 0;
+			text-align: end;
+		}
 	}
 
 	.pricing-action {
@@ -99,6 +137,8 @@
 		@extend %p-checklist;
 
 		.checklist-marker {
+			--theme-icon-size: calc(var(--theme-checklist-marker-size, 1.25rem) - 2 * var(--theme-border-width));
+			--theme-icon-gap: 0;
 			border: var(--theme-border-width) solid var(--theme-color-border);
 		}
 	}

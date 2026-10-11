@@ -6,13 +6,13 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	const RESET_DELAY = 5000;
 	const REWIND_STEP_DELAY = 20;
 	const INITIAL_PIXELS = [
-		[1, 2],
-		[2, 1],
-		[3, 2],
-		[3, 2.5],
-		[4, 3.5],
-		[5, 2.5],
-		[5, 2],
+		[0.5, 2],
+		[1.5, 1],
+		[2.5, 2],
+		[2.5, 2.5],
+		[3.5, 3.5],
+		[4.5, 2.5],
+		[4.5, 2],
 	].map(([x, y]) => [x * PIXEL_SIZE, y * PIXEL_SIZE]);
 
 	element.style.setProperty("--grid-size", GRID_SIZE);

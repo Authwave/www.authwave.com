@@ -288,9 +288,12 @@
 		}
 	}
 
+	.pricing-panels {
+		--theme-highlight-border-color: var(--theme-color-border);
+	}
+
 	.pricing-panel {
 		background: var(--aw-white);
-		--theme-highlight-border-color: var(--theme-color-border);
 
 		&:nth-child(2) {
 			background: var(--aw-blue-soft);

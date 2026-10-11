@@ -5,6 +5,7 @@
 
 .audience-area {
 	padding-block-start: var(--authwave-section-block-space);
+	padding-block-end: var(--authwave-hero-bottom-space);
 
 	> .section-box {
 		@extend %p-section-frame;
@@ -53,13 +54,9 @@
 			grid-template-columns: minmax(0, 1fr) 2.75rem;
 			grid-template-rows: auto 1fr auto;
 			gap: var(--theme-space-2);
-			min-block-size: size.fluid(16rem, 32rem);
+			aspect-ratio: 620 / 474;
 			padding: var(--authwave-section-inset);
 			background: var(--theme-color-surface);
-
-			@media (min-width: size.$reference) {
-				min-block-size: clamp(32rem, 80vw, 40rem);
-			}
 
 			> .audience-subheading {
 				grid-column: 1 / -1;

@@ -232,8 +232,31 @@
 		--theme-button-min-height: 2.75rem;
 		--theme-button-background: var(--aw-ink);
 		--theme-button-text: var(--aw-white);
-		background: var(--aw-panel-colour);
+		background: transparent;
 		color: var(--aw-ink);
+		isolation: isolate;
+
+		&::before {
+			content: "";
+			position: absolute;
+			inset: 1px;
+			z-index: -1;
+			pointer-events: none;
+			opacity: 0;
+			box-shadow: 0 0 calc(3 * var(--authwave-size-unit)) calc(0.25 * var(--authwave-size-unit))
+				color-mix(in srgb, var(--aw-panel-colour) 50%, transparent);
+			transition: none;
+		}
+
+		&[open]::before {
+			opacity: 1;
+		}
+
+		@media (prefers-reduced-motion: no-preference) {
+			&[open]::before {
+				transition: opacity 1s 0.25s ease;
+			}
+		}
 
 		&:nth-child(1) { --aw-panel-colour: var(--aw-pink); }
 		&:nth-child(2) { --aw-panel-colour: var(--aw-lime); }
@@ -241,6 +264,11 @@
 
 		> .disclosure-content {
 			background: var(--aw-panel-colour);
+
+			> .audience-toggle {
+				--theme-button-background: var(--aw-white);
+				--theme-button-text: var(--aw-ink);
+			}
 		}
 	}
 

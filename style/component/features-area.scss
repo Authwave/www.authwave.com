@@ -3,6 +3,7 @@
 @use "../object/get-started";
 
 .features-area {
+	@extend %p-section-guides;
 	padding-block-start: var(--authwave-section-block-space);
 
 	> .section-box {
@@ -17,14 +18,21 @@
 	}
 
 	.features-carousel {
+		--feature-marker-clearance: calc(var(--theme-highlight-marker-size, 0.25rem) + var(--theme-highlight-border-width, var(--theme-border-width)));
 		position: relative;
-		inline-size: 100%;
-		margin-block-start: calc(2 * var(--theme-space-12));
+		inline-size: calc(100% + 2 * var(--authwave-section-inset));
+		margin-inline: calc(-1 * var(--authwave-section-inset));
+		margin-block-start: var(--theme-space-12);
+		padding-block-start: var(--theme-space-12);
+		border-block-start: var(--theme-border-width) solid var(--theme-color-border);
 		font-family: var(--theme-font-body);
 	}
 
 	.feature-frames {
 		display: flex;
+		// Extend the scroll viewport enough to keep all four corner markers visible.
+		inline-size: calc(100% + 2 * var(--feature-marker-clearance));
+		margin-inline: calc(-1 * var(--feature-marker-clearance));
 		gap: var(--theme-space-8);
 		overflow-x: auto;
 		overscroll-behavior-inline: contain;
@@ -40,8 +48,8 @@
 		--theme-stack-gap: var(--theme-space-6);
 		flex: 0 0 100%;
 		min-inline-size: 0;
-		// Leave room for the highlight's external corner markers in the scroller.
-		padding: var(--theme-space-2);
+		padding-block: var(--feature-marker-clearance);
+		padding-inline: calc(var(--authwave-section-inset) + var(--feature-marker-clearance));
 		scroll-snap-align: start;
 		scroll-snap-stop: always;
 
@@ -55,6 +63,27 @@
 		> p {
 			margin: 0;
 			font-size: max(1rem, calc(1.5 * var(--authwave-size-unit)));
+		}
+
+		@media (orientation: portrait) {
+			// Reserve room for the navigation, its gap and the scroll bar.
+			max-block-size: calc(100svh - max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height))) - 2 * var(--theme-space-8));
+
+			> * {
+				flex-shrink: 0;
+			}
+
+			> .feature-picture {
+				flex-shrink: 1;
+				min-block-size: 0;
+				display: flex;
+
+				> img {
+					min-block-size: 0;
+					block-size: 100%;
+					object-fit: contain;
+				}
+			}
 		}
 	}
 
@@ -70,6 +99,9 @@
 
 	.feature-picture {
 		@extend %d-highlight;
+		margin-inline: calc(-1 * var(--authwave-section-inset));
+		// The gutter guides supply these edges; avoid painting a second line.
+		border-inline-color: transparent;
 		padding: var(--authwave-section-inset);
 
 		> img {
@@ -83,6 +115,7 @@
 		display: flex;
 		justify-content: space-between;
 		margin-block-start: var(--theme-space-8);
+		margin-inline: var(--authwave-section-inset);
 
 		> a {
 			@extend %o-button;

@@ -28,6 +28,10 @@
 	&[data-flair-theme="awpixel"] {
 		@include awpixel.awpixel;
 	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		scroll-behavior: smooth;
+	}
 }
 
 // Project sizing applies after the selected theme's default tokens.

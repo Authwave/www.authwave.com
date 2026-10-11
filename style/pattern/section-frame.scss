@@ -15,3 +15,32 @@
 		font-weight: 400;
 	}
 }
+
+// Continue the pricing panels' outline through the light content sections.
+%p-section-guides {
+	position: relative;
+
+	&::before {
+		content: "";
+		position: absolute;
+		inset-block: 0;
+		inset-inline: calc(var(--authwave-section-gutter) + var(--theme-border-width));
+		border-inline: var(--theme-border-width) solid var(--theme-color-border);
+		// The Introduction illustrations can extend underneath these lines.
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	> .section-box {
+		position: relative;
+
+		&::before {
+			content: "";
+			position: absolute;
+			inset-block-start: 0;
+			inset-inline: 0;
+			border-block-start: var(--theme-border-width) solid var(--theme-color-border);
+			pointer-events: none;
+		}
+	}
+}

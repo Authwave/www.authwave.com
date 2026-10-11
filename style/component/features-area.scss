@@ -19,6 +19,7 @@
 	.features-carousel {
 		position: relative;
 		inline-size: 100%;
+		margin-block-start: calc(2 * var(--theme-space-12));
 		font-family: var(--theme-font-body);
 	}
 
@@ -53,12 +54,17 @@
 
 		> p {
 			margin: 0;
+			font-size: max(1rem, calc(1.5 * var(--authwave-size-unit)));
 		}
 	}
 
 	.feature-icon {
-		inline-size: calc(3 * var(--authwave-size-unit));
-		block-size: calc(3 * var(--authwave-size-unit));
+		--theme-icon-size: calc(3 * var(--authwave-size-unit));
+		--theme-icon-gap: 0;
+		display: grid;
+		place-items: center;
+		inline-size: var(--theme-icon-size);
+		block-size: var(--theme-icon-size);
 		flex-shrink: 0;
 	}
 

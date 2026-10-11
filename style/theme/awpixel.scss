@@ -83,8 +83,13 @@
 		color: var(--theme-color-muted);
 	}
 
-	.introduction-concertina > details > .disclosure-content {
+	.introduction-concertina > details > .disclosure-content,
+	.feature-frame > p {
 		color: var(--theme-color-muted);
+	}
+
+	.feature-frame > h3 {
+		color: var(--theme-color-heading);
 	}
 
 	.site-header {

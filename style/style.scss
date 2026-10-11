@@ -1,4 +1,10 @@
-@forward "../node_modules/flair/style/lib/flair" with ($icon-names: (arrow-right,));
+@forward "../node_modules/flair/style/lib/flair" with ($icon-names: (
+	arrow-right,
+	book,
+	brush,
+	shield-checkered,
+	brand-open-source,
+));
 @use "../node_modules/flair/style/lib/flair";
 @use "../node_modules/flair/style/lib/theme/base" as theme;
 @use "theme/awpixel";

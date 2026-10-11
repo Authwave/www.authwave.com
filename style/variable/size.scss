@@ -4,8 +4,8 @@
 $minimum: 20rem;
 $reference: 38rem;
 
-@function fluid($small, $large) {
-	$slope: math.div($large - $small, $reference - $minimum);
+@function fluid($small, $large, $end: $reference) {
+	$slope: math.div($large - $small, $end - $minimum);
 	@return clamp(#{math.min($small, $large)}, calc(#{$small} + (100vw - #{$minimum}) * #{$slope}), #{math.max($small, $large)});
 }
 

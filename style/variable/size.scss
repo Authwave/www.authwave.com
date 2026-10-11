@@ -2,7 +2,7 @@
 
 // Grow smoothly between the small-screen and reference widths.
 $minimum: 20rem;
-$reference: 37.5rem;
+$reference: 38rem;
 
 @function fluid($small, $large) {
 	$slope: math.div($large - $small, $reference - $minimum);

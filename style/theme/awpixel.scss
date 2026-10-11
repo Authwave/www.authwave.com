@@ -45,6 +45,7 @@
 	--pal-9: #a33118;
 	--theme-font-heading: "Morion", serif;
 	--theme-font-body: "Inter", sans-serif;
+	--theme-border-width: 2px;
 	--theme-highlight-marker-size: calc(0.5 * var(--authwave-size-unit));
 	--theme-focus-color: #275f89;
 	--theme-button-background: var(--aw-ink);
@@ -239,7 +240,7 @@
 		&::before {
 			content: "";
 			position: absolute;
-			inset: 1px;
+			inset: var(--theme-border-width);
 			z-index: -1;
 			pointer-events: none;
 			opacity: 0;
@@ -261,6 +262,10 @@
 		&:nth-child(1) { --aw-panel-colour: var(--aw-pink); }
 		&:nth-child(2) { --aw-panel-colour: var(--aw-lime); }
 		&:nth-child(3) { --aw-panel-colour: var(--aw-blue); }
+
+		.audience-subheading {
+			--theme-color-border: color-mix(in srgb, #000 12%, transparent);
+		}
 
 		> .disclosure-content {
 			background: var(--aw-panel-colour);

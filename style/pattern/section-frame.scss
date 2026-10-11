@@ -9,7 +9,23 @@
 	padding: var(--authwave-section-inset);
 	container-type: inline-size;
 
-	> h2 {
+	> .section-heading {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--theme-space-3);
+	}
+
+	.section-badge {
+		@extend %o-badge;
+		font-family: var(--theme-font-body);
+		font-size: max(0.75rem, calc(1.25 * var(--authwave-size-unit)));
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+
+	> h2,
+	> .section-heading > h2 {
 		margin-block: 0;
 		font-size: calc(3.75 * var(--authwave-size-unit));
 		font-weight: 400;
@@ -34,13 +50,23 @@
 	> .section-box {
 		position: relative;
 
-		&::before {
+		&::before,
+		&::after {
 			content: "";
 			position: absolute;
-			inset-block-start: 0;
-			inset-inline: 0;
+			// Break out of the containing box to meet both viewport edges.
+			inset-inline: calc(50% - 50vw);
 			border-block-start: var(--theme-border-width) solid var(--theme-color-border);
 			pointer-events: none;
+		}
+
+		&::before {
+			inset-block-start: 0;
+		}
+
+		&::after {
+			// Continue the content's bottom divider, above the box's padding.
+			inset-block-end: var(--authwave-section-inset);
 		}
 	}
 }

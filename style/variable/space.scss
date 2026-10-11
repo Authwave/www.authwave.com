@@ -5,8 +5,9 @@
 	--theme-space-unit: calc(0.25 * var(--authwave-size-unit));
 	--authwave-header-inset: #{size.fluid(0.625rem, 1.875rem)};
 	--authwave-hero-inset: #{size.fluid(0.9047619rem, 3.3928571rem)};
-	--authwave-section-gutter: calc(2.5 * var(--authwave-size-unit));
-	--authwave-section-inset: calc(2.5 * var(--authwave-size-unit));
+	// Half the original 20px → 40px growth, reaching 30px at 600px.
+	--authwave-section-gutter: #{size.fluid(1.25rem, 1.875rem, 37.5rem)};
+	--authwave-section-inset: var(--authwave-section-gutter);
 	--authwave-hero-top-space: #{size.fluid(2rem, 4.5rem)};
 	--authwave-hero-art-space: #{size.fluid(2.4285714rem, 9.1071429rem)};
 	--authwave-hero-bottom-space: #{size.fluid(3.047619rem, 11.4285714rem)};

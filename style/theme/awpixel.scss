@@ -73,6 +73,12 @@
 	}
 
 	// Theme the containing surfaces without changing their layout or insets.
+	.section-badge {
+		--theme-badge-background: var(--theme-color-surface-disabled);
+		--theme-badge-border: var(--theme-color-border);
+		--theme-badge-text: var(--theme-color-muted);
+	}
+
 	:is(.introduction-area, .audience-area, .features-area, .contribution-area, .pricing-area) > .section-box {
 		background: transparent;
 		border-color: transparent;

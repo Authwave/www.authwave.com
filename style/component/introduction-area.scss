@@ -4,7 +4,7 @@
 
 .introduction-area {
 	@extend %p-section-guides;
-	padding-block-start: var(--authwave-section-block-space);
+	padding-block-start: 5rem;
 
 	> .section-box {
 		@extend %p-section-frame;
@@ -75,9 +75,7 @@
 					inline-size: 100vw;
 					max-inline-size: none;
 					block-size: auto;
-					margin-block-start: calc(4 * var(--authwave-size-unit));
 					margin-inline: calc(50% - 50vw);
-					border-block-start: var(--theme-border-width) solid var(--theme-color-border);
 
 					// Keep the 600px reference edge-to-edge; inset on wider screens.
 					@media (min-width: size.$reference + 0.0625rem) {
@@ -125,6 +123,12 @@
 					transition-delay: var(--introduction-toggle-duration);
 				}
 
+				> details[open] > .disclosure-content {
+					animation: introduction-content-fade
+						var(--introduction-toggle-duration) ease
+						var(--introduction-toggle-duration) both;
+				}
+
 				> details > .disclosure-content {
 					min-block-size: 0;
 					padding-block-start: 0;
@@ -145,5 +149,15 @@
 
 	50% {
 		transform: scale(1.025);
+	}
+}
+
+@keyframes introduction-content-fade {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
 	}
 }

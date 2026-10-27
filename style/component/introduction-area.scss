@@ -8,6 +8,7 @@
 
 	> .section-box {
 		@extend %p-section-frame;
+		@extend %l-editorial;
 		@extend %p-stack;
 		--theme-stack-gap: var(--theme-space-12);
 	}
@@ -159,5 +160,36 @@
 
 	to {
 		opacity: 1;
+	}
+}
+
+@media (min-width: flair.$break-wide) {
+	.introduction-area {
+		> .section-box {
+			display: grid;
+			--theme-editorial-leading: 0.9fr;
+			--theme-editorial-content: 1.1fr;
+			gap: var(--theme-space-12);
+		}
+
+		.introduction-concertina {
+			border-inline-start: var(--theme-border-width) solid var(--theme-color-border);
+			padding-inline-start: var(--authwave-section-inset);
+
+			> details > summary { font-size: size.desktop-type(2rem); }
+			> details:first-child::before { border-block-start: 0; }
+			> details:first-child > summary { margin-block-start: var(--theme-space-4); }
+
+			> details > .disclosure-content > p {
+				font-size: var(--authwave-desktop-body-size);
+				max-inline-size: none;
+			}
+
+			// Keep the existing transition's clipping space within the right column.
+			> details::details-content {
+				margin-inline: calc(-1 * var(--authwave-section-inset));
+				padding-inline: var(--authwave-section-inset);
+			}
+		}
 	}
 }

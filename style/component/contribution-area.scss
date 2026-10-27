@@ -1,12 +1,16 @@
 @use "../../node_modules/flair/style/lib/flair";
+@use "../variable/size";
 @use "../pattern/section-frame";
+@use "../pattern/frame-bridge";
 @use "../object/get-started";
 
 .contribution-area {
+	@extend %p-frame-bridge;
 	padding-block-start: var(--authwave-section-block-space);
 
 	> .section-box {
 		@extend %p-section-frame;
+		@extend %l-editorial;
 		@extend %p-stack;
 		--theme-stack-gap: 0;
 		align-items: flex-start;
@@ -32,5 +36,30 @@
 			inline-size: 100%;
 			block-size: auto;
 		}
+	}
+}
+
+@media (min-width: flair.$break-wide) {
+	.contribution-area {
+		// The reference has an 80px framed strip above this dark panel.
+		--authwave-frame-bridge-size: #{size.from-design(5rem)};
+		inline-size: calc(100% - 2 * var(--authwave-section-gutter));
+		max-inline-size: var(--authwave-frame-max);
+		margin: 6rem auto 0;
+		padding-block: 4rem;
+
+		> .section-box {
+			display: grid;
+			inline-size: 100%;
+			--theme-editorial-content: 1.2fr;
+			gap: var(--theme-space-6) var(--theme-space-12);
+			align-items: center;
+
+			> h2 { grid-area: 1 / 1; font-size: size.desktop-type(clamp(2.5rem, 3.5vw, 3.5rem)); }
+			> p { grid-area: 2 / 1; margin: 0; font-size: var(--authwave-desktop-body-size); }
+		}
+
+		.contribution-action { grid-area: 3 / 1; justify-self: start; margin-block-start: 0; }
+		.contribution-placeholder { grid-area: 1 / 2 / 4 / 3; margin: 0; }
 	}
 }

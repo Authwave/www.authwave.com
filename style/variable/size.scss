@@ -13,3 +13,13 @@ $reference: 38rem;
 	// A length-based unit allows portable CSS arithmetic: 8px → 16px.
 	--authwave-size-unit: #{fluid(0.5rem, 1rem)};
 }
+
+// A fixed desktop typography adjustment, independent of the frame width.
+@function desktop-type($value) {
+	@return calc((#{$value}) * 1.1);
+}
+
+// Convert lengths measured in the reference PNG to the confirmed browser scale.
+@function from-design($value) {
+	@return calc(#{$value} * 2208 / 2880);
+}

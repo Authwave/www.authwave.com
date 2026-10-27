@@ -1,6 +1,5 @@
 @forward "../node_modules/flair/style/lib/flair" with ($icon-names: (
 	arrow-right,
-	external-link,
 	check,
 	x,
 	book,
@@ -53,4 +52,22 @@
 body {
 	@extend %d-typography;
 	background: var(--theme-color-surface);
+}
+
+@media (min-width: flair.$break-wide) {
+	main,
+	.site-footer {
+		// Reference: 2880 image pixels correspond to 2208 CSS pixels.
+		// Its 2560px column therefore caps at 1962.67 CSS pixels (at 16px/rem).
+		// Reference body text is 32px before the confirmed display conversion.
+		--authwave-desktop-body-size: calc(2rem * 2208 / 2880);
+		// Shared inner padding: 56 reference pixels at the confirmed display scale.
+		--authwave-section-inset: #{size.from-design(3.5rem)};
+		font-size: size.desktop-type(1rem);
+		--authwave-frame-max: calc(160rem * 2208 / 2880);
+		--authwave-frame-edge: max(var(--authwave-section-gutter), calc((100% - var(--authwave-frame-max)) / 2));
+		--authwave-section-block-space: 6rem;
+		// Viewport-wide rules must not create a horizontal scroll bar.
+		overflow-x: clip;
+	}
 }

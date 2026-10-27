@@ -34,8 +34,8 @@
 	.footer-intro > h2 {
 		margin: 0;
 		font-family: var(--theme-font-body);
-		font-size: calc(2 * var(--authwave-size-unit));
-		font-weight: 400;
+		font-size: calc(2.25 * var(--authwave-size-unit));
+		font-weight: 500;
 	}
 
 	.footer-action {
@@ -72,6 +72,11 @@
 
 	.external-label {
 		@extend %d-visually-hidden;
+	}
+
+	a[href*="://"] {
+		@extend %p-icon-end;
+		--theme-icon-end: url("/asset/icon/external-link.svg");
 	}
 
 	.footer-brand {
@@ -132,5 +137,35 @@
 			@extend %p-cluster;
 			gap: var(--theme-space-6);
 		}
+	}
+}
+
+@media (min-width: flair.$break-wide) {
+	.site-footer {
+		.footer-box {
+			max-inline-size: var(--authwave-frame-max);
+			margin-inline: auto;
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.65fr);
+			gap: var(--theme-space-12);
+		}
+
+		.footer-intro > h2 { font-size: size.desktop-type(2.25rem); }
+		.footer-navigation > ul > li > a { font-size: var(--authwave-desktop-body-size); }
+		.footer-navigation > h3 { font-size: size.desktop-type(0.875rem); }
+		.footer-bottom { font-size: size.desktop-type(0.875rem); }
+		.footer-intro { grid-area: 1 / 1; }
+		.footer-columns { grid-area: 1 / 2; }
+		.footer-brand {
+			grid-area: 2 / 1 / 3 / -1;
+			margin-block-start: 4rem;
+			// Keep the interactive logo and wordmark inside the shared section inset.
+			margin-inline: 0;
+		}
+		.footer-bottom { grid-area: 3 / 1 / 4 / -1; justify-content: space-between; }
+		.footer-name { font-size: size.desktop-type(17cqi); flex-shrink: 0; }
+		.footer-brand > interactive-logo { flex-shrink: 1; min-inline-size: 0; }
+		interactive-logo { filter: url("#authwave-logo-crisp") var(--interactive-logo-shadow); }
+		.footer-action { --theme-button-font-size: 1.25rem; --theme-button-min-height: 3.5rem; }
 	}
 }

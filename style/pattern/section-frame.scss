@@ -1,10 +1,13 @@
 @use "../../node_modules/flair/style/lib/flair";
+@use "../variable/size";
+@use "../object/site-badge";
 
 // A shared containing box for the mobile-first content sections.
 %p-section-frame {
 	@extend %d-surface;
 	border-radius: 0;
 	inline-size: calc(100% - 2 * var(--authwave-section-gutter));
+	max-inline-size: var(--authwave-frame-max, none);
 	margin-inline: auto;
 	padding: var(--authwave-section-inset);
 	container-type: inline-size;
@@ -17,11 +20,7 @@
 	}
 
 	.section-badge {
-		@extend %o-badge;
-		font-family: var(--theme-font-body);
-		font-size: max(0.75rem, calc(1.25 * var(--authwave-size-unit)));
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
+		@extend %o-site-badge;
 	}
 
 	> h2,
@@ -40,7 +39,7 @@
 		content: "";
 		position: absolute;
 		inset-block: 0;
-		inset-inline: calc(var(--authwave-section-gutter) + var(--theme-border-width));
+		inset-inline: calc(var(--authwave-frame-edge, var(--authwave-section-gutter)) + var(--theme-border-width));
 		border-inline: var(--theme-border-width) solid var(--theme-color-border);
 		// The Introduction illustrations can extend underneath these lines.
 		z-index: 1;
@@ -67,6 +66,27 @@
 		&::after {
 			// Continue the content's bottom divider, above the box's padding.
 			inset-block-end: var(--authwave-section-inset);
+		}
+	}
+}
+
+@media (min-width: flair.$break-wide) {
+	%p-section-frame {
+		> .section-heading {
+			// Reference badges sit about 58px above the visible heading letters.
+			--authwave-section-heading-gap: calc(3.625rem * 2208 / 2880);
+			gap: var(--authwave-section-heading-gap);
+
+			> h2 {
+				text-box-trim: trim-start;
+				text-box-edge: cap alphabetic;
+			}
+		}
+
+		> h2,
+		> .section-heading > h2 {
+			font-size: size.desktop-type(clamp(4rem, 5.55vw, 5rem));
+			line-height: 1.05;
 		}
 	}
 }

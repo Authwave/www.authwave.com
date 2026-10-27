@@ -1,0 +1,19 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../variable/size";
+
+$desktop-font-size: size.desktop-type(1.25rem);
+
+// One badge size and typography for section labels and pricing labels.
+%o-site-badge {
+	@extend %o-badge;
+	--theme-badge-padding-block: var(--theme-space-2);
+	--theme-badge-padding-inline: var(--theme-space-3);
+	font-family: var(--theme-font-body);
+	font-size: max(0.6rem, var(--authwave-size-unit));
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+
+	@media (min-width: flair.$break-wide) {
+		font-size: $desktop-font-size;
+	}
+}

@@ -75,7 +75,7 @@
 	// Theme the containing surfaces without changing their layout or insets.
 	.section-badge {
 		--theme-badge-background: var(--theme-color-surface-disabled);
-		--theme-badge-border: var(--theme-color-border);
+		--theme-badge-border: color-mix(in srgb, var(--theme-color-text) 25%, transparent);
 		--theme-badge-text: var(--theme-color-muted);
 	}
 
@@ -89,13 +89,24 @@
 		color: var(--theme-color-muted);
 	}
 
+	.contribution-area {
+		// The outer frame stays light even where the section uses the dark palette.
+		--authwave-frame-border: var(--pal-4);
+	}
+
 	.introduction-concertina > details > .disclosure-content,
-	.feature-frame > p {
+	.feature-copy > p {
 		color: var(--theme-color-muted);
 	}
 
-	.feature-frame > h3 {
+	.feature-copy > h3 {
 		color: var(--theme-color-heading);
+	}
+
+	@media (min-width: flair.$break-wide) {
+		.features-area {
+			--theme-showcase-inactive-opacity: 0.4;
+		}
 	}
 
 	.site-header {
@@ -147,6 +158,11 @@
 		--theme-button-radius: 0;
 		padding: 0;
 		gap: 0;
+
+		@media (min-width: flair.$break-wide) {
+			// The reference square is 74px high beside an 88px pill.
+			--aw-action-icon-size: calc(var(--theme-button-min-height) * 74 / 88);
+		}
 
 		> .action-label {
 			display: inline-flex;

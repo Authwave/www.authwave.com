@@ -1,4 +1,5 @@
 @use "../../node_modules/flair/style/lib/flair";
+@use "../variable/size";
 @use "../pattern/section-frame";
 @use "../object/get-started";
 
@@ -29,6 +30,7 @@
 	}
 
 	.feature-frames {
+		@extend %p-feature-showcase;
 		display: flex;
 		// Extend the scroll viewport enough to keep all four corner markers visible.
 		inline-size: calc(100% + 2 * var(--feature-marker-clearance));
@@ -53,14 +55,14 @@
 		scroll-snap-align: start;
 		scroll-snap-stop: always;
 
-		> h3 {
+		.feature-copy > h3 {
 			margin: 0;
 			font-family: var(--theme-font-body);
 			font-size: max(1rem, calc(1.75 * var(--authwave-size-unit)));
 			font-weight: 400;
 		}
 
-		> p {
+		.feature-copy > p {
 			margin: 0;
 			font-size: max(1rem, calc(1.5 * var(--authwave-size-unit)));
 		}
@@ -222,4 +224,141 @@
 			scroll-behavior: smooth;
 		}
 	}
+}
+
+.features-area {
+	.feature-selection { @extend %d-visually-hidden; display: none; }
+	.feature-copy {
+		display: flex;
+		flex-direction: column;
+		gap: var(--theme-space-6);
+
+		&:hover > h3 {
+			text-decoration: underline;
+			text-underline-offset: 0.15em;
+		}
+
+		&:active {
+			filter: brightness(0.9);
+		}
+
+		@media (prefers-reduced-motion: no-preference) {
+			transition: scale 180ms ease-out, filter 180ms ease-out;
+
+			&:active {
+				scale: 0.97;
+				transition-duration: 50ms;
+			}
+		}
+	}
+}
+
+@media (min-width: flair.$break-wide) {
+	.features-area {
+		// End the rails and bottom rule at the feature grid, before the white gap.
+		&::before {
+			inset-block-end: calc(var(--authwave-section-inset) + var(--theme-space-12) + var(--theme-border-width));
+		}
+
+		> .section-box::after {
+			inset-block-end: calc(var(--authwave-section-inset) + var(--theme-space-12));
+		}
+
+		> .section-box {
+			align-items: center;
+			> .section-heading { align-items: center; text-align: center; }
+		}
+
+		.features-carousel { padding-block: var(--theme-space-12); }
+		.feature-fallback { display: none; }
+		.feature-frames {
+			display: grid;
+			inline-size: 100%;
+			margin-inline: 0;
+			overflow: visible;
+			scroll-snap-type: none;
+			--theme-showcase-media-share: 1.2fr;
+			padding: 0;
+			gap: 0;
+			scroll-marker-group: none;
+
+			&::scroll-button(*) { display: none; }
+		}
+
+		.feature-frame {
+			display: contents;
+			max-block-size: none;
+
+			.feature-copy > h3 {
+				font-size: calc(2.5rem * 2208 / 2880);
+				font-weight: 500;
+				margin-block-start: auto;
+			}
+			.feature-copy > p {
+				font-size: var(--authwave-desktop-body-size);
+				line-height: 1.3125;
+			}
+		}
+
+		.feature-selection {
+			display: block;
+		}
+
+		.feature-copy {
+			gap: var(--theme-space-4);
+			// 476px rows with 56px insets in the desktop reference.
+			min-block-size: calc(29.75rem * 2208 / 2880);
+			padding: var(--authwave-section-inset);
+		}
+		.feature-icon { --theme-icon-size: calc(4.5rem * 2208 / 2880); }
+		.feature-picture {
+			margin: 0;
+			border-inline-color: var(--theme-color-border);
+			padding: var(--theme-space-6);
+			align-items: center;
+
+			> img { inline-size: 100%; block-size: auto; object-fit: contain; }
+		}
+
+		@media (prefers-reduced-motion: no-preference) {
+			@supports (clip-path: polygon(0% 0%, 100% 0%, 0% 100%)) {
+				--feature-wipe-duration: 400ms;
+
+				// Choices follow reading order: top-left, bottom-left, top-right, bottom-right.
+				@each $item, $corner, $edge-a, $edge-b in
+					(1, (0% 0%), (200% 0%), (0% 200%)),
+					(2, (0% 100%), (200% 100%), (0% -100%)),
+					(3, (100% 0%), (-100% 0%), (100% 200%)),
+					(4, (100% 100%), (-100% 100%), (100% -100%)) {
+					.feature-frame:nth-child(#{$item}) {
+						--feature-wipe-start: polygon(#{$corner}, #{$corner}, #{$corner});
+						--feature-wipe-end: polygon(#{$corner}, #{$edge-a}, #{$edge-b});
+					}
+				}
+
+				.feature-frames > .feature-frame > .feature-picture {
+					display: grid;
+					visibility: hidden;
+					z-index: 0;
+					// Retain the previous image underneath until the new wipe completes.
+					transition: visibility 0s linear var(--feature-wipe-duration);
+				}
+
+				.feature-frame:has(> .feature-selection:checked) > .feature-picture {
+					visibility: visible;
+					z-index: 1;
+					transition-delay: 0s;
+
+					> img {
+						animation: feature-image-wipe var(--feature-wipe-duration) ease-in-out both;
+					}
+				}
+			}
+		}
+	}
+}
+
+@keyframes feature-image-wipe {
+	from { clip-path: var(--feature-wipe-start); }
+	to { clip-path: var(--feature-wipe-end); }
 }

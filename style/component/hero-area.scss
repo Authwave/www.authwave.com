@@ -62,3 +62,34 @@
 		}
 	}
 }
+
+@media (min-width: flair.$break-wide) {
+	.hero-area {
+		min-block-size: 0;
+		padding-block: 5rem 6rem;
+
+		> h1 {
+			font-size: size.desktop-type(clamp(6.5rem, 8vw, 7.25rem));
+			text-wrap: balance;
+			max-inline-size: var(--authwave-frame-max);
+		}
+
+		> .hero-tagline {
+			max-inline-size: none;
+			font-size: size.desktop-type(1.5rem);
+			// 35 reference pixels, less the existing ~10px of text line-box space.
+			margin-block-start: calc(2.1875rem * 2208 / 2880 - 0.625rem);
+		}
+
+		> .hero-action {
+			// 102 reference pixels, less ~8px of line-box space and button border.
+			margin-block-start: calc(6.375rem * 2208 / 2880 - 0.5rem);
+		}
+
+		> .hero-placeholder {
+			max-inline-size: var(--authwave-frame-max);
+			aspect-ratio: 21 / 9;
+			margin-block-start: 4rem;
+		}
+	}
+}

@@ -1,0 +1,27 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+// A viewport-wide framed transition strip, independent of section content.
+%p-frame-bridge {
+	@media (min-width: flair.$break-wide) {
+		position: relative;
+
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			inset-block-start: var(--authwave-frame-bridge-start, calc(-1 * var(--authwave-frame-bridge-size)));
+			block-size: var(--authwave-frame-bridge-size);
+			pointer-events: none;
+		}
+
+		&::before {
+			inset-inline: var(--authwave-frame-bridge-inset, var(--theme-border-width));
+			border-inline: var(--theme-border-width) solid var(--authwave-frame-border, var(--theme-color-border));
+		}
+
+		&::after {
+			inset-inline: calc(50% - 50vw);
+			border-block: var(--theme-border-width) solid var(--authwave-frame-border, var(--theme-color-border));
+		}
+	}
+}

@@ -1,8 +1,12 @@
 @use "../../node_modules/flair/style/lib/flair";
+@use "../variable/size";
 @use "../pattern/section-frame";
+@use "../pattern/frame-bridge";
 @use "../object/get-started";
+@use "../object/site-badge";
 
 .pricing-area {
+	@extend %p-frame-bridge;
 	padding-block-start: var(--authwave-section-block-space);
 
 	> .section-box {
@@ -60,9 +64,8 @@
 	}
 
 	.pricing-badge {
-		@extend %o-badge;
+		@extend %o-site-badge;
 		margin-inline-start: auto;
-		text-transform: uppercase;
 	}
 
 	.pricing-panel-summary {
@@ -100,7 +103,8 @@
 		}
 
 		> small {
-			font-size: 0.875rem;
+			// A quarter of the price size, with a readable minimum on small panels.
+			font-size: max(0.875rem, 5cqi);
 		}
 	}
 
@@ -141,5 +145,104 @@
 			--theme-icon-gap: 0;
 			border: var(--theme-border-width) solid var(--theme-color-border);
 		}
+	}
+}
+
+@media (min-width: flair.$break-wide) {
+	.pricing-area {
+		// A 90px reference strip continues the frame below Contribution.
+		--authwave-frame-bridge-size: #{size.from-design(5.625rem)};
+		--authwave-frame-bridge-start: 0px;
+		--authwave-frame-bridge-inset: calc(var(--authwave-frame-edge) + var(--theme-border-width));
+		--authwave-pricing-inset: var(--authwave-section-inset);
+
+		> .section-box { --theme-stack-gap: #{size.from-design(6rem)}; }
+		> .section-box > .section-heading { align-items: center; text-align: center; }
+
+		.pricing-panels {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: size.from-design(2.25rem);
+		}
+
+		.pricing-panel {
+			gap: 0;
+			padding: var(--authwave-pricing-inset);
+			padding-block-end: size.from-design(2rem);
+		}
+
+		.pricing-panel-header {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr);
+			// Reserve two badge lines without enlarging single-line badges themselves.
+			font-size: site-badge.$desktop-font-size;
+			line-height: var(--theme-badge-line-height, 1.4);
+			grid-template-rows: auto minmax(calc(2lh + 2 * var(--theme-space-2) + 2 * var(--theme-border-width)), auto);
+			align-items: center;
+
+			> h3 { font-size: size.from-design(2.5rem); }
+			> .pricing-badge { inline-size: max-content; max-inline-size: 100%; }
+
+			@container pricing-panel (min-width: 40ch) {
+				display: flex;
+			}
+		}
+
+		.pricing-panel-summary {
+			margin-block-start: size.from-design(4rem);
+			min-block-size: size.from-design(5.25rem);
+			// Reserve the same second row for one- and two-line descriptors.
+			grid-template-rows: auto minmax(calc(#{size.from-design(5.25rem)} + 2 * var(--theme-space-4)), auto);
+
+			@container pricing-panel (min-width: 32ch) {
+				grid-template-rows: auto;
+			}
+		}
+
+		.pricing-price > span {
+			// Reference Inter glyphs correspond to roughly 112px type, not a growing column fraction.
+			font-size: min(20cqi, #{size.from-design(7rem)});
+		}
+
+		.pricing-price > small,
+		.pricing-descriptor {
+			font-size: size.from-design(1.75rem);
+		}
+
+		.pricing-descriptor { min-inline-size: 0; }
+
+		.pricing-action {
+			margin-block-start: size.from-design(3.25rem);
+			// Match the shared CTA pill's visible height, allowing for this button's border.
+			padding-block: calc(var(--theme-button-padding-block) - var(--theme-border-width));
+		}
+
+		.pricing-includes {
+			position: relative;
+			margin-block-start: size.from-design(4.5rem);
+			padding-block-start: size.from-design(2rem);
+			font-size: var(--authwave-desktop-body-size);
+			line-height: 1.375;
+
+			&::before {
+				content: "";
+				position: absolute;
+				inset-block-start: 0;
+				inset-inline: calc(-1 * var(--authwave-pricing-inset));
+				border-block-start: var(--theme-border-width) solid var(--theme-color-border);
+				pointer-events: none;
+			}
+		}
+
+		.pricing-checklist {
+			--theme-checklist-marker-size: #{size.from-design(2.5rem)};
+			--theme-checklist-gap: #{size.from-design(4.125rem)};
+			margin-block-start: size.from-design(3.25rem);
+			font-size: var(--authwave-desktop-body-size);
+			line-height: 1.375;
+			align-content: start;
+
+			.checklist-marker { --theme-icon-size: #{size.from-design(2rem)}; }
+		}
+
 	}
 }

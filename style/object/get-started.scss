@@ -14,3 +14,13 @@
 		display: none;
 	}
 }
+
+@media (min-width: flair.$break-wide) {
+	%o-get-started {
+		// Reference dimensions use the confirmed 2208 / 2880 display scale.
+		--theme-button-font-size: calc(2.25rem * 2208 / 2880);
+		--theme-button-min-height: calc(5.5rem * 2208 / 2880);
+		--theme-button-padding-block: calc((5.5rem - 1.5 * 2.25rem) / 2 * 2208 / 2880);
+		--theme-button-padding-inline: calc(2rem * 2208 / 2880);
+	}
+}

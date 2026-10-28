@@ -1,5 +1,14 @@
 # Authwave website
 
+## Content pages
+
+`/about/` renders `data/content/about.md` through the shared CommonMark renderer.
+The Markdown supplies the page's `h1` and body; its first heading sets the browser
+title and its first paragraph supplies the description. There is no separate
+copy in the template. `ContentRepository` loads named files from `data/content`,
+and `content-page.scss` composes Flair's prose, reading measure and shared frame.
+The header/footer and light/dark preference are shared with the article pages.
+
 ## Articles
 
 `/articles/` uses one `data-list="articles"` template, with native category

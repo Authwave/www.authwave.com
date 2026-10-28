@@ -1,5 +1,6 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../pattern/section-frame";
+@use "../pattern/site-prose";
 @use "../object/article-meta";
 @use "../variable/size";
 
@@ -108,39 +109,11 @@
 }
 
 .article-prose {
-	@extend %p-prose;
-	--theme-font-size: max(1rem, calc(1.5 * var(--authwave-size-unit)));
-	--theme-heading-weight: 400;
-	--theme-heading-2: max(1.75rem, calc(2.75 * var(--authwave-size-unit)));
-	--theme-heading-3: max(1.25rem, calc(1.75 * var(--authwave-size-unit)));
-	--theme-text-leading: 1.6;
+	@extend %p-site-prose;
 	padding: var(--authwave-section-inset);
-	color: var(--theme-color-muted);
-
-	> * { max-inline-size: var(--theme-prose-measure, 65ch); }
-	:where(h2, h3) { scroll-margin-block-start: 10rem; }
-	> :where(p, ul, ol, figure, blockquote) { margin-block-end: var(--theme-space-8); }
-	> h2:not(:first-child) {
-		border-block-start: var(--theme-border-width) solid var(--theme-color-border);
-		padding-block-start: var(--theme-space-8);
-		margin-block-start: var(--theme-space-8);
-	}
-
-	figure { margin-inline: 0; }
-	figcaption { margin-block-start: var(--theme-space-3); }
-	.article-picture { @extend %o-article-picture; --theme-article-picture-ratio: 4 / 3; }
-	blockquote { @extend %o-inset; border-inline-start-width: var(--theme-quote-border-width, 4px); }
-	blockquote > :last-child { margin-block-end: 0; }
-	code { @extend %o-code; }
-	pre { @extend %o-code-block; }
 
 	@media (min-width: flair.$break-wide) {
-		--theme-font-size: var(--authwave-desktop-body-size);
-		--theme-heading-2: #{size.desktop-type(2.75rem)};
-		--theme-heading-3: #{size.desktop-type(1.75rem)};
 		border-inline-end: var(--theme-border-width) solid var(--theme-color-border);
-		.article-picture { --theme-article-picture-ratio: 12 / 5; }
-		:where(h2, h3) { scroll-margin-block-start: var(--theme-space-8); }
 	}
 }
 

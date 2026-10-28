@@ -1,0 +1,14 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../pattern/section-frame";
+@use "../pattern/site-prose";
+
+.content-page {
+	@extend %p-section-frame;
+	border-block: 0;
+	padding-block: var(--authwave-section-block-space);
+}
+
+.content-prose {
+	@extend %p-site-prose;
+	@extend %l-article;
+}

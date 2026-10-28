@@ -378,7 +378,7 @@
 	}
 
 	// Content pages use a neutral header rather than the homepage's dark one.
-	&:has(.articles-page) {
+	&:has(:is(.articles-page, .content-page)) {
 		--theme-contents-background: light-dark(color-mix(in srgb, var(--aw-blue-soft) 25%, var(--aw-white)), #2c343b);
 		--pal-5: light-dark(#6c6663, #c4bbb7);
 		--theme-badge-background: var(--pal-3);
@@ -438,7 +438,7 @@
 		}
 
 		.article-contents { border-color: transparent; }
-		.article-prose {
+		:is(.article-prose, .content-prose) {
 			--theme-link-color: light-dark(#85339a, var(--aw-pink));
 			li::marker { color: var(--aw-pink); }
 			blockquote { --theme-inset-background: var(--pal-3); }

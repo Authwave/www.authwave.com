@@ -1,6 +1,7 @@
 <?php
 namespace Authwave\Content;
 
+use Gt\Dom\HTMLDocument;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
@@ -32,6 +33,13 @@ class MarkdownRenderer {
 	}
 
 	public function render(string $markdown):string {
-		return (string)$this->converter->convert($markdown);
+		$document = new HTMLDocument((string)$this->converter->convert($markdown));
+		foreach($document->querySelectorAll('a[href*="://"]') as $link) {
+			$link->setAttribute("target", "_blank");
+			$relations = preg_split('/\s+/', trim($link->getAttribute("rel") ?? ""), flags: PREG_SPLIT_NO_EMPTY);
+			$relations []= "noopener";
+			$link->setAttribute("rel", implode(" ", array_unique($relations)));
+		}
+		return $document->body->innerHTML;
 	}
 }

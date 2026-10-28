@@ -15,6 +15,16 @@ $directory = sys_get_temp_dir() . "/authwave-articles-" . bin2hex(random_bytes(6
 mkdir($directory);
 $document = static fn(string $title, string $category, string $body):string => "---\ntitle: " . json_encode($title) . "\ncategory: $category\nsummary: A short article summary.\n---\n\n$body\n";
 try {
+	$links = new Gt\Dom\HTMLDocument((new MarkdownRenderer())->render(
+		'[External](https://example.com/) [Internal](/about/) [Email](mailto:contact@authwave.com) <a href="https://example.org/" rel="author">Author</a>'
+	));
+	foreach($links->querySelectorAll('a[href*="://"]') as $link) {
+		check($link->getAttribute("target") === "_blank", "External Markdown and HTML links must open in a new tab.");
+		check(in_array("noopener", explode(" ", $link->getAttribute("rel"))), "External links must isolate the opened tab.");
+	}
+	check($links->querySelector('[rel="author noopener"]') !== null, "Existing link relations must be preserved.");
+	check($links->querySelector('a[href="/about/"]')->getAttribute("target") === null, "Internal links must keep their default target.");
+	check($links->querySelector('a[href^="mailto:"]')->getAttribute("target") === null, "Email links must keep their default target.");
 	check((new ArticleRepository($directory))->all() === [], "An empty Markdown directory must produce an empty catalogue.");
 	$markdown = <<<'MARKDOWN'
 ## Start here

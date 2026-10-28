@@ -21,8 +21,8 @@
 
 @mixin awpixel {
 	@include base.base;
-	// The reference deliberately alternates light and dark sections.
-	color-scheme: light;
+	// Neutral surfaces follow the selected scheme; dark feature blocks remain dark.
+	@include color-scheme.color-scheme;
 	--aw-ink: #2b2524;
 	--aw-white: #fff;
 	--aw-cream: #f2ede3;
@@ -35,12 +35,12 @@
 	--aw-coral: #ff805f;
 	--aw-coral-soft: #fddacf;
 
-	--pal-1: var(--aw-ink);
-	--pal-2: var(--aw-white);
-	--pal-3: #f6f6f6;
-	--pal-4: #eae9e9;
-	--pal-5: #555150;
-	--pal-6: #275f89;
+	--pal-1: light-dark(var(--aw-ink), var(--aw-cream));
+	--pal-2: light-dark(var(--aw-white), #211d1c);
+	--pal-3: light-dark(#f6f6f6, #332d2c);
+	--pal-4: light-dark(#eae9e9, #4a4240);
+	--pal-5: light-dark(#555150, #c4bbb7);
+	--pal-6: light-dark(#275f89, var(--aw-blue));
 	--pal-7: var(--aw-white);
 	--pal-8: #42671b;
 	--pal-9: #a33118;
@@ -63,8 +63,16 @@
 	--theme-button-weight: 500;
 	--theme-badge-border: transparent;
 	--theme-badge-radius: 0.125rem;
-	--theme-badge-background: #f6f6f6;
-	--theme-badge-text: var(--aw-ink);
+	--theme-badge-background: var(--pal-3);
+	--theme-badge-text: var(--pal-1);
+
+	body.uri--index :is(.introduction-area, .features-area) {
+		// These two sections have fixed light surfaces in the homepage design.
+		// Pricing and the footer continue to inherit the selected page scheme.
+		color-scheme: light;
+		background: var(--theme-color-surface);
+		color: var(--theme-color-text);
+	}
 
 	.site-header,
 	.hero-area,
@@ -241,6 +249,7 @@
 	);
 	@each $item, $colours in $introduction-colours {
 		.introduction-concertina > details:nth-child(#{$item}) > summary {
+			color: var(--aw-ink);
 			--aw-highlight-colour: #{list.nth($colours, 1)};
 			--theme-highlight-border-color: #{list.nth($colours, 2)};
 			background: #{list.nth($colours, 2)};
@@ -310,22 +319,31 @@
 	}
 
 	.pricing-panel {
-		background: var(--aw-white);
+		--theme-badge-background: var(--pal-3);
+		--theme-badge-text: var(--pal-1);
+		--theme-button-background: var(--pal-1);
+		--theme-button-background-hover: var(--pal-5);
+		--theme-button-background-active: var(--pal-5);
+		--theme-button-text: var(--pal-2);
+		background: var(--theme-color-surface);
+		color: var(--theme-color-text);
 
 		&:nth-child(2) {
-			background: var(--aw-blue-soft);
-			--aw-unavailable-background: var(--aw-white);
+			--theme-color-surface: light-dark(var(--aw-blue-soft), color-mix(in srgb, var(--aw-blue) 20%, var(--pal-2)));
+			--aw-unavailable-background: var(--pal-2);
 			--theme-badge-background: var(--aw-blue);
-			--theme-button-background: var(--aw-white);
-			--theme-button-background-hover: var(--aw-cream);
-			--theme-button-background-active: var(--aw-cream);
+			--theme-badge-text: var(--aw-ink);
+			--theme-button-background: light-dark(var(--aw-white), var(--aw-blue));
+			--theme-button-background-hover: light-dark(var(--aw-cream), var(--aw-blue-soft));
+			--theme-button-background-active: light-dark(var(--aw-cream), var(--aw-blue-soft));
 			--theme-button-text: var(--aw-ink);
 		}
 
 		&:nth-child(3) {
-			background: var(--aw-pink-soft);
-			--aw-unavailable-background: var(--aw-white);
+			--theme-color-surface: light-dark(var(--aw-pink-soft), color-mix(in srgb, var(--aw-pink) 20%, var(--pal-2)));
+			--aw-unavailable-background: var(--pal-2);
 			--theme-badge-background: var(--aw-pink);
+			--theme-badge-text: var(--aw-ink);
 		}
 
 		.pricing-action {
@@ -340,7 +358,7 @@
 		}
 
 		[data-available="false"] .checklist-marker {
-			background: var(--aw-unavailable-background, #f6f6f6);
+			background: var(--aw-unavailable-background, var(--theme-color-surface-disabled));
 		}
 	}
 
@@ -359,16 +377,10 @@
 		--theme-button-radius: 0.125rem;
 	}
 
-	// Content pages follow the user's colour preference. The homepage keeps
-	// its deliberately alternating palette; shared markup is unchanged.
-	&:has(.news-page) {
-		@include color-scheme.color-scheme;
-		--pal-1: light-dark(#2b2524, #f2ede3);
-		--pal-2: light-dark(#fff, #211d1c);
-		--pal-3: light-dark(#f6f6f6, #332d2c);
-		--pal-4: light-dark(#eae9e9, #4a4240);
+	// Content pages use a neutral header rather than the homepage's dark one.
+	&:has(.articles-page) {
+		--theme-contents-background: light-dark(color-mix(in srgb, var(--aw-blue-soft) 25%, var(--aw-white)), #2c343b);
 		--pal-5: light-dark(#6c6663, #c4bbb7);
-		--pal-6: light-dark(#275f89, #75bbf0);
 		--theme-badge-background: var(--pal-3);
 		--theme-badge-text: var(--pal-1);
 		--theme-badge-border: var(--pal-4);
@@ -392,7 +404,7 @@
 			}
 		}
 
-		.news-filters a {
+		.articles-filters a {
 			--theme-button-background: light-dark(var(--aw-cream), #443b35);
 			--theme-button-background-hover: light-dark(#e3dcd0, #554a43);
 			--theme-button-text: var(--pal-1);
@@ -404,7 +416,8 @@
 			}
 		}
 
-		.news-card {
+		.articles-card,
+		.article-header {
 			.article-picture {
 				background: light-dark(var(--aw-article-tint), color-mix(in srgb, var(--aw-article-accent) 15%, var(--pal-2)));
 				border-color: color-mix(in srgb, var(--aw-article-accent) 20%, var(--pal-4));
@@ -424,7 +437,14 @@
 			}
 		}
 
-		.news-pagination {
+		.article-contents { border-color: transparent; }
+		.article-prose {
+			--theme-link-color: light-dark(#85339a, var(--aw-pink));
+			li::marker { color: var(--aw-pink); }
+			blockquote { --theme-inset-background: var(--pal-3); }
+		}
+
+		.articles-pagination {
 			--theme-nav-current-background: var(--pal-1);
 			--theme-nav-current-text: var(--pal-2);
 			--theme-nav-current-shadow: none;

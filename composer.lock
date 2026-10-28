@@ -4,61 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf6248c837bbc724b9fb4f6a14e6b71e",
+    "content-hash": "ad3dba260a402feb62a715c56f2ac9bf",
     "packages": [
         {
-            "name": "authwave/php-client",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Authwave/php-client.git",
-                "reference": "d582fd9247be1c82664309ebf270322038123176"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Authwave/php-client/zipball/d582fd9247be1c82664309ebf270322038123176",
-                "reference": "d582fd9247be1c82664309ebf270322038123176",
-                "shasum": ""
-            },
-            "require": {
-                "ext-openssl": "*",
-                "php": ">=8.1",
-                "phpgt/cipher": "^1.0",
-                "phpgt/http": "1.*",
-                "phpgt/logger": "^1.0",
-                "phpgt/session": ">=1.1"
-            },
-            "require-dev": {
-                "ext-sodium": "*",
-                "phpunit/phpunit": "8.*"
-            },
-            "default-branch": true,
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Authwave\\": "./src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "PHP client library to implement Authwave in your application",
-            "support": {
-                "issues": "https://github.com/Authwave/php-client/issues",
-                "source": "https://github.com/Authwave/php-client/tree/master"
-            },
-            "time": "2026-08-11T11:23:39+00:00"
-        },
-        {
             "name": "composer/semver",
-            "version": "3.4.4",
+            "version": "3.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
+                "reference": "9dfce66f1e97360ea5e6d3e38ab14277e4cc591e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+                "url": "https://api.github.com/repos/composer/semver/zipball/9dfce66f1e97360ea5e6d3e38ab14277e4cc591e",
+                "reference": "9dfce66f1e97360ea5e6d3e38ab14277e4cc591e",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +59,7 @@
                     "homepage": "http://robbast.nl"
                 }
             ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "description": "Version comparison library that offers utilities, version constraint parsing and validation.",
             "keywords": [
                 "semantic",
                 "semver",
@@ -110,7 +69,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.4.4"
+                "source": "https://github.com/composer/semver/tree/3.5.2"
             },
             "funding": [
                 {
@@ -122,7 +81,82 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-20T19:15:30+00:00"
+            "time": "2026-10-22T15:37:26+00:00"
+        },
+        {
+            "name": "dflydev/dot-access-data",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dflydev/dflydev-dot-access-data.git",
+                "reference": "a23a2bf4f31d3518f3ecb38660c95715dfead60f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dflydev/dflydev-dot-access-data/zipball/a23a2bf4f31d3518f3ecb38660c95715dfead60f",
+                "reference": "a23a2bf4f31d3518f3ecb38660c95715dfead60f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.42",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.3",
+                "scrutinizer/ocular": "1.6.0",
+                "squizlabs/php_codesniffer": "^3.5",
+                "vimeo/psalm": "^4.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dflydev\\DotAccessData\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dragonfly Development Inc.",
+                    "email": "info@dflydev.com",
+                    "homepage": "http://dflydev.com"
+                },
+                {
+                    "name": "Beau Simensen",
+                    "email": "beau@dflydev.com",
+                    "homepage": "http://beausimensen.com"
+                },
+                {
+                    "name": "Carlos Frutos",
+                    "email": "carlos@kiwing.it",
+                    "homepage": "https://github.com/cfrutos"
+                },
+                {
+                    "name": "Colin O'Dell",
+                    "email": "colinodell@gmail.com",
+                    "homepage": "https://www.colinodell.com"
+                }
+            ],
+            "description": "Given a deep data structure, access data by dot notation.",
+            "homepage": "https://github.com/dflydev/dflydev-dot-access-data",
+            "keywords": [
+                "access",
+                "data",
+                "dot",
+                "notation"
+            ],
+            "support": {
+                "issues": "https://github.com/dflydev/dflydev-dot-access-data/issues",
+                "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.3"
+            },
+            "time": "2024-07-08T12:26:09+00:00"
         },
         {
             "name": "greenlion/php-sql-parser",
@@ -186,16 +220,16 @@
         },
         {
             "name": "justinrainbow/json-schema",
-            "version": "6.12.0",
+            "version": "6.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jsonrainbow/json-schema.git",
-                "reference": "8ef236a1a37df364b518b7411a4b5bb95b040d79"
+                "reference": "bae415e135dd68260c2d020ba392850231e9b1ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/8ef236a1a37df364b518b7411a4b5bb95b040d79",
-                "reference": "8ef236a1a37df364b518b7411a4b5bb95b040d79",
+                "url": "https://api.github.com/repos/jsonrainbow/json-schema/zipball/bae415e135dd68260c2d020ba392850231e9b1ab",
+                "reference": "bae415e135dd68260c2d020ba392850231e9b1ab",
                 "shasum": ""
             },
             "require": {
@@ -245,9 +279,198 @@
             ],
             "support": {
                 "issues": "https://github.com/jsonrainbow/json-schema/issues",
-                "source": "https://github.com/jsonrainbow/json-schema/tree/6.12.0"
+                "source": "https://github.com/jsonrainbow/json-schema/tree/6.14.0"
             },
-            "time": "2026-09-04T12:54:20+00:00"
+            "time": "2026-10-24T08:53:34+00:00"
+        },
+        {
+            "name": "league/commonmark",
+            "version": "2.10.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/commonmark.git",
+                "reference": "40821b7606d8d946bac57dbd2290076c722e3a65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/40821b7606d8d946bac57dbd2290076c722e3a65",
+                "reference": "40821b7606d8d946bac57dbd2290076c722e3a65",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "league/config": "^1.1.1",
+                "php": "^7.4 || ^8.0",
+                "psr/event-dispatcher": "^1.0",
+                "symfony/deprecation-contracts": "^2.1 || ^3.0",
+                "symfony/polyfill-php80": "^1.16"
+            },
+            "require-dev": {
+                "cebe/markdown": "^1.0",
+                "commonmark/cmark": "0.31.1",
+                "commonmark/commonmark.js": "0.31.1",
+                "composer/package-versions-deprecated": "^1.8",
+                "embed/embed": "^4.4",
+                "erusev/parsedown": "^1.0",
+                "ext-json": "*",
+                "github/gfm": "0.29.0",
+                "michelf/php-markdown": "^1.4 || ^2.0",
+                "nyholm/psr7": "^1.5",
+                "phpstan/phpstan": "^2.0.0",
+                "phpunit/phpunit": "^9.5.21 || ^10.5.9 || ^11.0.0 || ^12.0.0 || ^13.0.0",
+                "scrutinizer/ocular": "^1.8.1",
+                "symfony/finder": "^5.3 | ^6.0 | ^7.0 || ^8.0",
+                "symfony/process": "^5.4 | ^6.0 | ^7.0 || ^8.0",
+                "symfony/yaml": "^2.3 | ^3.0 | ^4.0 | ^5.0 | ^6.0 | ^7.0 || ^8.0",
+                "unleashedtech/php-coding-standard": "^3.1.1",
+                "vimeo/psalm": "^4.24.0 || ^5.0.0 || ^6.0.0"
+            },
+            "suggest": {
+                "symfony/yaml": "v2.3+ required if using the Front Matter extension"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.11-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\CommonMark\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Colin O'Dell",
+                    "email": "colinodell@gmail.com",
+                    "homepage": "https://www.colinodell.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Highly-extensible PHP Markdown parser which fully supports the CommonMark spec and GitHub-Flavored Markdown (GFM)",
+            "homepage": "https://commonmark.thephpleague.com",
+            "keywords": [
+                "commonmark",
+                "flavored",
+                "gfm",
+                "github",
+                "github-flavored",
+                "markdown",
+                "md",
+                "parser"
+            ],
+            "support": {
+                "docs": "https://commonmark.thephpleague.com/",
+                "forum": "https://github.com/thephpleague/commonmark/discussions",
+                "issues": "https://github.com/thephpleague/commonmark/issues",
+                "rss": "https://github.com/thephpleague/commonmark/releases.atom",
+                "source": "https://github.com/thephpleague/commonmark"
+            },
+            "funding": [
+                {
+                    "url": "https://www.colinodell.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/colinpodell/10.00",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/colinodell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/commonmark",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-10-17T19:59:50+00:00"
+        },
+        {
+            "name": "league/config",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/config.git",
+                "reference": "754b3604fb2984c71f4af4a9cbe7b57f346ec1f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/config/zipball/754b3604fb2984c71f4af4a9cbe7b57f346ec1f3",
+                "reference": "754b3604fb2984c71f4af4a9cbe7b57f346ec1f3",
+                "shasum": ""
+            },
+            "require": {
+                "dflydev/dot-access-data": "^3.0.1",
+                "nette/schema": "^1.2",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.8.2",
+                "phpunit/phpunit": "^9.5.5",
+                "scrutinizer/ocular": "^1.8.1",
+                "unleashedtech/php-coding-standard": "^3.1",
+                "vimeo/psalm": "^4.7.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Config\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Colin O'Dell",
+                    "email": "colinodell@gmail.com",
+                    "homepage": "https://www.colinodell.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Define configuration arrays with strict schemas and access values with dot notation",
+            "homepage": "https://config.thephpleague.com",
+            "keywords": [
+                "array",
+                "config",
+                "configuration",
+                "dot",
+                "dot-access",
+                "nested",
+                "schema"
+            ],
+            "support": {
+                "docs": "https://config.thephpleague.com/",
+                "issues": "https://github.com/thephpleague/config/issues",
+                "rss": "https://github.com/thephpleague/config/releases.atom",
+                "source": "https://github.com/thephpleague/config"
+            },
+            "funding": [
+                {
+                    "url": "https://www.colinodell.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/colinpodell/10.00",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/colinodell",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-12-11T20:36:23+00:00"
         },
         {
             "name": "magicalex/write-ini-file",
@@ -374,17 +597,175 @@
             "time": "2025-09-14T11:18:39+00:00"
         },
         {
-            "name": "phpgt/async",
-            "version": "v1.0.3",
+            "name": "nette/schema",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phpgt/Async.git",
-                "reference": "d1f3679f4200e32457b57211f49b999641ef8fa4"
+                "url": "https://github.com/nette/schema.git",
+                "reference": "af9fa8a86bfca9b02b10346220db26e62ef942ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Async/zipball/d1f3679f4200e32457b57211f49b999641ef8fa4",
-                "reference": "d1f3679f4200e32457b57211f49b999641ef8fa4",
+                "url": "https://api.github.com/repos/nette/schema/zipball/af9fa8a86bfca9b02b10346220db26e62ef942ec",
+                "reference": "af9fa8a86bfca9b02b10346220db26e62ef942ec",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "^4.0",
+                "php": "8.1 - 8.6"
+            },
+            "require-dev": {
+                "nette/phpstan-rules": "^1.0.7",
+                "nette/tester": "^2.6",
+                "phpstan/extension-installer": "^1.4@stable",
+                "phpstan/phpstan": "^2.3@stable",
+                "tracy/tracy": "^2.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nette\\": "src"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0-only",
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                }
+            ],
+            "description": "📐 Nette Schema: validates and normalizes data such as configuration or API input against a schema described in a few readable lines of PHP, with precise error messages.",
+            "homepage": "https://doc.nette.org/schema",
+            "keywords": [
+                "configuration",
+                "data validation",
+                "nette",
+                "normalization",
+                "schema",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/nette/schema/issues",
+                "source": "https://github.com/nette/schema/tree/v1.4.0"
+            },
+            "time": "2026-10-22T02:12:50+00:00"
+        },
+        {
+            "name": "nette/utils",
+            "version": "v4.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/utils.git",
+                "reference": "6bf24518accf32cf845bca305e0b92078700fd01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/utils/zipball/6bf24518accf32cf845bca305e0b92078700fd01",
+                "reference": "6bf24518accf32cf845bca305e0b92078700fd01",
+                "shasum": ""
+            },
+            "require": {
+                "php": "8.2 - 8.6"
+            },
+            "conflict": {
+                "nette/finder": "<3",
+                "nette/schema": "<1.2.2"
+            },
+            "require-dev": {
+                "jetbrains/phpstorm-attributes": "^1.2",
+                "nette/phpstan-rules": "^1.0",
+                "nette/tester": "^2.5",
+                "phpstan/extension-installer": "^1.4@stable",
+                "phpstan/phpstan": "^2.1@stable",
+                "tracy/tracy": "^2.9"
+            },
+            "suggest": {
+                "ext-gd": "to use Image",
+                "ext-iconv": "to use Strings::chr(), ord() and reverse()",
+                "ext-intl": "to use Strings::webalize(), toAscii(), normalize() and compare()",
+                "ext-json": "to use Nette\\Utils\\Json",
+                "ext-mbstring": "to use Strings::lower() etc...",
+                "ext-tokenizer": "to use Nette\\Utils\\Reflection::getUseStatements()"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nette\\": "src"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0-only",
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "🛠  Nette Utils: lightweight utilities for string & array manipulation, image handling, safe JSON encoding/decoding, validation, slug or strong password generating etc.",
+            "homepage": "https://nette.org",
+            "keywords": [
+                "array",
+                "core",
+                "datetime",
+                "images",
+                "json",
+                "nette",
+                "paginator",
+                "password",
+                "slugify",
+                "string",
+                "unicode",
+                "utf-8",
+                "utility",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/nette/utils/issues",
+                "source": "https://github.com/nette/utils/tree/v4.1.6"
+            },
+            "time": "2026-10-20T17:07:56+00:00"
+        },
+        {
+            "name": "phpgt/async",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpgt/Async.git",
+                "reference": "a111af0c5194a23f1367006747b46de7b5f01327"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpgt/Async/zipball/a111af0c5194a23f1367006747b46de7b5f01327",
+                "reference": "a111af0c5194a23f1367006747b46de7b5f01327",
                 "shasum": ""
             },
             "require": {
@@ -394,7 +775,7 @@
             },
             "require-dev": {
                 "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^10.1",
                 "squizlabs/php_codesniffer": "^3.7"
             },
@@ -412,7 +793,7 @@
             "description": "Promise-based non-blocking operations.",
             "support": {
                 "issues": "https://github.com/phpgt/Async/issues",
-                "source": "https://github.com/phpgt/Async/tree/v1.0.3"
+                "source": "https://github.com/phpgt/Async/tree/v1.0.4"
             },
             "funding": [
                 {
@@ -420,20 +801,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-04T16:34:25+00:00"
+            "time": "2026-08-25T12:01:48+00:00"
         },
         {
             "name": "phpgt/build",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Build.git",
-                "reference": "4268532d33a30b68bddbfdc19bf0ee036738c851"
+                "reference": "687b66061ce89f3fa318ace9c27b346c683de6d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Build/zipball/4268532d33a30b68bddbfdc19bf0ee036738c851",
-                "reference": "4268532d33a30b68bddbfdc19bf0ee036738c851",
+                "url": "https://api.github.com/repos/phpgt/Build/zipball/687b66061ce89f3fa318ace9c27b346c683de6d9",
+                "reference": "687b66061ce89f3fa318ace9c27b346c683de6d9",
                 "shasum": ""
             },
             "require": {
@@ -448,7 +829,7 @@
                 "phpmd/phpmd": "^2.15",
                 "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^10.1",
-                "squizlabs/php_codesniffer": "^3.7"
+                "squizlabs/php_codesniffer": "^4.0"
             },
             "bin": [
                 "bin/build"
@@ -467,7 +848,7 @@
             "description": "Client-side build system for PHP projects.",
             "support": {
                 "issues": "https://github.com/phpgt/Build/issues",
-                "source": "https://github.com/phpgt/Build/tree/v1.4.0"
+                "source": "https://github.com/phpgt/Build/tree/v1.4.1"
             },
             "funding": [
                 {
@@ -475,61 +856,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-14T16:44:46+00:00"
-        },
-        {
-            "name": "phpgt/cipher",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpgt/Cipher.git",
-                "reference": "0b211bf8a1ba35dd1c8667510e036ad1c3364450"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Cipher/zipball/0b211bf8a1ba35dd1c8667510e036ad1c3364450",
-                "reference": "0b211bf8a1ba35dd1c8667510e036ad1c3364450",
-                "shasum": ""
-            },
-            "require": {
-                "ext-sodium": "*",
-                "php": ">=8.4",
-                "phpgt/http": "^1.3"
-            },
-            "require-dev": {
-                "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "^2.1",
-                "phpunit/phpunit": "^10.5 || ^12.0",
-                "squizlabs/php_codesniffer": "^3.7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "GT\\Cipher\\": "./src",
-                    "Gt\\Cipher\\": "./src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "authors": [
-                {
-                    "name": "Greg Bowler",
-                    "email": "greg.bowler@g105b.com",
-                    "homepage": "https://www.g105b.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Two-way encryption of messages for secure plain text transmission.",
-            "support": {
-                "issues": "https://github.com/phpgt/Cipher/issues",
-                "source": "https://github.com/phpgt/Cipher/tree/v1.0.2"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/PhpGt",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-04-19T20:47:16+00:00"
+            "time": "2026-06-04T07:43:52+00:00"
         },
         {
             "name": "phpgt/cli",
@@ -594,16 +921,16 @@
         },
         {
             "name": "phpgt/config",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Config.git",
-                "reference": "21fa25f3dca864ecc9c54800a4394eb5601f2c4d"
+                "reference": "5d644af3fdc35bc3c648868ae670ea4cd162937a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Config/zipball/21fa25f3dca864ecc9c54800a4394eb5601f2c4d",
-                "reference": "21fa25f3dca864ecc9c54800a4394eb5601f2c4d",
+                "url": "https://api.github.com/repos/phpgt/Config/zipball/5d644af3fdc35bc3c648868ae670ea4cd162937a",
+                "reference": "5d644af3fdc35bc3c648868ae670ea4cd162937a",
                 "shasum": ""
             },
             "require": {
@@ -623,6 +950,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\Config\\": "./src",
                     "Gt\\Config\\": "./src"
                 }
             },
@@ -639,7 +967,7 @@
             "description": "Manage configuration with ini files and environment variables.",
             "support": {
                 "issues": "https://github.com/phpgt/Config/issues",
-                "source": "https://github.com/phpgt/Config/tree/v1.2.0"
+                "source": "https://github.com/phpgt/Config/tree/v1.3.0"
             },
             "funding": [
                 {
@@ -647,34 +975,35 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-16T11:04:06+00:00"
+            "time": "2026-06-29T20:06:02+00:00"
         },
         {
             "name": "phpgt/cookie",
-            "version": "v1.0.3",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Cookie.git",
-                "reference": "6c80638745ce4538aa397843e7c0b760b60a08c5"
+                "reference": "b1e6ae59c9da56f4ba55f2325930bc27c8587561"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Cookie/zipball/6c80638745ce4538aa397843e7c0b760b60a08c5",
-                "reference": "6c80638745ce4538aa397843e7c0b760b60a08c5",
+                "url": "https://api.github.com/repos/phpgt/Cookie/zipball/b1e6ae59c9da56f4ba55f2325930bc27c8587561",
+                "reference": "b1e6ae59c9da56f4ba55f2325930bc27c8587561",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
             "require-dev": {
-                "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^10.1",
-                "squizlabs/php_codesniffer": "^3.7"
+                "phpmd/phpmd": "^2.15",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^10.5",
+                "squizlabs/php_codesniffer": "^4.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\Cookie\\": "./src",
                     "Gt\\Cookie\\": "./src"
                 }
             },
@@ -691,28 +1020,28 @@
             "description": "Object oriented cookie handler.",
             "support": {
                 "issues": "https://github.com/phpgt/Cookie/issues",
-                "source": "https://github.com/phpgt/Cookie/tree/v1.0.3"
+                "source": "https://github.com/phpgt/Cookie/tree/v1.1.0"
             },
             "funding": [
                 {
-                    "url": "https://github.com/sponsors/PhpGt",
+                    "url": "https://github.com/sponsors/phpgt",
                     "type": "github"
                 }
             ],
-            "time": "2025-03-07T17:42:38+00:00"
+            "time": "2026-04-23T14:45:02+00:00"
         },
         {
             "name": "phpgt/cron",
-            "version": "v1.2.2",
+            "version": "v1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Cron.git",
-                "reference": "cb868f879994c401d31ab1d896b33d2900a6b961"
+                "reference": "92e09402d1cd41630aa8b2e2b1874d7a1f75dc7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Cron/zipball/cb868f879994c401d31ab1d896b33d2900a6b961",
-                "reference": "cb868f879994c401d31ab1d896b33d2900a6b961",
+                "url": "https://api.github.com/repos/phpgt/Cron/zipball/92e09402d1cd41630aa8b2e2b1874d7a1f75dc7a",
+                "reference": "92e09402d1cd41630aa8b2e2b1874d7a1f75dc7a",
                 "shasum": ""
             },
             "require": {
@@ -742,7 +1071,7 @@
             "description": "Run scripts or static functions at regular intervals.",
             "support": {
                 "issues": "https://github.com/phpgt/Cron/issues",
-                "source": "https://github.com/phpgt/Cron/tree/v1.2.2"
+                "source": "https://github.com/phpgt/Cron/tree/v1.2.3"
             },
             "funding": [
                 {
@@ -750,20 +1079,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-19T18:34:21+00:00"
+            "time": "2026-08-19T10:12:39+00:00"
         },
         {
             "name": "phpgt/csrf",
-            "version": "v1.9.1",
+            "version": "v1.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Csrf.git",
-                "reference": "143f457ff47cfa39a74dfe57808d2d65e69180da"
+                "reference": "8dfe1e28d8f7e04c877ff8a739ea55a65c755e73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Csrf/zipball/143f457ff47cfa39a74dfe57808d2d65e69180da",
-                "reference": "143f457ff47cfa39a74dfe57808d2d65e69180da",
+                "url": "https://api.github.com/repos/phpgt/Csrf/zipball/8dfe1e28d8f7e04c877ff8a739ea55a65c755e73",
+                "reference": "8dfe1e28d8f7e04c877ff8a739ea55a65c755e73",
                 "shasum": ""
             },
             "require": {
@@ -774,9 +1103,9 @@
             },
             "require-dev": {
                 "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan": "^1.10 || ^2.0",
                 "phpunit/phpunit": "^10.2",
-                "squizlabs/php_codesniffer": "^3.7"
+                "squizlabs/php_codesniffer": "^3.7 || ^4.0"
             },
             "type": "library",
             "autoload": {
@@ -804,7 +1133,7 @@
             "description": "Automatic protection from Cross-Site Request Forgery.",
             "support": {
                 "issues": "https://github.com/phpgt/Csrf/issues",
-                "source": "https://github.com/phpgt/Csrf/tree/v1.9.1"
+                "source": "https://github.com/phpgt/Csrf/tree/v1.9.2"
             },
             "funding": [
                 {
@@ -812,20 +1141,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-23T17:32:03+00:00"
+            "time": "2026-05-03T22:41:10+00:00"
         },
         {
             "name": "phpgt/cssxpath",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/CssXPath.git",
-                "reference": "577781742ff61742332740d50f35f2b6cc037e2a"
+                "reference": "bc6a61aff5ed1dec3a5d8a491ec087c5305cf413"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/CssXPath/zipball/577781742ff61742332740d50f35f2b6cc037e2a",
-                "reference": "577781742ff61742332740d50f35f2b6cc037e2a",
+                "url": "https://api.github.com/repos/phpgt/CssXPath/zipball/bc6a61aff5ed1dec3a5d8a491ec087c5305cf413",
+                "reference": "bc6a61aff5ed1dec3a5d8a491ec087c5305cf413",
                 "shasum": ""
             },
             "require": {
@@ -842,6 +1171,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\CssXPath\\": "./src",
                     "Gt\\CssXPath\\": "./src"
                 }
             },
@@ -860,7 +1190,7 @@
             "description": "Convert CSS selectors to XPath queries.",
             "support": {
                 "issues": "https://github.com/phpgt/CssXPath/issues",
-                "source": "https://github.com/phpgt/CssXPath/tree/v1.5.0"
+                "source": "https://github.com/phpgt/CssXPath/tree/v1.6.0"
             },
             "funding": [
                 {
@@ -868,20 +1198,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-16T12:14:14+00:00"
+            "time": "2026-06-29T20:05:51+00:00"
         },
         {
             "name": "phpgt/curl",
-            "version": "v3.2.2",
+            "version": "v3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Curl.git",
-                "reference": "86338d0be868c775b62250357e8fba47b0dcf5fd"
+                "reference": "fd63a520b0086f4cc34317f9602101056f55bb00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Curl/zipball/86338d0be868c775b62250357e8fba47b0dcf5fd",
-                "reference": "86338d0be868c775b62250357e8fba47b0dcf5fd",
+                "url": "https://api.github.com/repos/phpgt/Curl/zipball/fd63a520b0086f4cc34317f9602101056f55bb00",
+                "reference": "fd63a520b0086f4cc34317f9602101056f55bb00",
                 "shasum": ""
             },
             "require": {
@@ -922,7 +1252,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpgt/Curl/issues",
-                "source": "https://github.com/phpgt/Curl/tree/v3.2.2"
+                "source": "https://github.com/phpgt/Curl/tree/v3.2.3"
             },
             "funding": [
                 {
@@ -930,7 +1260,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-19T15:25:00+00:00"
+            "time": "2026-06-29T20:06:08+00:00"
         },
         {
             "name": "phpgt/daemon",
@@ -979,16 +1309,16 @@
         },
         {
             "name": "phpgt/database",
-            "version": "v1.8.0",
+            "version": "v1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Database.git",
-                "reference": "82e14aa1103372e273dbb45ffeaf45e21ef790b5"
+                "reference": "edea409878beb7c99ceb06a6a593112bb8b0cd03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Database/zipball/82e14aa1103372e273dbb45ffeaf45e21ef790b5",
-                "reference": "82e14aa1103372e273dbb45ffeaf45e21ef790b5",
+                "url": "https://api.github.com/repos/phpgt/Database/zipball/edea409878beb7c99ceb06a6a593112bb8b0cd03",
+                "reference": "edea409878beb7c99ceb06a6a593112bb8b0cd03",
                 "shasum": ""
             },
             "require": {
@@ -1037,7 +1367,7 @@
             "description": "Database API organisation.",
             "support": {
                 "issues": "https://github.com/phpgt/Database/issues",
-                "source": "https://github.com/phpgt/Database/tree/v1.8.0"
+                "source": "https://github.com/phpgt/Database/tree/v1.8.1"
             },
             "funding": [
                 {
@@ -1045,20 +1375,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-10T10:27:56+00:00"
+            "time": "2026-08-31T14:56:25+00:00"
         },
         {
             "name": "phpgt/dataobject",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/DataObject.git",
-                "reference": "fc1918f2c1a9f3329d8d80bd01f3658cf07961ba"
+                "reference": "4c6b55ae11555f915969734d9002caa201feda99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/DataObject/zipball/fc1918f2c1a9f3329d8d80bd01f3658cf07961ba",
-                "reference": "fc1918f2c1a9f3329d8d80bd01f3658cf07961ba",
+                "url": "https://api.github.com/repos/phpgt/DataObject/zipball/4c6b55ae11555f915969734d9002caa201feda99",
+                "reference": "4c6b55ae11555f915969734d9002caa201feda99",
                 "shasum": ""
             },
             "require": {
@@ -1092,7 +1422,7 @@
             "description": " Structured, type-safe, immutable data transfer.",
             "support": {
                 "issues": "https://github.com/phpgt/DataObject/issues",
-                "source": "https://github.com/phpgt/DataObject/tree/v1.1.1"
+                "source": "https://github.com/phpgt/DataObject/tree/v1.1.2"
             },
             "funding": [
                 {
@@ -1100,20 +1430,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-21T12:24:50+00:00"
+            "time": "2026-07-25T17:55:14+00:00"
         },
         {
             "name": "phpgt/dom",
-            "version": "v4.2.1",
+            "version": "v4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Dom.git",
-                "reference": "830f0809c8ca1abf5f11d3d997f735aa00f553b8"
+                "reference": "0b2b47529d88f2f15b1ab79c7d02a3dd8fb1b31a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Dom/zipball/830f0809c8ca1abf5f11d3d997f735aa00f553b8",
-                "reference": "830f0809c8ca1abf5f11d3d997f735aa00f553b8",
+                "url": "https://api.github.com/repos/phpgt/Dom/zipball/0b2b47529d88f2f15b1ab79c7d02a3dd8fb1b31a",
+                "reference": "0b2b47529d88f2f15b1ab79c7d02a3dd8fb1b31a",
                 "shasum": ""
             },
             "require": {
@@ -1193,7 +1523,7 @@
             "description": "Modern DOM API.",
             "support": {
                 "issues": "https://github.com/phpgt/Dom/issues",
-                "source": "https://github.com/phpgt/Dom/tree/v4.2.1"
+                "source": "https://github.com/phpgt/Dom/tree/v4.2.2"
             },
             "funding": [
                 {
@@ -1201,20 +1531,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-13T16:30:26+00:00"
+            "time": "2026-08-13T08:31:18+00:00"
         },
         {
             "name": "phpgt/domtemplate",
-            "version": "v3.6.3",
+            "version": "v3.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/DomTemplate.git",
-                "reference": "f3293411a263266884ef351063cf4285feba5089"
+                "reference": "03281032b7bf37a137a1e900865c7be03fbd279e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/DomTemplate/zipball/f3293411a263266884ef351063cf4285feba5089",
-                "reference": "f3293411a263266884ef351063cf4285feba5089",
+                "url": "https://api.github.com/repos/phpgt/DomTemplate/zipball/03281032b7bf37a137a1e900865c7be03fbd279e",
+                "reference": "03281032b7bf37a137a1e900865c7be03fbd279e",
                 "shasum": ""
             },
             "require": {
@@ -1242,7 +1572,7 @@
             "description": "Bind dynamic data to reusable HTML components.",
             "support": {
                 "issues": "https://github.com/phpgt/DomTemplate/issues",
-                "source": "https://github.com/phpgt/DomTemplate/tree/v3.6.3"
+                "source": "https://github.com/phpgt/DomTemplate/tree/v3.6.4"
             },
             "funding": [
                 {
@@ -1250,26 +1580,26 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-29T10:20:53+00:00"
+            "time": "2026-10-05T09:16:12+00:00"
         },
         {
             "name": "phpgt/domvalidation",
-            "version": "v1.0.2",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/DomValidation.git",
-                "reference": "573cfc00cbfa7eb75fb7b870e95adfd6dc54a733"
+                "reference": "5a3b2193a9c40bb965e1f7675c75b3268ab4d005"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/DomValidation/zipball/573cfc00cbfa7eb75fb7b870e95adfd6dc54a733",
-                "reference": "573cfc00cbfa7eb75fb7b870e95adfd6dc54a733",
+                "url": "https://api.github.com/repos/phpgt/DomValidation/zipball/5a3b2193a9c40bb965e1f7675c75b3268ab4d005",
+                "reference": "5a3b2193a9c40bb965e1f7675c75b3268ab4d005",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.2",
                 "phpgt/cssxpath": "1.*",
-                "phpgt/dom": "^4.1.8"
+                "phpgt/dom": "^4.2"
             },
             "require-dev": {
                 "phpmd/phpmd": "^2.13",
@@ -1280,6 +1610,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\DomValidation\\": "./src/",
                     "Gt\\DomValidation\\": "./src/"
                 }
             },
@@ -1290,7 +1621,7 @@
             "description": "Server side form validation using web standards.",
             "support": {
                 "issues": "https://github.com/phpgt/DomValidation/issues",
-                "source": "https://github.com/phpgt/DomValidation/tree/v1.0.2"
+                "source": "https://github.com/phpgt/DomValidation/tree/v1.1.0"
             },
             "funding": [
                 {
@@ -1298,7 +1629,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-11T18:01:15+00:00"
+            "time": "2026-05-07T13:38:24+00:00"
         },
         {
             "name": "phpgt/fetch",
@@ -1376,16 +1707,16 @@
         },
         {
             "name": "phpgt/filecache",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/FileCache.git",
-                "reference": "dd6e4f185a558968a562845114047cbf770fe590"
+                "reference": "32e7023e14c98a83ef15267de8e140a829aae275"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/FileCache/zipball/dd6e4f185a558968a562845114047cbf770fe590",
-                "reference": "dd6e4f185a558968a562845114047cbf770fe590",
+                "url": "https://api.github.com/repos/phpgt/FileCache/zipball/32e7023e14c98a83ef15267de8e140a829aae275",
+                "reference": "32e7023e14c98a83ef15267de8e140a829aae275",
                 "shasum": ""
             },
             "require": {
@@ -1420,7 +1751,7 @@
             "description": " Cache data in local files.",
             "support": {
                 "issues": "https://github.com/phpgt/FileCache/issues",
-                "source": "https://github.com/phpgt/FileCache/tree/v1.3.0"
+                "source": "https://github.com/phpgt/FileCache/tree/v1.3.1"
             },
             "funding": [
                 {
@@ -1428,7 +1759,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-19T19:09:39+00:00"
+            "time": "2026-06-29T20:05:47+00:00"
         },
         {
             "name": "phpgt/http",
@@ -1606,16 +1937,16 @@
         },
         {
             "name": "phpgt/logger",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Logger.git",
-                "reference": "64676afa8c2f8ae27a81ba36a2cfc96795230d81"
+                "reference": "5b9441b0bbafe46e3442ea3d1bbbdf432986a2a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Logger/zipball/64676afa8c2f8ae27a81ba36a2cfc96795230d81",
-                "reference": "64676afa8c2f8ae27a81ba36a2cfc96795230d81",
+                "url": "https://api.github.com/repos/phpgt/Logger/zipball/5b9441b0bbafe46e3442ea3d1bbbdf432986a2a8",
+                "reference": "5b9441b0bbafe46e3442ea3d1bbbdf432986a2a8",
                 "shasum": ""
             },
             "require": {
@@ -1628,6 +1959,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\Logger\\": "./src",
                     "Gt\\Logger\\": "./src"
                 }
             },
@@ -1638,21 +1970,21 @@
             "authors": [
                 {
                     "name": "Greg Bowler",
-                    "email": "greg.bowler@g105b.com"
+                    "email": "greg@g105b.com"
                 }
             ],
             "description": "PSR-3 logger and implementation.",
             "support": {
                 "issues": "https://github.com/phpgt/Logger/issues",
-                "source": "https://github.com/phpgt/Logger/tree/v1.1.0"
+                "source": "https://github.com/phpgt/Logger/tree/v1.2.0"
             },
             "funding": [
                 {
-                    "url": "https://github.com/sponsors/PhpGt",
+                    "url": "https://github.com/sponsors/phpgt",
                     "type": "github"
                 }
             ],
-            "time": "2026-03-09T17:36:44+00:00"
+            "time": "2026-05-08T13:03:43+00:00"
         },
         {
             "name": "phpgt/promise",
@@ -1766,16 +2098,16 @@
         },
         {
             "name": "phpgt/protectedglobal",
-            "version": "v2.0.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/ProtectedGlobal.git",
-                "reference": "28c9ae979549759828fe0b732907a99d8b9c7e44"
+                "reference": "fb91824fe1106f7fe4ef7ac611774637ffbbb843"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/ProtectedGlobal/zipball/28c9ae979549759828fe0b732907a99d8b9c7e44",
-                "reference": "28c9ae979549759828fe0b732907a99d8b9c7e44",
+                "url": "https://api.github.com/repos/phpgt/ProtectedGlobal/zipball/fb91824fe1106f7fe4ef7ac611774637ffbbb843",
+                "reference": "fb91824fe1106f7fe4ef7ac611774637ffbbb843",
                 "shasum": ""
             },
             "require": {
@@ -1788,6 +2120,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\ProtectedGlobal\\": "./src/",
                     "Gt\\ProtectedGlobal\\": "./src/"
                 }
             },
@@ -1798,22 +2131,22 @@
             "description": "Protect against accidental use of superglobals.",
             "support": {
                 "issues": "https://github.com/phpgt/ProtectedGlobal/issues",
-                "source": "https://github.com/phpgt/ProtectedGlobal/tree/v2.0.0"
+                "source": "https://github.com/phpgt/ProtectedGlobal/tree/v2.1.0"
             },
-            "time": "2025-10-23T15:24:26+00:00"
+            "time": "2026-10-05T09:39:53+00:00"
         },
         {
             "name": "phpgt/routing",
-            "version": "v1.1.9",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Routing.git",
-                "reference": "13c2bd7eee7443a620b9b40dfe7247f146a8341e"
+                "reference": "875af4432474ab3eb7fa834c305fbb88c934251d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Routing/zipball/13c2bd7eee7443a620b9b40dfe7247f146a8341e",
-                "reference": "13c2bd7eee7443a620b9b40dfe7247f146a8341e",
+                "url": "https://api.github.com/repos/phpgt/Routing/zipball/875af4432474ab3eb7fa834c305fbb88c934251d",
+                "reference": "875af4432474ab3eb7fa834c305fbb88c934251d",
                 "shasum": ""
             },
             "require": {
@@ -1864,7 +2197,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpgt/Routing/issues",
-                "source": "https://github.com/phpgt/Routing/tree/v1.1.9"
+                "source": "https://github.com/phpgt/Routing/tree/v1.2.0"
             },
             "funding": [
                 {
@@ -1872,20 +2205,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-10T09:53:14+00:00"
+            "time": "2026-07-19T10:02:06+00:00"
         },
         {
             "name": "phpgt/server",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Server.git",
-                "reference": "fdeafc0f9fd45cdb135185a178e126cc35483597"
+                "reference": "33a99d1909ebc831e700074fc01fd5dc3acb7266"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Server/zipball/fdeafc0f9fd45cdb135185a178e126cc35483597",
-                "reference": "fdeafc0f9fd45cdb135185a178e126cc35483597",
+                "url": "https://api.github.com/repos/phpgt/Server/zipball/33a99d1909ebc831e700074fc01fd5dc3acb7266",
+                "reference": "33a99d1909ebc831e700074fc01fd5dc3acb7266",
                 "shasum": ""
             },
             "require": {
@@ -1903,6 +2236,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\Server\\": "./src/",
                     "Gt\\Server\\": "./src/"
                 }
             },
@@ -1910,28 +2244,28 @@
             "description": "Development HTTP server.",
             "support": {
                 "issues": "https://github.com/phpgt/Server/issues",
-                "source": "https://github.com/phpgt/Server/tree/v1.2.0"
+                "source": "https://github.com/phpgt/Server/tree/v1.3.0"
             },
             "funding": [
                 {
-                    "url": "https://github.com/sponsors/PhpGt",
+                    "url": "https://github.com/sponsors/phpgt",
                     "type": "github"
                 }
             ],
-            "time": "2026-04-07T22:04:12+00:00"
+            "time": "2026-05-08T13:03:40+00:00"
         },
         {
             "name": "phpgt/servicecontainer",
-            "version": "v1.4.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/ServiceContainer.git",
-                "reference": "9f85224075716808f75a7d2da867fddefe9b4020"
+                "reference": "bb0fa330f93be83d4f13f387c39d009e6a721690"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/ServiceContainer/zipball/9f85224075716808f75a7d2da867fddefe9b4020",
-                "reference": "9f85224075716808f75a7d2da867fddefe9b4020",
+                "url": "https://api.github.com/repos/phpgt/ServiceContainer/zipball/bb0fa330f93be83d4f13f387c39d009e6a721690",
+                "reference": "bb0fa330f93be83d4f13f387c39d009e6a721690",
                 "shasum": ""
             },
             "require": {
@@ -1950,6 +2284,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\ServiceContainer\\": "./src",
                     "Gt\\ServiceContainer\\": "./src"
                 }
             },
@@ -1960,7 +2295,7 @@
             "description": "Centralised container of a project's core objects.",
             "support": {
                 "issues": "https://github.com/phpgt/ServiceContainer/issues",
-                "source": "https://github.com/phpgt/ServiceContainer/tree/v1.4.0"
+                "source": "https://github.com/phpgt/ServiceContainer/tree/v1.5.0"
             },
             "funding": [
                 {
@@ -1968,20 +2303,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-09T16:32:02+00:00"
+            "time": "2026-06-23T16:24:38+00:00"
         },
         {
             "name": "phpgt/session",
-            "version": "v1.2.6",
+            "version": "v1.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Session.git",
-                "reference": "56ceb00a580d6e008a3e78cdc0c443fe15876513"
+                "reference": "45b6e67e60bfcf9c1e2e6508b58e61bed76716f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Session/zipball/56ceb00a580d6e008a3e78cdc0c443fe15876513",
-                "reference": "56ceb00a580d6e008a3e78cdc0c443fe15876513",
+                "url": "https://api.github.com/repos/phpgt/Session/zipball/45b6e67e60bfcf9c1e2e6508b58e61bed76716f8",
+                "reference": "45b6e67e60bfcf9c1e2e6508b58e61bed76716f8",
                 "shasum": ""
             },
             "require": {
@@ -2011,7 +2346,7 @@
             "description": "Encapsulated user sessions.",
             "support": {
                 "issues": "https://github.com/phpgt/Session/issues",
-                "source": "https://github.com/phpgt/Session/tree/v1.2.6"
+                "source": "https://github.com/phpgt/Session/tree/v1.2.7"
             },
             "funding": [
                 {
@@ -2019,7 +2354,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-15T05:35:25+00:00"
+            "time": "2026-07-28T08:49:51+00:00"
         },
         {
             "name": "phpgt/sqlbuilder",
@@ -2067,16 +2402,16 @@
         },
         {
             "name": "phpgt/sync",
-            "version": "v1.3.2",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Sync.git",
-                "reference": "62d68ff44929a62d2185943f64415c257efc6e5b"
+                "reference": "5d921f71f7d874280c747e633c687f2a689291f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Sync/zipball/62d68ff44929a62d2185943f64415c257efc6e5b",
-                "reference": "62d68ff44929a62d2185943f64415c257efc6e5b",
+                "url": "https://api.github.com/repos/phpgt/Sync/zipball/5d921f71f7d874280c747e633c687f2a689291f1",
+                "reference": "5d921f71f7d874280c747e633c687f2a689291f1",
                 "shasum": ""
             },
             "require": {
@@ -2096,6 +2431,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
+                    "GT\\Sync\\": "./src",
                     "Gt\\Sync\\": "./src"
                 }
             },
@@ -2113,15 +2449,15 @@
             ],
             "support": {
                 "issues": "https://github.com/phpgt/Sync/issues",
-                "source": "https://github.com/phpgt/Sync/tree/v1.3.2"
+                "source": "https://github.com/phpgt/Sync/tree/v1.4.0"
             },
             "funding": [
                 {
-                    "url": "https://github.com/sponsors/PhpGt",
+                    "url": "https://github.com/sponsors/phpgt",
                     "type": "github"
                 }
             ],
-            "time": "2026-04-07T22:32:03+00:00"
+            "time": "2026-05-05T10:11:39+00:00"
         },
         {
             "name": "phpgt/typesafegetter",
@@ -2178,16 +2514,16 @@
         },
         {
             "name": "phpgt/ulid",
-            "version": "v1.2.2",
+            "version": "v1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Ulid.git",
-                "reference": "3dc7c618d788b8354847d3c240124e3c0cd1f9dd"
+                "reference": "27c8342e70e20c2d00de8251b4a9a81699ca9ba0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Ulid/zipball/3dc7c618d788b8354847d3c240124e3c0cd1f9dd",
-                "reference": "3dc7c618d788b8354847d3c240124e3c0cd1f9dd",
+                "url": "https://api.github.com/repos/phpgt/Ulid/zipball/27c8342e70e20c2d00de8251b4a9a81699ca9ba0",
+                "reference": "27c8342e70e20c2d00de8251b4a9a81699ca9ba0",
                 "shasum": ""
             },
             "require": {
@@ -2195,7 +2531,7 @@
             },
             "require-dev": {
                 "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan": "^1.10 || ^2.0",
                 "phpunit/phpunit": "^10.3",
                 "squizlabs/php_codesniffer": "^3.7"
             },
@@ -2221,7 +2557,7 @@
             "description": "Unique, lexicographically sortable identifiers.",
             "support": {
                 "issues": "https://github.com/phpgt/Ulid/issues",
-                "source": "https://github.com/phpgt/Ulid/tree/v1.2.2"
+                "source": "https://github.com/phpgt/Ulid/tree/v1.2.3"
             },
             "funding": [
                 {
@@ -2229,7 +2565,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-19T21:10:01+00:00"
+            "time": "2026-08-25T12:01:45+00:00"
         },
         {
             "name": "phpgt/webengine",
@@ -2237,12 +2573,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/WebEngine.git",
-                "reference": "2f7944f63805859e7dd373050ff7664fee8c7e63"
+                "reference": "ca0fde874824f56b37e5e6e4639f51fe4240455c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/WebEngine/zipball/2f7944f63805859e7dd373050ff7664fee8c7e63",
-                "reference": "2f7944f63805859e7dd373050ff7664fee8c7e63",
+                "url": "https://api.github.com/repos/phpgt/WebEngine/zipball/ca0fde874824f56b37e5e6e4639f51fe4240455c",
+                "reference": "ca0fde874824f56b37e5e6e4639f51fe4240455c",
                 "shasum": ""
             },
             "require": {
@@ -2283,7 +2619,11 @@
                 "phpmd/phpmd": "^2.13",
                 "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^12.4",
+                "sentry/sentry": "^4.0",
                 "squizlabs/php_codesniffer": "^3.7 || ^4.0"
+            },
+            "suggest": {
+                "sentry/sentry": "Automatically report application exceptions when config value sentry.dsn is configured"
             },
             "default-branch": true,
             "type": "library",
@@ -2322,7 +2662,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-10T09:18:18+00:00"
+            "time": "2026-10-19T10:03:01+00:00"
         },
         {
             "name": "psr/container",
@@ -2378,6 +2718,56 @@
             "time": "2021-11-05T16:47:00+00:00"
         },
         {
+            "name": "psr/event-dispatcher",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/event-dispatcher.git",
+                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
+                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\EventDispatcher\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Standard interfaces for event handling.",
+            "keywords": [
+                "events",
+                "psr",
+                "psr-14"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/event-dispatcher/issues",
+                "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
+            },
+            "time": "2019-01-08T18:20:26+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "2.0",
             "source": {
@@ -2429,6 +2819,320 @@
                 "source": "https://github.com/php-fig/http-message/tree/2.0"
             },
             "time": "2023-04-04T09:54:51+00:00"
+        },
+        {
+            "name": "symfony/deprecation-contracts",
+            "version": "v3.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/deprecation-contracts.git",
+                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/f3202fa1b5097b0af062dc978b32ecf63404e31d",
+                "reference": "f3202fa1b5097b0af062dc978b32ecf63404e31d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/contracts",
+                    "name": "symfony/contracts"
+                },
+                "branch-alias": {
+                    "dev-main": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "function.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "A generic function and convention to trigger deprecation notices",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-06-05T06:23:12+00:00"
+        },
+        {
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.37.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "141046a8f9477948ff284fa65be2095baafb94f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/141046a8f9477948ff284fa65be2095baafb94f2",
+                "reference": "141046a8f9477948ff284fa65be2095baafb94f2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "provide": {
+                "ext-ctype": "*"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.37.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-04-10T16:19:22+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php80",
+            "version": "v1.43.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php80.git",
+                "reference": "9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74",
+                "reference": "9c6a5d6b01ca51d486c813e9a9c0ed55f208bb74",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php80\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ion Bazan",
+                    "email": "ion.bazan@gmail.com"
+                },
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.43.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-09-25T15:50:05+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v6.4.48",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "91288fddb497a598b564343ea663ea272370a7dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/91288fddb497a598b564343ea663ea272370a7dc",
+                "reference": "91288fddb497a598b564343ea663ea272370a7dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/deprecation-contracts": "^2.5|^3",
+                "symfony/polyfill-ctype": "^1.8"
+            },
+            "conflict": {
+                "symfony/console": "<5.4"
+            },
+            "require-dev": {
+                "symfony/console": "^5.4|^6.0|^7.0"
+            },
+            "bin": [
+                "Resources/bin/yaml-lint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Loads and dumps YAML files",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/yaml/tree/v6.4.48"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-10-12T09:18:28+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -2650,7 +3354,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "authwave/php-client": 20,
         "phpgt/webengine": 20
     },
     "prefer-stable": false,

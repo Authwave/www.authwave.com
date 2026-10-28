@@ -114,6 +114,8 @@ An authentication cookie used solely for a requested login service can qualify f
 
 ### Other browser storage
 
+The website’s footer offers Light, Dark and System display settings. An explicit Light or Dark choice is saved in the first-party localStorage entry `authwave-color-scheme`; System removes the entry and follows the device preference. The entry contains only the display choice, is not a cookie, is not sent with page requests, and has no automatic expiry. You can remove it through the toggle or your browser’s site-data settings. If storage is blocked, a choice still applies for the current page without being saved. It is not used for analytics or authentication. The proposed preference-expiry action below also applies to this website setting.
+
 The provider now saves an explicitly requested display theme (`base` or `bright`) in the first-party localStorage entry `authwave-flair-theme`. This entry contains only the theme name, is scoped to the login origin, and is not sent with every HTTP request as a cookie would be. It has no automatic expiry and remains until removed by the browser, the user or a later implementation change. If storage is unavailable, login still works; a theme requested in the current URL still applies. Without JavaScript, the default theme is used; localStorage and URL theme selection are not applied.
 
 Moving a preference to localStorage does not remove storage/access privacy obligations. **TO CONFIRM:** the applicable exception or consent mechanism and proportionate storage duration for this explicitly requested display preference. You can remove the entry using your browser’s site-data settings. It is not an authentication credential or a tracking identifier.

@@ -6,6 +6,9 @@
 	brush,
 	shield-checkered,
 	brand-open-source,
+	sun,
+	moon,
+	sun-moon,
 ));
 @use "../node_modules/flair/style/lib/flair";
 @use "../node_modules/flair/style/lib/theme/base" as theme;
@@ -17,7 +20,8 @@
 @use "component/site-header";
 @use "component/hero-area";
 @use "component/page-hero";
-@use "component/news-area";
+@use "component/articles-area";
+@use "component/article-page";
 @use "component/introduction-area";
 @use "component/audience-area";
 @use "component/features-area";
@@ -56,6 +60,13 @@ body {
 	background: var(--theme-color-surface);
 }
 
+main,
+.site-footer {
+	// Full-bleed frame rules include the scrollbar width through 100vw.
+	// Contain that excess at every viewport size, including the mobile footer.
+	overflow-x: clip;
+}
+
 @media (min-width: flair.$break-wide) {
 	main,
 	.site-footer {
@@ -69,7 +80,5 @@ body {
 		--authwave-frame-max: calc(160rem * 2208 / 2880);
 		--authwave-frame-edge: max(var(--authwave-section-gutter), calc((100% - var(--authwave-frame-max)) / 2));
 		--authwave-section-block-space: 6rem;
-		// Viewport-wide rules must not create a horizontal scroll bar.
-		overflow-x: clip;
 	}
 }

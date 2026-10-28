@@ -1,0 +1,39 @@
+<main id="main-content" class="articles-page article-page">
+	<nav class="article-breadcrumbs" aria-label="Breadcrumb">
+		<ol>
+			<li><a href="/articles/">Articles</a></li>
+			<li><span class="separator" aria-hidden="true">/</span><span aria-current="page">Article</span></li>
+		</ol>
+	</nav>
+	<article class="article-frame" aria-labelledby="article-title">
+		<header class="article-header" data-bind:data-category="category">
+			<div class="article-heading">
+				<div class="article-meta">
+					<span class="article-category" data-bind:text="categoryLabel">Guides</span>
+					<time data-bind:datetime="published" data-bind:text="publishedLabel">27 Oct 2026</time>
+				</div>
+				<h1 id="article-title" data-bind:text="title">Add authentication in minutes</h1>
+				<p class="article-lead" data-bind:text="summary">A step-by-step guide to integrating Authwave into your application with minimal effort.</p>
+			</div>
+			<div class="article-hero-art"><div class="article-picture" aria-hidden="true"></div></div>
+		</header>
+		<div class="article-reading-frame">
+			<div class="article-layout">
+				<aside class="article-sidebar" data-bind:hidden="?!hasContents">
+					<nav class="article-contents" aria-labelledby="article-contents-heading">
+						<h2 id="article-contents-heading">In this article</h2>
+						<ol><li data-list="article-contents"><a data-bind:href="url" data-bind:text="label">Heading</a></li></ol>
+					</nav>
+				</aside>
+				<div class="article-prose reading-content" data-bind:html="articleBody"></div>
+			</div>
+		</div>
+	</article>
+	<contribution-area />
+	<section class="articles-area related-articles" aria-labelledby="related-heading" data-bind:hidden="?!hasRelated">
+		<div class="section-box">
+			<header class="related-header"><h2 id="related-heading">Don’t miss these</h2><a href="/articles/">See all<span class="visually-hidden"> articles</span></a></header>
+			<articles-cards />
+		</div>
+	</section>
+</main>

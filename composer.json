@@ -1,11 +1,12 @@
 {
 	"name": "authwave/www.authwave.com",
-	"description": "The Authwave website.",
+	"description": "The public Authwave website.",
 	"type": "project",
 
 	"require": {
 		"phpgt/webengine": "dev-master",
-		"authwave/php-client": "dev-master"
+		"league/commonmark": "^2.4",
+		"symfony/yaml": "^6.4"
 	},
 
 	"autoload": {

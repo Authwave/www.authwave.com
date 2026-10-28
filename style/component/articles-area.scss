@@ -1,8 +1,8 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../pattern/section-frame";
-@use "../object/site-badge";
+@use "../object/article-meta";
 
-.news-area {
+.articles-area {
 	scroll-margin-block-start: var(--theme-space-6);
 	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
 
@@ -13,19 +13,14 @@
 	}
 }
 
-.news-toolbar {
+.articles-toolbar {
 	@extend %p-toolbar;
 	gap: var(--theme-space-4) var(--theme-space-8);
 	padding: var(--theme-space-12) var(--authwave-section-inset) var(--theme-space-8);
 	align-items: flex-start;
-
-	@media (min-width: 37.5rem) {
-		// Give Clear all its own space beside a wrapping category group.
-		flex-wrap: nowrap;
-	}
 }
 
-.news-filters {
+.articles-filters {
 	@extend %p-navigation;
 	min-inline-size: 0;
 	flex: 0 1 auto;
@@ -47,21 +42,10 @@
 	}
 }
 
-.news-clear {
-	@extend %o-button;
-	--theme-button-font-size: 1rem;
-	--theme-button-background: transparent;
-	--theme-button-text: var(--theme-color-text);
-	--theme-button-min-height: 2.75rem;
-	--theme-button-padding-inline: var(--theme-space-2);
-	// Follow the filters instead of being pushed to the far edge of the frame.
-	flex: 0 0 auto;
-}
+.articles-status { @extend %d-visually-hidden; }
+.articles-empty { padding: var(--authwave-section-inset); }
 
-.news-status { @extend %d-visually-hidden; }
-.news-empty { padding: var(--authwave-section-inset); }
-
-.news-grid {
+.articles-grid {
 	@extend %l-grid;
 	--theme-grid-gap: var(--theme-border-width);
 	--theme-grid-min: 25rem;
@@ -70,7 +54,7 @@
 	border-block: var(--theme-border-width) solid var(--theme-color-border);
 }
 
-.news-card {
+.articles-card {
 	@extend %o-article-preview;
 	--theme-surface-radius: 0;
 	--theme-surface-padding: var(--authwave-section-inset);
@@ -81,8 +65,7 @@
 	font-family: var(--theme-font-body);
 	background: var(--theme-color-surface);
 
-	.article-category { @extend %o-site-badge; }
-	.article-meta > time { color: var(--theme-color-muted); }
+	.article-meta { @extend %p-article-meta; }
 	.article-summary { font-size: max(1rem, calc(1.25 * var(--authwave-size-unit))); }
 
 	@media (min-width: flair.$break-wide) {
@@ -91,7 +74,7 @@
 	}
 }
 
-.news-pagination {
+.articles-pagination {
 	@extend %p-pagination;
 	position: relative;
 	inline-size: fit-content;
@@ -120,7 +103,7 @@
 	.page-picker { @extend %o-page-picker; }
 	.pagination-previous { order: 0; }
 	.pagination-next { order: 110; }
-	.news-previous > span { rotate: 180deg; }
+	.articles-previous > span { rotate: 180deg; }
 	[aria-disabled="true"] { opacity: .35; cursor: default; }
 	.page-picker[open] > summary { outline: var(--theme-focus-outline); }
 }

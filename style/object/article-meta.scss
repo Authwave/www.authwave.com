@@ -1,0 +1,13 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "site-badge";
+
+// The same category and publication-date treatment in every article context.
+%p-article-meta {
+	@extend %p-cluster;
+	gap: var(--theme-space-3);
+	font-family: var(--theme-font-body);
+	font-size: var(--theme-small-size, .875rem);
+
+	.article-category { @extend %o-site-badge; }
+	> time { color: var(--theme-color-muted); }
+}

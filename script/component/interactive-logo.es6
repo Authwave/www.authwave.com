@@ -5,6 +5,7 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	const PIXEL_SIZE = 2;
 	const RESET_DELAY = 5000;
 	const REWIND_STEP_DELAY = 20;
+	const REWIND_MOVE_DURATION = 80;
 	const INITIAL_PIXELS = [
 		[0.5, 2],
 		[1.5, 1],
@@ -163,7 +164,7 @@ document.querySelectorAll("interactive-logo").forEach((element, index) => {
 	function rewindPixels() {
 		const previousPositions = movementHistory.pop();
 		rewinding = Boolean(previousPositions);
-		element.style.setProperty("--pixel-move-duration", rewinding ? `${REWIND_STEP_DELAY}ms` : "120ms");
+		element.style.setProperty("--pixel-move-duration", rewinding ? `${REWIND_MOVE_DURATION}ms` : "120ms");
 		if(!previousPositions) {
 			resetTimer = undefined;
 			return;

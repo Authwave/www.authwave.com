@@ -1,32 +1,83 @@
 # Authwave website
 
-## News
+## Articles
 
-`/news/` uses one `data-list="news-articles"` template, with native category
-links and server-side pagination. Category selections combine as a union and
-are preserved in page links. Clear all resets both filters and page number.
+`/articles/` uses one `data-list="articles"` template, with native category
+links and server-side pagination. One category can be selected at a time and
+is preserved in page links. Selecting another category resets the page number;
+All removes the category filter.
 The ellipsis is a native `details` disclosure containing a keyboard-accessible,
 scrollable list of all pages; no JavaScript handles these controls.
 
-For layout review, `[news] preview=true` in `config.ini` enables a separate
-108-item preview catalogue (12 pages), based on `data/news/preview.json`.
-These are sample entries, not published announcements. Disable this flag before
-launch. To publish, add `data/news/articles.json`: a JSON list whose entries have
-`slug`, `title`, `summary`, `category` and `published` (YYYY-MM-DD). Categories are
-`guides`, `tutorials`, `product`, and `engineering`. This file always takes
-precedence over preview data, including when it contains an empty list.
-Article links target the existing `/news/@article` route; article content and
-its page template are the next implementation step.
+Each article lives in one Markdown file directly inside `data/articles`, named
+`YYYY-MM-DD-slug.md`, for example `2026-10-26-hello-world.md`. The date and slug
+come from the filename; the URL stays `/articles/hello-world/`. Files are sorted
+newest first and URL slugs must be unique, even if dates differ.
 
-News colour schemes follow the system preference, with optional explicit
-`data-color-scheme="light"` or `"dark"` on the root element. This leaves the
-homepage's existing palette intact. Removing `data-flair-theme="awpixel"`
-reveals the monochrome Flair layout. `page-hero.scss` and `news-area.scss`
+Start each file with YAML front matter:
+
+```markdown
+---
+title: Hello world
+category: guides
+summary: A short description for the article header and listing cards.
+---
+
+## Your first section
+
+Write the article in **Markdown**, with [links](https://authwave.com).
+
+### A subsection
+
+- One point
+- Another point
+
+> A quotation.
+```
+
+`title`, `category` and `summary` are required. Category must be `guides`,
+`tutorials`, `product`, or `engineering`. The title is rendered by the article
+header, so begin the body with `##` section headings. A multi-line YAML summary
+can use `summary: >-` followed by indented text.
+
+PHP uses League CommonMark with the core, attributes and front-matter
+extensions, following TrackShift's content-rendering approach. Markdown images,
+links, lists, quotes and fenced code are supported. Attributes such as
+`## A section {#my-section}` can set explicit anchors; the generated contents
+navigation preserves them and makes repeated IDs unique. Raw HTML is allowed
+for trusted repository-authored markup such as figures and captions, as in
+TrackShift; this is not a sanitiser for untrusted uploads.
+
+The nine prototype articles are all standalone Markdown files. Adding or
+editing a file updates its listing metadata and article body without a JSON
+registry, separate HTML body or preview switch. Keep unfinished drafts outside
+this directory. Twelve-page pagination remains covered by in-memory test data,
+so the number of editable sample files does not dictate pagination behaviour.
+
+The article body, sticky contents navigation and related cards use the same
+HTML on every viewport. The related cards and listing expand the shared
+`page/_component/articles-cards.html` template. `ArticleView` supplies their common
+URL/date/category fields. Flair provides the reading layout, prose, contents,
+article media and highlight-frame primitives; AWPixel supplies colour accents.
+The same highlight frame is used by pricing, the footer and the article body.
+
+Colour schemes follow the system preference by default. The footer's icon button
+cycles System, Light and Dark (starting with the opposite of the current system
+scheme), storing explicit choices in the `authwave-color-scheme` localStorage
+entry. System removes the entry and follows live OS changes. The head restores
+a valid saved choice before the stylesheet loads; blocked storage still allows
+changes for the current page. Choices synchronise across tabs. On the homepage,
+`body.uri--index` keeps Introduction and Features light, while the hero, audience
+and contribution retain their dark treatment. Pricing and the footer follow the
+selected scheme, and the footer selector remains available on every page.
+Removing `data-flair-theme="awpixel"`
+reveals the monochrome Flair layout. `page-hero.scss` and `articles-area.scss`
 compose Flair's existing objects and the upstream article-preview/page-picker
 objects; AWPixel owns category tints and selected states.
 
-Run `php test/news.php` for catalogue, filtering and pagination checks, and
-`gt build` to compile the stylesheet.
+Run `composer install` after pulling the Markdown dependencies, then
+`php test/articles.php` for Markdown, catalogue, filtering, pagination and article
+checks. `gt build` compiles the site assets.
 
 The homepage contains `site-header`, `hero-area`, `introduction-area`,
 `audience-area`, `features-area`, `contribution-area` and `pricing-area` WebEngine components.

@@ -17,26 +17,10 @@
 
 	.pricing-panels {
 		@extend %l-grid;
-		@extend %d-highlight-centered;
+		@extend %d-highlight-frame;
 		--theme-grid-min: 24rem;
 		--theme-grid-gap: var(--authwave-section-inset);
 		margin-inline: calc(-1 * var(--authwave-section-inset));
-		// Full-width dividers supply the horizontal edges; the highlight owns the sides.
-		border-block-width: 0;
-
-		&::before {
-			// There is no block border to include in the corner marker offset.
-			inset-block: calc(-0.75 * var(--theme-highlight-marker-size, 0.375rem));
-		}
-
-		&::after {
-			content: "";
-			position: absolute;
-			inset-block: 0;
-			inset-inline: calc(50% - 50vw);
-			border-block: var(--theme-border-width) solid var(--theme-color-border);
-			pointer-events: none;
-		}
 	}
 
 	.pricing-panel {

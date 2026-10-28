@@ -1,6 +1,7 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../pattern/section-frame";
 @use "../pattern/site-prose";
+@use "../object/article-links";
 
 .content-page {
 	@extend %p-section-frame;

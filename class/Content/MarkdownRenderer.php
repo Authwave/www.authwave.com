@@ -7,6 +7,7 @@ use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\FrontMatter\Data\SymfonyYamlFrontMatterParser;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
+use League\CommonMark\Extension\Table\TableExtension;
 use League\CommonMark\MarkdownConverter;
 
 /** CommonMark for repository-authored content, following TrackShift's setup. */
@@ -20,6 +21,7 @@ class MarkdownRenderer {
 			"allow_unsafe_links" => false,
 		]);
 		$environment->addExtension(new CommonMarkCoreExtension());
+		$environment->addExtension(new TableExtension());
 		$environment->addExtension(new AttributesExtension());
 		$this->frontMatter = new FrontMatterExtension(new SymfonyYamlFrontMatterParser());
 		$environment->addExtension($this->frontMatter);

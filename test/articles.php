@@ -15,6 +15,12 @@ $directory = sys_get_temp_dir() . "/authwave-articles-" . bin2hex(random_bytes(6
 mkdir($directory);
 $document = static fn(string $title, string $category, string $body):string => "---\ntitle: " . json_encode($title) . "\ncategory: $category\nsummary: A short article summary.\n---\n\n$body\n";
 try {
+	$table = new Gt\Dom\HTMLDocument((new MarkdownRenderer())->render(
+		"| Information | Purpose |\n| --- | --- |\n| **Email** | [Verification](https://example.com/) |\n"
+	));
+	check($table->querySelector("table thead th")?->textContent === "Information", "Markdown tables must render semantic table headers.");
+	check($table->querySelector("table tbody td strong")?->textContent === "Email", "Markdown formatting must work inside table cells.");
+	check($table->querySelector("table tbody td a")?->getAttribute("target") === "_blank", "Table links must receive shared external-link processing.");
 	$links = new Gt\Dom\HTMLDocument((new MarkdownRenderer())->render(
 		'[External](https://example.com/) [Internal](/about/) [Email](mailto:contact@authwave.com) <a href="https://example.org/" rel="author">Author</a>'
 	));

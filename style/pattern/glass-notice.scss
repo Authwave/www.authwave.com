@@ -1,0 +1,64 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../decoration/glass-panel";
+@use "../decoration/floating-entrance";
+
+// A reusable floating notice, measured in its illustration scene's units.
+%p-glass-notice {
+	@extend %d-glass-panel;
+	@extend %d-floating-motion;
+	--glass-rim: calc(var(--notice-rim, 22) * var(--notice-unit) - 1px);
+	--glass-radius: calc(var(--notice-rim, 22) * var(--notice-unit));
+	--theme-font-size: calc(var(--notice-font-size, 28) * var(--notice-unit));
+	--theme-border-width: calc(2 * var(--notice-unit));
+	position: absolute;
+	z-index: 1;
+	text-align: start;
+	font-family: var(--theme-font-body);
+	font-size: var(--theme-font-size);
+	line-height: 1.5;
+
+	.glass-notice-panel {
+		@extend %o-card;
+		--theme-stack-gap: 0;
+		--theme-surface-radius: calc(10 * var(--notice-unit));
+		padding: calc(var(--notice-padding, 27) * var(--notice-unit));
+	}
+	.glass-notice-summary {
+		display: grid;
+		grid-template-columns: calc(var(--notice-icon-size, 84) * var(--notice-unit)) minmax(0, 1fr);
+		align-items: center;
+		gap: calc(var(--notice-gap, 28) * var(--notice-unit));
+	}
+	.glass-notice-icon {
+		// Flair normally leaves a gap for adjacent text; these glyphs stand alone.
+		--theme-icon-gap: 0px;
+		display: grid;
+		place-items: center;
+		inline-size: 100%;
+		aspect-ratio: 1;
+		border: var(--theme-border-width) solid var(--theme-color-border);
+		border-radius: calc(8 * var(--notice-unit));
+		background: var(--theme-color-surface-disabled);
+		--theme-icon-size: calc(var(--notice-glyph-size, 48) * var(--notice-unit));
+	}
+	.glass-notice-copy {
+		> h3, > p { margin: 0; font: inherit; line-height: 1.5; }
+		> p {
+			color: var(--theme-color-muted);
+			font-size: calc(var(--notice-description-size, var(--notice-font-size, 28)) * var(--notice-unit));
+		}
+	}
+	.glass-notice-action {
+		@extend %o-button;
+		--theme-button-font-size: var(--theme-font-size);
+		--theme-button-min-height: 0;
+		--theme-button-padding-block: 0;
+		--theme-button-padding-inline: 1em;
+		--theme-button-radius: calc(10 * var(--notice-unit));
+		inline-size: 100%;
+		block-size: calc(78 * var(--notice-unit));
+		min-block-size: 0;
+		margin-block-start: calc(51 * var(--notice-unit));
+		font-weight: 400;
+	}
+}

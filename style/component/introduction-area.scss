@@ -17,6 +17,8 @@
 		@extend %p-accordion;
 		--theme-accordion-gap: 0;
 		--introduction-toggle-duration: 250ms;
+		min-block-size: var(--concertina-reserved-height, 0px);
+		align-content: start;
 
 		> details {
 			position: relative;

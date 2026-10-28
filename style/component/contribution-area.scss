@@ -25,17 +25,11 @@
 	}
 
 	.contribution-placeholder {
-		@extend %o-card;
-		--theme-surface-radius: 0;
+		display: grid;
+		place-items: center;
 		inline-size: 100%;
 		margin-block-start: var(--theme-space-12);
 		padding: 0;
-
-		> img {
-			display: block;
-			inline-size: 100%;
-			block-size: auto;
-		}
 	}
 }
 

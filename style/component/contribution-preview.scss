@@ -1,0 +1,75 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../decoration/glass-panel";
+@use "../decoration/floating-entrance";
+@use "../pattern/glass-notice";
+@use "../variable/size";
+
+contribution-preview {
+	display: block;
+	position: relative;
+	inline-size: 100%;
+	max-inline-size: size.from-design(55.875rem);
+	margin-inline: auto;
+	container-type: inline-size;
+	perspective: 80rem;
+	perspective-origin: 50% 50%;
+	pointer-events: none;
+}
+
+.contribution-preview-editor {
+	@extend %d-glass-panel;
+	@extend %d-floating-motion;
+	--editor-unit: calc(100cqi / 894);
+	--glass-rim: calc(22 * var(--editor-unit) - 1px);
+	--glass-radius: calc(28 * var(--editor-unit));
+	--panel-orbit-radius: calc(5 * var(--editor-unit));
+	--panel-orbit-duration: 29s;
+	--panel-tilt-angle: .2deg;
+
+	> img {
+		display: block;
+		inline-size: 100%;
+		block-size: auto;
+		border-radius: calc(18 * var(--editor-unit));
+	}
+}
+
+.contribution-notice {
+	@extend %p-glass-notice;
+	display: none;
+	--notice-unit: calc(100cqi / 894);
+	--notice-rim: 20;
+	--notice-padding: 24;
+	--notice-font-size: 22;
+	--notice-description-size: 20;
+	--notice-icon-size: 64;
+	--notice-glyph-size: 40;
+	--notice-gap: 24;
+}
+
+.contribution-notice-merge {
+	inline-size: calc(512 * var(--notice-unit));
+	inset-inline-start: calc(584 * var(--notice-unit));
+	inset-block-start: calc(-118 * var(--notice-unit));
+	--panel-orbit-radius: calc(8 * var(--notice-unit));
+	--panel-orbit-duration: 23s;
+	--panel-tilt-angle: .4deg;
+	--panel-tilt-duration: 31s;
+}
+
+.contribution-notice-checks {
+	inline-size: calc(472 * var(--notice-unit));
+	inset-inline-start: calc(-280 * var(--notice-unit));
+	inset-block-start: calc(510 * var(--notice-unit));
+	--panel-orbit-radius: calc(-6 * var(--notice-unit));
+	--panel-orbit-duration: 31s;
+	--panel-tilt-angle: -.35deg;
+	--panel-tilt-duration: 43s;
+}
+
+@media (min-width: flair.$break-wide) {
+	// The merge notice reaches 1096px across the 894px reference editor.
+	// Leave that overhang room inside the illustration's column.
+	contribution-preview { inline-size: calc(100% * 894 / 1096); }
+	.contribution-notice { display: block; }
+}

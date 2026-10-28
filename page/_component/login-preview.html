@@ -1,0 +1,23 @@
+<section class="login-preview" aria-labelledby="login-preview-heading">
+	<div class="login-preview-panel">
+		<header class="login-preview-header">
+			<span class="login-preview-logo" aria-hidden="true"></span>
+			<h2 id="login-preview-heading">Welcome back</h2>
+			<p>Sign in to your account</p>
+		</header>
+		<form class="login-preview-form" action="https://login.authwave.com/" method="get">
+			<div class="login-preview-field">
+				<label for="login-preview-email">Email address</label>
+				<input id="login-preview-email" type="email" autocomplete="email" placeholder="Email" required>
+				<span class="login-preview-email-icon" data-icon="mail" aria-hidden="true"></span>
+			</div>
+			<div class="login-preview-options">
+				<label class="login-preview-remember"><input type="checkbox"> <span>Remember me</span></label>
+				<a href="https://login.authwave.com/">Forgot password?</a>
+			</div>
+			<button class="login-preview-submit" type="submit">Log in</button>
+		</form>
+		<p class="login-preview-help"><a href="/help/">Need help?</a></p>
+	</div>
+</section>
+<login-preview-extras />

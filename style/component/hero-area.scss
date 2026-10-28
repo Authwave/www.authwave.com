@@ -47,13 +47,12 @@
 	}
 
 	> .hero-placeholder {
-		@extend %o-card;
-		--theme-surface-radius: 0;
+		display: grid;
+		place-items: center;
 		inline-size: 100%;
 		aspect-ratio: 618 / 692;
 		margin-block-start: var(--authwave-hero-art-space);
 		padding: 0;
-		background: var(--theme-color-surface-disabled);
 	}
 
 	@media (min-width: flair.$break-shell) {
@@ -90,6 +89,10 @@
 			max-inline-size: var(--authwave-frame-max);
 			aspect-ratio: 21 / 9;
 			margin-block-start: 4rem;
+			> login-preview {
+				inline-size: calc(100% * 1144 / 2560);
+				max-inline-size: #{size.from-design(71.5rem)};
+			}
 		}
 	}
 }

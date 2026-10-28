@@ -1,0 +1,9 @@
+// Shared viewport-entry decoration; each marked element gets its own progress
+// from the local Flux companion. Without JavaScript, content stays visible.
+@media (prefers-reduced-motion: no-preference) {
+	[data-scroll-reveal] {
+		opacity: var(--scroll-reveal, 1);
+		filter: blur(calc((1 - var(--scroll-reveal, 1)) * 18px));
+		transition: opacity .6s ease-out, filter .6s ease-out;
+	}
+}

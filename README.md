@@ -104,6 +104,13 @@ and light pills with square arrow accents for the main section CTAs. Each split
 CTA is one native button, with a decorative arrow hidden from screen readers.
 
 Section and navigation controls use HTML and CSS without JavaScript.
+The script bundle loads `@phpgt/flux` from the same GitHub release used by
+`www.php.gt`. Flux does not yet expose pointer/scroll CSS variables, so
+`script/ui/hero-motion.es6` supplies `--hero-pointer-x`, `--hero-pointer-y`
+and `--hero-exit-progress` locally. `style/component/hero-motion.scss` controls
+the eased desktop parallax and scroll-away blur; reduced-motion preferences
+disable both effects. The hero retains its layout without JavaScript.
+
 The header uses Flair's panel, navigation and `%o-popover` definitions. Its MENU
 button targets a native `popover="auto"` below 60rem. The browser handles opening,
 Escape and clicking outside. Separate in-flow links are always visible on desktop,
@@ -131,6 +138,10 @@ and buttons at least 44px tall. The existing wider layout is retained from
 Introduction uses Flair's accordion pattern and native `details` elements with
 a shared name, so only one item opens at a time without JavaScript. Each summary
 uses Flair's highlight decoration with four square corner markers.
+The optional `data-reserve-concertina` helper measures the tallest single-open
+state and reserves that height, recalculating after resizing, font loading and
+image loading. Measurements use a temporary inert copy, leaving the real
+disclosures untouched. Without JavaScript, the native concertina still works.
 
 The audience section shares the hero's Get started button definition in
 `style/object/get-started.scss`. Its three Inter panels use Flair's disclosure

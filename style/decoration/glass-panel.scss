@@ -1,0 +1,11 @@
+// A neutral glass surround; colour and lighting can be supplied by the theme.
+%d-glass-panel {
+	padding: var(--glass-rim, .5rem);
+	border: 1px solid transparent;
+	border-radius: var(--glass-radius, .75rem);
+	background:
+		linear-gradient(var(--glass-tint, #ffffff0a), var(--glass-tint, #ffffff0a)) padding-box,
+		linear-gradient(135deg, var(--glass-highlight, #ffffff52), #ffffff08 45%, #ffffff18) border-box;
+	backdrop-filter: blur(8px);
+	box-shadow: inset 1px 1px 0 var(--glass-edge, #ffffff18), 0 1rem 3rem #00000026;
+}

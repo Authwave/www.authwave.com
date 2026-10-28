@@ -9,6 +9,11 @@
 	sun,
 	moon,
 	sun-moon,
+	mail,
+	lock,
+	shield-check,
+	git-merge,
+	copy-check,
 ));
 @use "../node_modules/flair/style/lib/flair";
 @use "../node_modules/flair/style/lib/theme/base" as theme;
@@ -19,14 +24,20 @@
 @use "component/interactive-logo";
 @use "component/site-header";
 @use "component/hero-area";
+@use "component/login-preview";
+@use "component/login-preview-extras";
+@use "component/hero-motion";
 @use "component/page-hero";
 @use "component/articles-area";
 @use "component/article-page";
 @use "component/content-page";
 @use "component/introduction-area";
+@use "decoration/concertina-measure";
 @use "component/audience-area";
 @use "component/features-area";
 @use "component/contribution-area";
+@use "component/contribution-preview";
+@use "decoration/scroll-reveal";
 @use "component/pricing-area";
 @use "component/site-footer";
 @use "variable/space";

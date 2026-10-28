@@ -1,6 +1,7 @@
 @use "sass:list";
 @use "../../node_modules/flair/style/lib/flair";
 @use "../../node_modules/flair/style/lib/theme/base";
+@use "../../node_modules/flair/style/lib/mixin/color-scheme";
 @use "../variable/size";
 
 // Local Authwave theme. Component files continue to define the base layout.
@@ -356,5 +357,87 @@
 
 	.feature-fallback > a {
 		--theme-button-radius: 0.125rem;
+	}
+
+	// Content pages follow the user's colour preference. The homepage keeps
+	// its deliberately alternating palette; shared markup is unchanged.
+	&:has(.news-page) {
+		@include color-scheme.color-scheme;
+		--pal-1: light-dark(#2b2524, #f2ede3);
+		--pal-2: light-dark(#fff, #211d1c);
+		--pal-3: light-dark(#f6f6f6, #332d2c);
+		--pal-4: light-dark(#eae9e9, #4a4240);
+		--pal-5: light-dark(#6c6663, #c4bbb7);
+		--pal-6: light-dark(#275f89, #75bbf0);
+		--theme-badge-background: var(--pal-3);
+		--theme-badge-text: var(--pal-1);
+		--theme-badge-border: var(--pal-4);
+
+		.site-header {
+			--theme-color-text: var(--pal-1);
+			--theme-color-heading: var(--pal-1);
+			--theme-color-muted: var(--pal-5);
+			--theme-color-surface: var(--pal-2);
+			--theme-color-surface-disabled: var(--pal-3);
+			--theme-color-border: var(--pal-4);
+			--theme-nav-hover-background: var(--pal-3);
+			--theme-focus-color: var(--pal-6);
+			background: var(--theme-color-surface);
+			color: var(--theme-color-text);
+
+			.site-menu-popover {
+				--theme-color-text: var(--pal-1);
+				--theme-nav-hover-background: var(--pal-3);
+				--theme-focus-color: var(--pal-6);
+			}
+		}
+
+		.news-filters a {
+			--theme-button-background: light-dark(var(--aw-cream), #443b35);
+			--theme-button-background-hover: light-dark(#e3dcd0, #554a43);
+			--theme-button-text: var(--pal-1);
+
+			&[data-selected="true"] {
+				--theme-button-background: var(--pal-1);
+				--theme-button-background-hover: var(--pal-5);
+				--theme-button-text: var(--pal-2);
+			}
+		}
+
+		.news-card {
+			.article-picture {
+				background: light-dark(var(--aw-article-tint), color-mix(in srgb, var(--aw-article-accent) 15%, var(--pal-2)));
+				border-color: color-mix(in srgb, var(--aw-article-accent) 20%, var(--pal-4));
+			}
+
+			$categories: (
+				guides: (var(--aw-pink), var(--aw-pink-soft)),
+				tutorials: (var(--aw-lime), var(--aw-lime-soft)),
+				product: (var(--aw-blue), var(--aw-blue-soft)),
+				engineering: (var(--aw-coral), var(--aw-coral-soft))
+			);
+			@each $category, $colours in $categories {
+				&[data-category="#{$category}"] {
+					--aw-article-accent: #{list.nth($colours, 1)};
+					--aw-article-tint: #{list.nth($colours, 2)};
+				}
+			}
+		}
+
+		.news-pagination {
+			--theme-nav-current-background: var(--pal-1);
+			--theme-nav-current-text: var(--pal-2);
+			--theme-nav-current-shadow: none;
+			.page-link {
+				--theme-button-background: var(--pal-3);
+				--theme-button-background-hover: var(--pal-4);
+				--theme-button-text: var(--pal-1);
+
+				&[aria-current="page"] {
+					--theme-button-background: var(--pal-1);
+					--theme-button-text: var(--pal-2);
+				}
+			}
+		}
 	}
 }

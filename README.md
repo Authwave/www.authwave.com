@@ -1,5 +1,33 @@
 # Authwave website
 
+## News
+
+`/news/` uses one `data-list="news-articles"` template, with native category
+links and server-side pagination. Category selections combine as a union and
+are preserved in page links. Clear all resets both filters and page number.
+The ellipsis is a native `details` disclosure containing a keyboard-accessible,
+scrollable list of all pages; no JavaScript handles these controls.
+
+For layout review, `[news] preview=true` in `config.ini` enables a separate
+108-item preview catalogue (12 pages), based on `data/news/preview.json`.
+These are sample entries, not published announcements. Disable this flag before
+launch. To publish, add `data/news/articles.json`: a JSON list whose entries have
+`slug`, `title`, `summary`, `category` and `published` (YYYY-MM-DD). Categories are
+`guides`, `tutorials`, `product`, and `engineering`. This file always takes
+precedence over preview data, including when it contains an empty list.
+Article links target the existing `/news/@article` route; article content and
+its page template are the next implementation step.
+
+News colour schemes follow the system preference, with optional explicit
+`data-color-scheme="light"` or `"dark"` on the root element. This leaves the
+homepage's existing palette intact. Removing `data-flair-theme="awpixel"`
+reveals the monochrome Flair layout. `page-hero.scss` and `news-area.scss`
+compose Flair's existing objects and the upstream article-preview/page-picker
+objects; AWPixel owns category tints and selected states.
+
+Run `php test/news.php` for catalogue, filtering and pagination checks, and
+`gt build` to compile the stylesheet.
+
 The homepage contains `site-header`, `hero-area`, `introduction-area`,
 `audience-area`, `features-area`, `contribution-area` and `pricing-area` WebEngine components.
 Each has markup in `page/_component` and styling in `style/component`.

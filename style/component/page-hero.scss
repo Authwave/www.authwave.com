@@ -1,0 +1,42 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../object/get-started";
+@use "../variable/size";
+
+// A content-page introduction, separate from the homepage's illustration hero.
+.page-hero {
+	@extend %p-page-intro;
+	@extend %p-stack;
+	--theme-stack-gap: 0;
+	--theme-intro-title-size: #{size.fluid(2.75rem, 5.25rem)};
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	margin: 0;
+	padding: size.fluid(7rem, 13rem) var(--authwave-section-inset);
+	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
+
+	> h1 {
+		margin: 0;
+		font-weight: 400;
+		line-height: 1;
+	}
+
+	> .hero-tagline {
+		max-inline-size: 30ch;
+		margin-block-start: var(--theme-space-6);
+		font-size: size.fluid(1rem, 1.3125rem);
+		color: var(--theme-color-muted);
+	}
+
+	> .hero-action { @extend %o-get-started; }
+
+	@media (min-width: flair.$break-wide) {
+		--theme-intro-title-size: #{size.desktop-type(clamp(5.25rem, 7vw, 7.25rem))};
+		padding-block: size.from-design(10rem);
+
+		> .hero-tagline {
+			max-inline-size: none;
+			font-size: size.desktop-type(1.5rem);
+		}
+	}
+}

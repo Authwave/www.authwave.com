@@ -1,0 +1,5 @@
+@use "../object/article-links";
+
+body.uri--help {
+	.article-links { @extend %o-article-links; }
+}

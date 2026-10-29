@@ -1,7 +1,7 @@
 @use "../../node_modules/flair/style/lib/flair";
 
 // A compact alternative to illustrated article cards for curated reading lists.
-.article-links {
+%o-article-links {
 	list-style: none;
 	padding: 0;
 	margin-inline: 0;

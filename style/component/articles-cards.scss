@@ -1,0 +1,34 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../pattern/article-meta";
+
+articles-cards {
+	> div {
+		container: article-list / inline-size;
+		@extend %l-grid;
+		--theme-grid-gap: var(--theme-border-width);
+		--theme-grid-min: 25rem;
+		--theme-grid-columns: 3;
+		background: var(--theme-color-border);
+		border-block: var(--theme-border-width) solid var(--theme-color-border);
+	}
+
+	.articles-card {
+		@extend %o-article-preview;
+		--theme-surface-radius: 0;
+		--theme-surface-padding: var(--authwave-section-inset);
+		--theme-stack-gap: var(--theme-space-4);
+		--theme-article-title-size: max(1.125rem, calc(1.5 * var(--authwave-size-unit)));
+		--theme-heading-weight: 500;
+		border: 0;
+		font-family: var(--theme-font-body);
+		background: var(--theme-color-surface);
+
+		.article-meta { @extend %p-article-meta; }
+		.article-summary { font-size: max(1rem, calc(1.25 * var(--authwave-size-unit))); }
+
+		@container article-list (width > #{flair.$break-wide}) {
+			--theme-article-title-size: var(--authwave-desktop-body-size);
+			.article-summary { font-size: calc(var(--authwave-desktop-body-size) * .875); }
+		}
+	}
+}

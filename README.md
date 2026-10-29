@@ -1,12 +1,19 @@
 # Authwave website
 
+## Stylesheets
+
+See [the CSS development rules](style/README.md) for component boundaries, reusable
+layers and page composition. Run `node test/style-structure.mjs` to enforce the
+structure and `gt build` to compile the site.
+
 ## Content pages
 
 `/about/` renders `data/content/about.md` through the shared CommonMark renderer.
 The Markdown supplies the page's `h1` and body; its first heading sets the browser
 title and its first paragraph supplies the description. There is no separate
 copy in the template. `ContentRepository` loads named files from `data/content`,
-and `content-page.scss` composes Flair's prose, reading measure and shared frame.
+and `style/pattern/content-page.scss` composes Flair's prose, reading measure and
+shared frame through `style/page/_common.scss`.
 The header/footer and light/dark preference are shared with the article pages.
 
 ## Articles
@@ -80,7 +87,8 @@ changes for the current page. Choices synchronise across tabs. On the homepage,
 and contribution retain their dark treatment. Pricing and the footer follow the
 selected scheme, and the footer selector remains available on every page.
 Removing `data-flair-theme="awpixel"`
-reveals the monochrome Flair layout. `page-hero.scss` and `articles-area.scss`
+reveals the monochrome Flair layout. `style/pattern/page-hero.scss` and
+the article patterns in `style/pattern/`, composed by `style/page/articles.scss`,
 compose Flair's existing objects and the upstream article-preview/page-picker
 objects; AWPixel owns category tints and selected states.
 
@@ -107,7 +115,7 @@ Section and navigation controls use HTML and CSS without JavaScript.
 The script bundle loads `@phpgt/flux` from the same GitHub release used by
 `www.php.gt`. Flux does not yet expose pointer/scroll CSS variables, so
 `script/ui/hero-motion.es6` supplies `--hero-pointer-x`, `--hero-pointer-y`
-and `--hero-exit-progress` locally. `style/component/hero-motion.scss` controls
+and `--hero-exit-progress` locally. `style/decoration/hero-motion.scss` controls
 the eased desktop parallax and scroll-away blur; reduced-motion preferences
 disable both effects. The hero retains its layout without JavaScript.
 
@@ -162,7 +170,8 @@ pattern. Its three plans use Inter text, the shared CTA style and 40px panel
 padding. Check and cross markers have accessible included/excluded labels.
 
 The shared footer markup lives in `page/_footer.html`, with styling in
-`style/component/site-footer.scss`. It uses a highlight frame, the shared CTA,
+`style/pattern/site-footer.scss`, composed in `style/page/_common.scss`. It uses
+a highlight frame, the shared CTA,
 two navigation columns, the existing interactive logo and a Morion wordmark.
 The logo has a static SVG fallback when JavaScript is disabled. Social links
 include external-link indicators; LinkedIn currently links to its homepage.

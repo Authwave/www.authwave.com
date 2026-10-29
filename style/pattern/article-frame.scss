@@ -1,0 +1,8 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "section-frame";
+
+%p-article-frame {
+	@extend %p-section-frame;
+	padding: 0;
+	border-block: 0;
+}

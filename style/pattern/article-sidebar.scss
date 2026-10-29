@@ -1,0 +1,12 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%p-article-sidebar {
+	background: var(--theme-color-surface);
+	padding: var(--theme-space-6) var(--authwave-section-inset);
+	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
+
+	@media (width > flair.$break-wide) {
+		padding-block: var(--authwave-section-inset);
+		border-block-end: 0;
+	}
+}

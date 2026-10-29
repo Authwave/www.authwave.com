@@ -1,0 +1,15 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "section-frame";
+
+%p-articles-area {
+	scroll-margin-block-start: var(--theme-space-6);
+	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
+
+	> .section-box {
+		@extend %p-section-frame;
+		padding: 0;
+		border-block: 0;
+	}
+
+	.articles-empty { padding: var(--authwave-section-inset); }
+}

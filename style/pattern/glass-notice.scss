@@ -1,11 +1,11 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../decoration/glass-panel";
-@use "../decoration/floating-entrance";
+@use "../decoration/floating";
 
 // A reusable floating notice, measured in its illustration scene's units.
 %p-glass-notice {
 	@extend %d-glass-panel;
-	@extend %d-floating-motion;
+	@extend %d-floating;
 	--glass-rim: calc(var(--notice-rim, 22) * var(--notice-unit) - 1px);
 	--glass-radius: calc(var(--notice-rim, 22) * var(--notice-unit));
 	--theme-font-size: calc(var(--notice-font-size, 28) * var(--notice-unit));

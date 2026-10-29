@@ -1,0 +1,11 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "site-prose";
+
+%p-article-prose {
+	@extend %p-site-prose;
+	padding: var(--authwave-section-inset);
+
+	@media (width > flair.$break-wide) {
+		border-inline-end: var(--theme-border-width) solid var(--theme-color-border);
+	}
+}

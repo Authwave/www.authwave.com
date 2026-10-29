@@ -1,0 +1,35 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%p-articles-pagination {
+	@extend %p-pagination;
+	position: relative;
+	inline-size: fit-content;
+	max-inline-size: calc(100% - 2 * var(--authwave-section-gutter));
+	margin: var(--theme-space-12) auto;
+	padding-block: var(--theme-space-6);
+
+	> ul {
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: var(--theme-space-2);
+	}
+
+	.page-link {
+		@extend %o-button;
+		--theme-button-font-size: 1rem;
+		--theme-button-radius: .125rem;
+		inline-size: 2.75rem;
+		block-size: 2.75rem;
+		min-inline-size: 2.75rem;
+		min-block-size: 2.75rem;
+		padding: 0;
+	}
+
+	.page-picker { @extend %o-page-picker; }
+	.pagination-previous { order: 0; }
+	.pagination-next { order: 110; }
+	.articles-previous > span { rotate: 180deg; }
+	[aria-disabled="true"] { opacity: .35; cursor: default; }
+	.page-picker[open] > summary { outline: var(--theme-focus-outline); }
+}

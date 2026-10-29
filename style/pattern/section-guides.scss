@@ -1,0 +1,37 @@
+%p-section-guides {
+	position: relative;
+
+	&::before {
+		content: "";
+		position: absolute;
+		inset-block: 0;
+		inset-inline: calc(var(--authwave-frame-edge, var(--authwave-section-gutter)) + var(--theme-border-width));
+		border-inline: var(--theme-border-width) solid var(--theme-color-border);
+		// The Introduction illustrations can extend underneath these lines.
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	> .section-box {
+		position: relative;
+
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			// Break out of the containing box to meet both viewport edges.
+			inset-inline: calc(50% - 50vw);
+			border-block-start: var(--theme-border-width) solid var(--theme-color-border);
+			pointer-events: none;
+		}
+
+		&::before {
+			inset-block-start: 0;
+		}
+
+		&::after {
+			// Continue the content's bottom divider, above the box's padding.
+			inset-block-end: var(--authwave-section-inset);
+		}
+	}
+}

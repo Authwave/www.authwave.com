@@ -3,7 +3,7 @@
 @use "../variable/size";
 
 // A content-page introduction, separate from the homepage's illustration hero.
-.page-hero {
+%p-page-hero {
 	@extend %p-page-intro;
 	@extend %p-stack;
 	--theme-stack-gap: 0;
@@ -30,7 +30,7 @@
 
 	> .hero-action { @extend %o-get-started; }
 
-	@media (min-width: flair.$break-wide) {
+	@media (width > flair.$break-wide) {
 		--theme-intro-title-size: #{size.desktop-type(clamp(5.25rem, 7vw, 7.25rem))};
 		padding-block: size.from-design(10rem);
 

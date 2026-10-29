@@ -1,0 +1,85 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%o-circuit-background {
+	position: absolute;
+	pointer-events: none;
+	overflow: clip;
+	color: var(--theme-color-border);
+	--circuit-active-density: var(--circuit-mobile-density);
+	--circuit-active-trains: var(--circuit-mobile-trains);
+	--circuit-active-transit-trains: var(--circuit-mobile-transit-trains);
+	--circuit-around-demo: 1;
+	--circuit-square-size: calc(1.125 * var(--authwave-size-unit));
+	--circuit-label-size: max(.625rem, calc(1.125 * var(--authwave-size-unit)));
+	--circuit-gutter: calc(var(--authwave-frame-edge, var(--authwave-section-gutter)) + 1.5 * var(--theme-border-width));
+
+	> svg {
+		position: absolute;
+		inset-block: 0;
+		inset-inline-start: 0;
+		inline-size: 100%;
+		block-size: 100%;
+		overflow: visible;
+		fill: none;
+		stroke: currentColor;
+		stroke-width: var(--theme-border-width);
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+	> .circuit-connectors {
+		inset-inline: var(--circuit-left-gutter, var(--circuit-gutter)) var(--circuit-right-gutter, var(--circuit-gutter));
+		inline-size: calc(100% - var(--circuit-left-gutter, var(--circuit-gutter)) - var(--circuit-right-gutter, var(--circuit-gutter)));
+	}
+	path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+	.circuit-shimmer > path {
+		color: var(--circuit-shimmer-colour, var(--theme-color-text));
+		stroke: currentColor;
+		opacity: 0;
+		filter: drop-shadow(0 0 2px currentColor);
+	}
+	[data-circuit-extra] { display: none; }
+
+	@media (width > flair.$break-wide) {
+		--circuit-active-density: var(--circuit-desktop-density);
+		--circuit-active-trains: var(--circuit-desktop-trains);
+		--circuit-active-transit-trains: var(--circuit-desktop-transit-trains);
+		--circuit-around-demo: 0;
+		--circuit-square-size: calc(1.5 * var(--authwave-size-unit));
+		--circuit-label-size: calc(1.5 * var(--authwave-size-unit));
+		[data-circuit-extra] { display: inline; }
+	}
+
+	.circuit-trains {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.circuit-train {
+		position: absolute;
+		inset-block-start: 0;
+		inset-inline-start: 0;
+		inline-size: 0;
+		block-size: 0;
+		color: var(--train-colour, currentColor);
+
+		.circuit-train-square {
+			position: absolute;
+			inline-size: var(--circuit-square-size);
+			block-size: var(--circuit-square-size);
+			translate: -50% -50%;
+			background: var(--train-colour, currentColor);
+		}
+		&[data-gradient] > .circuit-train-square {
+			background:
+				linear-gradient(135deg, transparent 35%, var(--train-gradient-colour)),
+				linear-gradient(45deg, var(--train-colour), var(--train-gradient-colour));
+		}
+		.circuit-train-label {
+			position: absolute;
+			opacity: 0;
+			font: 400 var(--circuit-label-size) / 1.2 var(--theme-font-body);
+			white-space: nowrap;
+		}
+	}
+}

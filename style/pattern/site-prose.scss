@@ -42,7 +42,7 @@
 	code { @extend %o-code; }
 	pre { @extend %o-code-block; }
 
-	@media (min-width: flair.$break-wide) {
+	@media (width > flair.$break-wide) {
 		--theme-font-size: var(--authwave-desktop-body-size);
 		--theme-heading-2: #{size.desktop-type(2.75rem)};
 		.article-picture { --theme-article-picture-ratio: 12 / 5; }

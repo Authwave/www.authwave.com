@@ -1,0 +1,53 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "article-meta";
+@use "../variable/size";
+
+%p-article-header {
+	@extend %l-editorial;
+	--theme-editorial-gap: 0;
+	--authwave-article-title-size: #{size.fluid(2.5rem, 5.25rem)};
+	border-block: var(--theme-border-width) solid var(--theme-color-border);
+
+	.article-heading {
+		@extend %p-stack;
+		--theme-stack-gap: var(--theme-space-6);
+		padding: var(--authwave-section-inset);
+		container-type: inline-size;
+	}
+
+	.article-meta { @extend %p-article-meta; }
+
+	h1 {
+		// The preview's longest word measures ~6.4em: 15cqi leaves it room
+		// within its own column (100 / 6.4 = 15.625), including on mobile.
+		font-size: clamp(2rem, 15cqi, var(--authwave-article-title-size));
+		font-weight: 400;
+		line-height: 1.05;
+		text-wrap: balance;
+	}
+
+	.article-lead {
+		margin-block-start: var(--theme-space-12);
+		font-family: var(--theme-font-body);
+		font-size: size.fluid(1rem, 1.3125rem);
+		color: var(--theme-color-muted);
+	}
+
+	.article-hero-art {
+		display: grid;
+		align-items: center;
+		padding: var(--authwave-section-inset);
+		border-block-start: var(--theme-border-width) solid var(--theme-color-border);
+	}
+
+	.article-picture { @extend %o-article-picture; }
+
+	@media (width > flair.$break-wide) {
+		--authwave-article-title-size: #{size.desktop-type(5.25rem)};
+		align-items: stretch;
+		.article-heading { block-size: 100%; }
+		h1 { max-inline-size: 15ch; }
+		.article-lead { margin-block-start: auto; padding-block-start: var(--theme-space-12); font-size: var(--authwave-desktop-body-size); }
+		.article-hero-art { border-block-start: 0; border-inline-start: var(--theme-border-width) solid var(--theme-color-border); }
+	}
+}

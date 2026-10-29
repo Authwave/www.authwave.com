@@ -1,0 +1,9 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%p-article-reading-frame {
+	@extend %d-highlight-frame;
+	// Overlap the existing gutter borders rather than doubling their thickness.
+	inline-size: calc(100% + 2 * var(--theme-border-width));
+	margin-inline: calc(-1 * var(--theme-border-width));
+	margin-block-start: var(--authwave-section-block-space);
+}

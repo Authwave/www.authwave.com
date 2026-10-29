@@ -2,7 +2,7 @@
 @use "../object/get-started";
 @use "../variable/size";
 
-.site-footer {
+%p-site-footer {
 	padding-block: var(--authwave-section-block-space) var(--authwave-section-gutter);
 	padding-inline: var(--authwave-section-gutter);
 	font-family: var(--theme-font-body);
@@ -65,7 +65,7 @@
 		align-items: center;
 		gap: var(--theme-space-4);
 		margin-inline: calc(-1 * var(--authwave-section-inset));
-		container-type: inline-size;
+		container: footer-brand / inline-size;
 
 		> interactive-logo {
 			flex: 0 0 20%;
@@ -89,7 +89,7 @@
 		font-weight: 600;
 		line-height: 1;
 
-		@media (min-width: size.$reference) {
+		@container footer-brand (width > #{size.$reference}) {
 			font-size: clamp(1.5rem, 17cqi, 16rem);
 		}
 	}
@@ -148,10 +148,8 @@
 			translate: 0;
 		}
 	}
-}
 
-@media (min-width: flair.$break-wide) {
-	.site-footer {
+	@media (width > flair.$break-wide) {
 		.footer-box {
 			max-inline-size: var(--authwave-frame-max);
 			margin-inline: auto;

@@ -2,117 +2,119 @@
 @use "sass:math";
 @use "../variable/size";
 
-// Derive the corrections from the existing dimensions and requested ratios.
-$feedback-width: 37.5rem; // 600px
-$logo-ratio: 1.25;
-$small-name-gap: 0.625rem + math.div(2.75rem - 1.125rem * $logo-ratio, 2);
-$small-name-growth: math.div(2 * $small-name-gap, 3 * $logo-ratio);
-$reference-menu-gap: 0.625rem + 1.25rem * math.div($feedback-width - size.$minimum, size.$reference - size.$minimum);
+site-header {
+	// Derive the corrections from the existing dimensions and requested ratios.
+	$feedback-width: 37.5rem; // 600px
+	$logo-ratio: 1.25;
+	$small-name-gap: 0.625rem + math.div(2.75rem - 1.125rem * $logo-ratio, 2);
+	$small-name-growth: math.div(2 * $small-name-gap, 3 * $logo-ratio);
+	$reference-menu-gap: 0.625rem + 1.25rem * math.div($feedback-width - size.$minimum, size.$reference - size.$minimum);
 
-.site-header {
-	@extend %o-panel;
-	--theme-surface-radius: 0;
-	--authwave-site-name-size: calc(2.25 * var(--authwave-size-unit) + #{size.fluid($small-name-growth, 0rem, $feedback-width)});
-	--authwave-header-block-inset: calc(var(--authwave-header-inset) - #{size.fluid(0rem, math.div($reference-menu-gap, 2), $feedback-width)});
-	--authwave-header-control-size: max(
-		2.75rem,
-		var(--theme-button-min-height, var(--theme-control-min-height)),
-		calc(1.5 * var(--theme-button-font-size, var(--theme-font-size)) + 2 * var(--theme-button-padding-block, var(--theme-space-2)) + 2 * var(--theme-border-width))
-	);
-	--authwave-logo-colour: blue;
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: var(--theme-space-1);
-	// Reduce the surrounding space rather than enlarging the menu control.
-	padding-block: var(--authwave-header-block-inset);
-	padding-inline: var(--authwave-header-inset);
-	border: 0;
-	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
-
-	@media (min-width: 22rem) {
-		gap: var(--theme-space-6);
-	}
-
-	.site-name {
-		@extend %d-typography-heading;
-		display: inline-flex;
+	> header {
+		@extend %o-panel;
+		--theme-surface-radius: 0;
+		--authwave-site-name-size: calc(2.25 * var(--authwave-size-unit) + #{size.fluid($small-name-growth, 0rem, $feedback-width)});
+		--authwave-header-block-inset: calc(var(--authwave-header-inset) - #{size.fluid(0rem, math.div($reference-menu-gap, 2), $feedback-width)});
+		--authwave-header-control-size: max(
+			2.75rem,
+			var(--theme-button-min-height, var(--theme-control-min-height)),
+			calc(1.5 * var(--theme-button-font-size, var(--theme-font-size)) + 2 * var(--theme-button-padding-block, var(--theme-space-2)) + 2 * var(--theme-border-width))
+		);
+		--authwave-logo-colour: blue;
+		position: relative;
+		display: flex;
 		align-items: center;
-		flex: 0 0 auto;
-		gap: var(--theme-space-2);
-		font-size: var(--authwave-site-name-size);
-		font-weight: 600;
-		line-height: 1;
-		text-decoration: none;
+		justify-content: space-between;
+		gap: var(--theme-space-1);
+		// Reduce the surrounding space rather than enlarging the menu control.
+		padding-block: var(--authwave-header-block-inset);
+		padding-inline: var(--authwave-header-inset);
+		border: 0;
+		border-block-end: var(--theme-border-width) solid var(--theme-color-border);
 
-		&::before {
-			content: "";
+		@media (width > 22rem) {
+			gap: var(--theme-space-6);
+		}
+
+		.site-name {
+			@extend %d-typography-heading;
+			display: inline-flex;
+			align-items: center;
 			flex: 0 0 auto;
-			inline-size: 1.25em;
-			block-size: 1.25em;
-			background: var(--authwave-logo-colour);
-			mask: url("/asset/logo.svg") center / contain no-repeat;
-			margin-right: -0.15em;
+			gap: var(--theme-space-2);
+			font-size: var(--authwave-site-name-size);
+			font-weight: 600;
+			line-height: 1;
+			text-decoration: none;
+
+			&::before {
+				content: "";
+				flex: 0 0 auto;
+				inline-size: 1.25em;
+				block-size: 1.25em;
+				background: var(--authwave-logo-colour);
+				mask: url("/asset/logo.svg") center / contain no-repeat;
+				margin-right: -0.15em;
+			}
 		}
-	}
-
-	.site-menu-button {
-		@extend %o-button;
-		flex: 0 0 auto;
-		font-family: var(--theme-font-body);
-	}
-
-	.site-menu-popover {
-		@extend %o-popover;
-		@extend %p-navigation;
-		--theme-popover-width: 12rem;
-
-		> ul {
-			flex-direction: column;
-		}
-
-		@supports selector(:popover-open) {
-			// Keep the native top-layer surface below the header and to the right.
-			inset-block-start: calc(
-				2 * var(--authwave-header-block-inset) +
-				var(--authwave-header-control-size) +
-				var(--theme-border-width) +
-				var(--theme-space-4)
-			);
-			inset-inline-end: var(--authwave-header-inset);
-			inset-block-end: auto;
-			inset-inline-start: auto;
-			margin: 0;
-			max-block-size: calc(100dvh - 12rem);
-		}
-	}
-
-	@media (min-width: flair.$break-shell) {
-		padding-block: var(--authwave-header-inset);
 
 		.site-menu-button {
-			display: none;
+			@extend %o-button;
+			flex: 0 0 auto;
+			font-family: var(--theme-font-body);
 		}
 
 		.site-menu-popover {
-			display: block;
-			// These offsets also work if a mobile popover is still in the top layer.
-			position: absolute;
-			inset-block-start: var(--authwave-header-inset);
-			inset-inline-end: var(--authwave-header-inset);
-			inset-block-end: auto;
-			inset-inline-start: auto;
-			inline-size: auto;
-			max-block-size: none;
-			margin: 0;
-			padding: 0;
-			border: 0;
-			background: transparent;
-			overflow: visible;
+			@extend %o-popover;
+			@extend %p-navigation;
+			--theme-popover-width: 12rem;
 
 			> ul {
-				flex-direction: row;
+				flex-direction: column;
+			}
+
+			@supports selector(:popover-open) {
+				// Keep the native top-layer surface below the header and to the right.
+				inset-block-start: calc(
+					2 * var(--authwave-header-block-inset) +
+					var(--authwave-header-control-size) +
+					var(--theme-border-width) +
+					var(--theme-space-4)
+				);
+				inset-inline-end: var(--authwave-header-inset);
+				inset-block-end: auto;
+				inset-inline-start: auto;
+				margin: 0;
+				max-block-size: calc(100dvh - 12rem);
+			}
+		}
+
+		@media (width > flair.$break-shell) {
+			padding-block: var(--authwave-header-inset);
+
+			.site-menu-button {
+				display: none;
+			}
+
+			.site-menu-popover {
+				display: block;
+				// These offsets also work if a mobile popover is still in the top layer.
+				position: absolute;
+				inset-block-start: var(--authwave-header-inset);
+				inset-inline-end: var(--authwave-header-inset);
+				inset-block-end: auto;
+				inset-inline-start: auto;
+				inline-size: auto;
+				max-block-size: none;
+				margin: 0;
+				padding: 0;
+				border: 0;
+				background: transparent;
+				overflow: visible;
+
+				> ul {
+					flex-direction: row;
+				}
 			}
 		}
 	}

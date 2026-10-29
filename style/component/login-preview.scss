@@ -1,11 +1,11 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../decoration/glass-panel";
-@use "../decoration/floating-entrance";
+@use "../decoration/floating";
 @use "../variable/size";
 
-// Reference artwork: 618px in a 780px mobile canvas; 1144px in the
-// 2560px desktop frame. Keep the preview's own width as its measuring unit.
 login-preview {
+	// Reference artwork: 618px in a 780px mobile canvas; 1144px in the
+	// 2560px desktop frame. Keep the preview's own width as its measuring unit.
 	pointer-events: none;
 	position: relative;
 	display: block;
@@ -14,177 +14,181 @@ login-preview {
 	// All three panels recede into the same plane during their entrance.
 	perspective: 80rem;
 	perspective-origin: 50% 50%;
-}
 
-.login-preview {
-	@extend %d-glass-panel;
-	@extend %d-floating-entrance;
-	--panel-orbit-radius: .25rem;
-	--panel-orbit-duration: 29s;
-	--panel-tilt-angle: .2deg;
-	--panel-enter-angle: -1deg;
-	--panel-enter-delay: 0s;
-	--panel-enter-duration: 1s;
-	--panel-fade-duration: .18s;
-	--panel-fade-easing: ease-out;
-	--panel-unblur-animation: panel-unblur-deep;
-	--panel-unblur-duration: var(--panel-enter-duration);
-	--panel-unblur-easing: ease-in-out;
-	--login-unit: calc(100cqi / 618);
-	--login-rim: 20;
-	// Insets account for the frame and inner panel's own border widths.
-	--login-inset-inline: 37;
-	--login-inset-top: 38;
-	--login-inset-bottom: 38;
-	--login-logo: 69;
-	--login-title: 42;
-	--login-title-gap: 26;
-	--login-subtitle-gap: 8;
-	--login-header-gap: 54;
-	--login-body: 21;
-	--login-field-height: 61;
-	--login-options-gap: 24;
-	--login-options-height: 28;
-	--login-choice: 26;
-	--login-submit-gap: 42;
-	--login-submit-height: 59;
-	--login-help-gap: 25;
-	--login-control-radius: 10;
-	--glass-rim: calc(var(--login-rim) * var(--login-unit) - 1px);
-	--glass-radius: calc(var(--login-rim) * var(--login-unit));
-	--theme-font-size: calc(var(--login-body) * var(--login-unit));
-	--theme-border-width: calc(2 * var(--login-unit));
-	inline-size: 100%;
-	min-inline-size: 0;
-	text-align: start;
-	font-family: var(--theme-font-body);
-	font-size: var(--theme-font-size);
-	line-height: 1.2;
+	> section {
+		@extend %d-glass-panel;
+		@extend %d-floating-entrance;
+		--panel-orbit-radius: .25rem;
+		--panel-orbit-duration: 29s;
+		--panel-tilt-angle: .2deg;
+		--panel-enter-angle: -1deg;
+		--panel-enter-delay: 0s;
+		--panel-enter-duration: 1s;
+		--panel-fade-duration: .18s;
+		--panel-fade-easing: ease-out;
+		--panel-unblur-animation: panel-unblur-deep;
+		--panel-unblur-duration: var(--panel-enter-duration);
+		--panel-unblur-easing: ease-in-out;
+		--login-unit: calc(100cqi / 618);
+		--login-rim: 20;
+		// Insets account for the frame and inner panel's own border widths.
+		--login-inset-inline: 37;
+		--login-inset-top: 38;
+		--login-inset-bottom: 38;
+		--login-logo: 69;
+		--login-title: 42;
+		--login-title-gap: 26;
+		--login-subtitle-gap: 8;
+		--login-header-gap: 54;
+		--login-body: 21;
+		--login-field-height: 61;
+		--login-options-gap: 24;
+		--login-options-height: 28;
+		--login-choice: 26;
+		--login-submit-gap: 42;
+		--login-submit-height: 59;
+		--login-help-gap: 25;
+		--login-control-radius: 10;
+		--glass-rim: calc(var(--login-rim) * var(--login-unit) - 1px);
+		--glass-radius: calc(var(--login-rim) * var(--login-unit));
+		--theme-font-size: calc(var(--login-body) * var(--login-unit));
+		--theme-border-width: calc(2 * var(--login-unit));
+		inline-size: 100%;
+		min-inline-size: 0;
+		text-align: start;
+		font-family: var(--theme-font-body);
+		font-size: var(--theme-font-size);
+		line-height: 1.2;
 
-	.login-preview-panel {
-		@extend %o-card;
-		--theme-stack-gap: 0;
-		--theme-surface-radius: calc(12 * var(--login-unit));
-		padding: calc(var(--login-inset-top) * var(--login-unit)) calc(var(--login-inset-inline) * var(--login-unit)) calc(var(--login-inset-bottom) * var(--login-unit));
-	}
-
-	.login-preview-header {
-		text-align: center;
-		margin-block-end: calc(var(--login-header-gap) * var(--login-unit));
-		> h2 {
-			margin: calc(var(--login-title-gap) * var(--login-unit)) 0 calc(var(--login-subtitle-gap) * var(--login-unit));
-			font-size: calc(var(--login-title) * var(--login-unit));
-			font-weight: 400;
-			line-height: 1.1;
+		.login-preview-panel {
+			@extend %o-card;
+			--theme-stack-gap: 0;
+			--theme-surface-radius: calc(12 * var(--login-unit));
+			padding: calc(var(--login-inset-top) * var(--login-unit)) calc(var(--login-inset-inline) * var(--login-unit)) calc(var(--login-inset-bottom) * var(--login-unit));
 		}
-		> p { margin: 0; font-size: inherit; line-height: 1.2; color: var(--theme-color-muted); }
-	}
 
-	.login-preview-logo {
-		display: block;
-		inline-size: calc(var(--login-logo) * var(--login-unit));
-		aspect-ratio: 1;
-		margin-inline: auto;
-		border-radius: calc(4 * var(--login-unit));
-		background: var(--login-preview-accent, var(--theme-color-text));
-		position: relative;
-		&::before {
-			content: "";
+		.login-preview-header {
+			text-align: center;
+			margin-block-end: calc(var(--login-header-gap) * var(--login-unit));
+			> h2 {
+				margin: calc(var(--login-title-gap) * var(--login-unit)) 0 calc(var(--login-subtitle-gap) * var(--login-unit));
+				font-size: calc(var(--login-title) * var(--login-unit));
+				font-weight: 400;
+				line-height: 1.1;
+			}
+			> p { margin: 0; font-size: inherit; line-height: 1.2; color: var(--theme-color-muted); }
+		}
+
+		.login-preview-logo {
+			display: block;
+			inline-size: calc(var(--login-logo) * var(--login-unit));
+			aspect-ratio: 1;
+			margin-inline: auto;
+			border-radius: calc(4 * var(--login-unit));
+			background: var(--login-preview-accent, var(--theme-color-text));
+			position: relative;
+			&::before {
+				content: "";
+				position: absolute;
+				inset: 15%;
+				background: var(--login-preview-accent-text, var(--theme-color-surface));
+				mask: url("/asset/logo.svg") center / contain no-repeat;
+			}
+		}
+
+		.login-preview-form { display: grid; gap: 0; }
+		.login-preview-field {
+			@extend %o-form-field;
+			position: relative;
+			--theme-control-radius: calc(var(--login-control-radius) * var(--login-unit));
+			> label { @extend %d-visually-hidden; }
+			> input {
+				font-size: inherit;
+				line-height: 1.2;
+				min-block-size: 0;
+				block-size: calc(var(--login-field-height) * var(--login-unit));
+				padding: 0 calc(24 * var(--login-unit)) 0 calc(54 * var(--login-unit));
+			}
+		}
+		.login-preview-email-icon {
 			position: absolute;
-			inset: 15%;
-			background: var(--login-preview-accent-text, var(--theme-color-surface));
-			mask: url("/asset/logo.svg") center / contain no-repeat;
+			display: grid;
+			place-items: center;
+			inset-inline-start: calc(21 * var(--login-unit));
+			inset-block-start: 50%;
+			translate: 0 -50%;
+			--theme-icon-size: calc(22 * var(--login-unit));
+			--theme-icon-gap: 0;
+			pointer-events: none;
+			color: var(--theme-color-muted);
 		}
-	}
-
-	.login-preview-form { display: grid; gap: 0; }
-	.login-preview-field {
-		@extend %o-form-field;
-		position: relative;
-		--theme-control-radius: calc(var(--login-control-radius) * var(--login-unit));
-		> label { @extend %d-visually-hidden; }
-		> input {
+		.login-preview-options {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: .5em;
+			margin-block-start: calc(var(--login-options-gap) * var(--login-unit));
+			min-block-size: calc(var(--login-options-height) * var(--login-unit));
 			font-size: inherit;
 			line-height: 1.2;
-			min-block-size: 0;
-			block-size: calc(var(--login-field-height) * var(--login-unit));
-			padding: 0 calc(24 * var(--login-unit)) 0 calc(54 * var(--login-unit));
+			> a { white-space: nowrap; }
 		}
-	}
-	.login-preview-email-icon {
-		position: absolute;
-		display: grid;
-		place-items: center;
-		inset-inline-start: calc(21 * var(--login-unit));
-		inset-block-start: 50%;
-		translate: 0 -50%;
-		--theme-icon-size: calc(22 * var(--login-unit));
-		--theme-icon-gap: 0;
-		pointer-events: none;
-		color: var(--theme-color-muted);
-	}
-	.login-preview-options {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: .5em;
-		margin-block-start: calc(var(--login-options-gap) * var(--login-unit));
-		min-block-size: calc(var(--login-options-height) * var(--login-unit));
-		font-size: inherit;
-		line-height: 1.2;
-		> a { white-space: nowrap; }
-	}
-	.login-preview-remember {
-		@extend %o-choice-field;
-		font: inherit;
-		--theme-choice-size: calc(var(--login-choice) * var(--login-unit));
-		align-items: center;
-		gap: calc(12 * var(--login-unit));
-		min-block-size: 0;
-		> input { margin-block-start: 0; }
-	}
-	.login-preview-submit {
-		@extend %o-button;
-		--theme-button-font-size: var(--theme-font-size);
-		--theme-button-min-height: 0;
-		--theme-button-radius: calc(var(--login-control-radius) * var(--login-unit));
-		--theme-button-padding-block: 0;
-		--theme-button-padding-inline: 1em;
-		inline-size: 100%;
-		min-block-size: 0;
-		block-size: calc(var(--login-submit-height) * var(--login-unit));
-		margin-block-start: calc(var(--login-submit-gap) * var(--login-unit));
-		font-weight: 400;
-	}
-	.login-preview-help {
-		margin: calc(var(--login-help-gap) * var(--login-unit)) 0 0;
-		text-align: end;
-		font-size: inherit;
-		line-height: 1.2;
-	}
+		.login-preview-remember {
+			@extend %o-choice-field;
+			font: inherit;
+			--theme-choice-size: calc(var(--login-choice) * var(--login-unit));
+			align-items: center;
+			gap: calc(12 * var(--login-unit));
+			min-block-size: 0;
+			> input { margin-block-start: 0; }
+		}
+		.login-preview-submit {
+			@extend %o-button;
+			--theme-button-font-size: var(--theme-font-size);
+			--theme-button-min-height: 0;
+			--theme-button-radius: calc(var(--login-control-radius) * var(--login-unit));
+			--theme-button-padding-block: 0;
+			--theme-button-padding-inline: 1em;
+			inline-size: 100%;
+			min-block-size: 0;
+			block-size: calc(var(--login-submit-height) * var(--login-unit));
+			margin-block-start: calc(var(--login-submit-gap) * var(--login-unit));
+			font-weight: 400;
+		}
+		.login-preview-help {
+			margin: calc(var(--login-help-gap) * var(--login-unit)) 0 0;
+			text-align: end;
+			font-size: inherit;
+			line-height: 1.2;
+		}
 
-	@media (min-width: flair.$break-wide) {
-		--login-unit: calc(100cqi / 1144);
-		--login-rim: 26;
-		--login-inset-inline: 81;
-		--login-inset-top: 69;
-		--login-inset-bottom: 75;
-		--login-logo: 91;
-		--login-title: 56;
-		--login-title-gap: 36;
-		--login-subtitle-gap: 12;
-		--login-header-gap: 70;
-		--login-body: 28;
-		--login-field-height: 82;
-		--login-options-gap: 28;
-		--login-options-height: 36;
-		--login-choice: 34;
-		--login-submit-gap: 56;
-		--login-submit-height: 78;
-		--login-help-gap: 26;
-		--login-control-radius: 16;
-		.login-preview-panel { --theme-surface-radius: calc(24 * var(--login-unit)); }
-		.login-preview-field > input { padding-inline-start: calc(72 * var(--login-unit)); }
-		.login-preview-email-icon { inset-inline-start: calc(28 * var(--login-unit)); --theme-icon-size: calc(30 * var(--login-unit)); }
+		@media (width > flair.$break-wide) {
+			--login-unit: calc(100cqi / 1144);
+			--login-rim: 26;
+			--login-inset-inline: 81;
+			--login-inset-top: 69;
+			--login-inset-bottom: 75;
+			--login-logo: 91;
+			--login-title: 56;
+			--login-title-gap: 36;
+			--login-subtitle-gap: 12;
+			--login-header-gap: 70;
+			--login-body: 28;
+			--login-field-height: 82;
+			--login-options-gap: 28;
+			--login-options-height: 36;
+			--login-choice: 34;
+			--login-submit-gap: 56;
+			--login-submit-height: 78;
+			--login-help-gap: 26;
+			--login-control-radius: 16;
+			.login-preview-panel { --theme-surface-radius: calc(24 * var(--login-unit)); }
+			.login-preview-field > input { padding-inline-start: calc(72 * var(--login-unit)); }
+			.login-preview-email-icon { inset-inline-start: calc(28 * var(--login-unit)); --theme-icon-size: calc(30 * var(--login-unit)); }
+		}
+
+		@media (prefers-reduced-motion: no-preference) and (width > flair.$break-wide) and (hover: hover) and (pointer: fine) {
+			--panel-pointer-distance: calc(8 * var(--login-unit));
+		}
 	}
 }

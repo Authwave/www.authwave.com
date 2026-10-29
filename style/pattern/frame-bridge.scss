@@ -2,7 +2,7 @@
 
 // A viewport-wide framed transition strip, independent of section content.
 %p-frame-bridge {
-	@media (min-width: flair.$break-wide) {
+	@media (width > flair.$break-wide) {
 		position: relative;
 
 		&::before,

@@ -1,6 +1,5 @@
 @use "../../node_modules/flair/style/lib/flair";
 
-// One shared CTA definition for page sections and the site footer.
 %o-get-started {
 	@extend %o-button;
 	margin-block-start: var(--theme-space-8);
@@ -13,10 +12,8 @@
 	> .action-icon {
 		display: none;
 	}
-}
 
-@media (min-width: flair.$break-wide) {
-	%o-get-started {
+	@media (width > flair.$break-wide) {
 		// Reference dimensions use the confirmed 2208 / 2880 display scale.
 		--theme-button-font-size: calc(2.25rem * 2208 / 2880);
 		--theme-button-min-height: calc(5.5rem * 2208 / 2880);

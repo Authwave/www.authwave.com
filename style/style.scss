@@ -20,31 +20,54 @@
 @use "theme/awpixel";
 @use "font/inter";
 @use "font/morion";
-@use "decoration/external-link";
+
+@use "page/common";
+@use "page/articles";
+@use "page/help";
 
 @use "component/interactive-logo";
+@use "component/articles-cards";
 @use "component/site-header";
 @use "component/hero-area";
 @use "component/hero-circuit";
 @use "component/login-preview";
 @use "component/login-preview-extras";
-@use "component/hero-motion";
-@use "component/page-hero";
-@use "component/articles-area";
-@use "component/article-page";
-@use "component/content-page";
 @use "component/introduction-area";
-@use "decoration/concertina-measure";
 @use "component/audience-area";
 @use "component/audience-circuit";
 @use "component/features-area";
 @use "component/contribution-area";
 @use "component/contribution-preview";
-@use "decoration/scroll-reveal";
 @use "component/pricing-area";
-@use "component/site-footer";
 @use "variable/space";
 @use "variable/size";
+
+// Typed animation values must be registered globally, outside selectors.
+@property --panel-depth {
+	syntax: "<length>";
+	inherits: false;
+	initial-value: 0px;
+}
+@property --panel-intro-blur {
+	syntax: "<length>";
+	inherits: false;
+	initial-value: 0px;
+}
+@property --hero-pointer-x {
+	syntax: "<number>";
+	inherits: true;
+	initial-value: 0;
+}
+@property --hero-pointer-y {
+	syntax: "<number>";
+	inherits: true;
+	initial-value: 0;
+}
+@property --panel-click-blur {
+	syntax: "<length>";
+	inherits: false;
+	initial-value: 0px;
+}
 
 :root {
 	@include theme.base;
@@ -69,31 +92,3 @@
 @include flair.init;
 @include flair.typography;
 @include flair.icon;
-
-body {
-	@extend %d-typography;
-	background: var(--theme-color-surface);
-}
-
-main,
-.site-footer {
-	// Full-bleed frame rules include the scrollbar width through 100vw.
-	// Contain that excess at every viewport size, including the mobile footer.
-	overflow-x: clip;
-}
-
-@media (min-width: flair.$break-wide) {
-	main,
-	.site-footer {
-		// Reference: 2880 image pixels correspond to 2208 CSS pixels.
-		// Its 2560px column therefore caps at 1962.67 CSS pixels (at 16px/rem).
-		// Reference body text is 32px before the confirmed display conversion.
-		--authwave-desktop-body-size: calc(2rem * 2208 / 2880);
-		// Shared inner padding: 56 reference pixels at the confirmed display scale.
-		--authwave-section-inset: #{size.from-design(3.5rem)};
-		font-size: size.desktop-type(1rem);
-		--authwave-frame-max: calc(160rem * 2208 / 2880);
-		--authwave-frame-edge: max(var(--authwave-section-gutter), calc((100% - var(--authwave-frame-max)) / 2));
-		--authwave-section-block-space: 6rem;
-	}
-}

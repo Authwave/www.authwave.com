@@ -1,0 +1,11 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%p-article-contents {
+	@extend %p-contents;
+	--theme-surface-padding: var(--theme-space-4);
+	--theme-nav-padding-block: var(--theme-space-2);
+	--theme-nav-padding-inline: var(--theme-space-2);
+	font-size: max(.875rem, var(--authwave-size-unit));
+
+	> h2 { font-size: .75em; }
+}

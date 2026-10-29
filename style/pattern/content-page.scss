@@ -1,0 +1,8 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "section-frame";
+
+%p-content-page {
+	@extend %p-section-frame;
+	border-block: 0;
+	padding-block: var(--authwave-section-block-space);
+}

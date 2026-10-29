@@ -1,0 +1,14 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%p-related-articles {
+	margin-block-start: var(--authwave-section-block-space);
+
+	.related-header {
+		@extend %p-page-header;
+		--theme-header-padding-block: var(--authwave-section-inset);
+		padding-inline: var(--authwave-section-inset);
+		> h2 { margin: 0; font-size: max(1.75rem, calc(2.75 * var(--authwave-size-unit))); font-weight: 400; }
+		> a { @extend %o-nav-link; flex-shrink: 0; }
+	}
+	.visually-hidden { @extend %d-visually-hidden; }
+}

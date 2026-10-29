@@ -1,0 +1,33 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "../pattern/page-hero";
+@use "../pattern/articles-area";
+@use "../pattern/articles-toolbar";
+@use "../pattern/articles-filters";
+@use "../pattern/articles-pagination";
+@use "../pattern/article-breadcrumbs";
+@use "../pattern/article-frame";
+@use "../pattern/article-header";
+@use "../pattern/article-reading-frame";
+@use "../pattern/article-layout";
+@use "../pattern/article-sidebar";
+@use "../pattern/article-contents";
+@use "../pattern/article-prose";
+@use "../pattern/related-articles";
+
+body.dir--articles {
+	.page-hero { @extend %p-page-hero; }
+	.articles-area { @extend %p-articles-area; }
+	.articles-toolbar { @extend %p-articles-toolbar; }
+	.articles-filters { @extend %p-articles-filters; }
+	.articles-pagination { @extend %p-articles-pagination; }
+	.articles-status { @extend %d-visually-hidden; }
+	.article-breadcrumbs { @extend %p-article-breadcrumbs; }
+	.article-frame { @extend %p-article-frame; }
+	.article-header { @extend %p-article-header; }
+	.article-reading-frame { @extend %p-article-reading-frame; }
+	.article-sidebar { @extend %p-article-sidebar; }
+	.article-contents { @extend %p-article-contents; }
+	.article-prose { @extend %p-article-prose; }
+	.related-articles { @extend %p-related-articles; }
+	.article-layout { @extend %p-article-layout; }
+}

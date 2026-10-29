@@ -14,7 +14,7 @@
 	--authwave-section-block-space: var(--authwave-hero-bottom-space);
 	--authwave-audience-panel-gap: calc(6 * var(--authwave-size-unit));
 
-	@media (min-width: size.$reference) {
+	@media (width > size.$reference) {
 		--authwave-header-inset: clamp(1.25rem, 5vw, 2.625rem);
 		--authwave-hero-inset: clamp(1.5rem, 9.047619vw, 4.75rem);
 		--authwave-hero-top-space: clamp(4rem, 12vw, 7rem);

@@ -13,7 +13,7 @@ $desktop-font-size: size.desktop-type(1.25rem);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 
-	@media (min-width: flair.$break-wide) {
+	@media (width > flair.$break-wide) {
 		font-size: $desktop-font-size;
 	}
 }

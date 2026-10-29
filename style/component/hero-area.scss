@@ -1,103 +1,106 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../object/get-started";
 @use "../variable/size";
+@use "../decoration/hero-motion";
 
-.hero-area {
-	@extend %p-stack;
-	--theme-stack-gap: 0;
-	align-items: center;
-	// Extra height belongs above the content, keeping its bottom inset fixed.
-	justify-content: flex-end;
-	text-align: center;
-	min-block-size: size.fluid(21.4047619rem, 80.2678571rem);
-	padding-block: var(--authwave-hero-top-space) var(--authwave-hero-bottom-space);
-	padding-inline: var(--authwave-hero-inset);
-	border-block-end: var(--theme-border-width) solid var(--theme-color-border);
+hero-area {
+	> section {
+		@extend %d-hero-motion;
+		container-type: inline-size;
+		@extend %p-stack;
+		--theme-stack-gap: 0;
+		align-items: center;
+		// Extra height belongs above the content, keeping its bottom inset fixed.
+		justify-content: flex-end;
+		text-align: center;
+		min-block-size: size.fluid(21.4047619rem, 80.2678571rem);
+		padding-block: var(--authwave-hero-top-space) var(--authwave-hero-bottom-space);
+		padding-inline: var(--authwave-hero-inset);
+		border-block-end: var(--theme-border-width) solid var(--theme-color-border);
 
-	@media (min-width: size.$reference) {
-		min-block-size: min(112.375rem, 214.047619vw);
-	}
-
-	> h1 {
-		// Reduce 320px type from 52px to 40px; taper that correction to zero
-		// at 600px so the existing larger-screen sizes remain unchanged.
-		font-size: calc(#{size.fluid(3.25rem, 5.25rem)} - #{size.fluid(.75rem, 0rem, 37.5rem)});
-		font-weight: 400;
-		line-height: 1.1;
-
-		@media (min-width: 37.5rem) {
-			font-size: size.fluid(3.25rem, 5.25rem);
+		@media (width > size.$reference) {
+			min-block-size: min(112.375rem, 214.047619vw);
 		}
-
-		@media (min-width: size.$reference) {
-			font-size: clamp(3rem, 14vw, 6.5rem);
-		}
-
-		> span {
-			display: block;
-		}
-	}
-
-	> .hero-tagline {
-		max-inline-size: 26ch;
-		margin-block-start: var(--theme-space-6);
-		font-size: size.fluid(1rem, 1.3125rem);
-
-		@media (min-width: size.$reference) {
-			font-size: clamp(1rem, 3.5vw, 2rem);
-		}
-	}
-
-	> .hero-action {
-		@extend %o-get-started;
-	}
-
-	> .hero-placeholder {
-		display: grid;
-		place-items: center;
-		inline-size: 100%;
-		aspect-ratio: 618 / 692;
-		margin-block-start: var(--authwave-hero-art-space);
-		padding: 0;
-	}
-
-	@media (min-width: flair.$break-shell) {
-		> h1 > span {
-			display: inline;
-		}
-	}
-}
-
-@media (min-width: flair.$break-wide) {
-	.hero-area {
-		min-block-size: 0;
-		padding-block: 5rem 6rem;
 
 		> h1 {
-			font-size: size.desktop-type(clamp(6.5rem, 8vw, 7.25rem));
-			text-wrap: balance;
-			max-inline-size: var(--authwave-frame-max);
+			// Reduce 320px type from 52px to 40px; taper that correction to zero
+			// at 600px so the existing larger-screen sizes remain unchanged.
+			font-size: calc(#{size.fluid(3.25rem, 5.25rem)} - #{size.fluid(.75rem, 0rem, 37.5rem)});
+			font-weight: 400;
+			line-height: 1.1;
+
+			@media (width > 37.5rem) {
+				font-size: size.fluid(3.25rem, 5.25rem);
+			}
+
+			@media (width > size.$reference) {
+				font-size: clamp(3rem, 14vw, 6.5rem);
+			}
+
+			> span {
+				display: block;
+
+				@media (width > flair.$break-shell) {
+					display: inline;
+				}
+			}
 		}
 
 		> .hero-tagline {
-			max-inline-size: none;
-			font-size: size.desktop-type(1.5rem);
-			// 35 reference pixels, less the existing ~10px of text line-box space.
-			margin-block-start: calc(2.1875rem * 2208 / 2880 - 0.625rem);
+			max-inline-size: 26ch;
+			margin-block-start: var(--theme-space-6);
+			font-size: size.fluid(1rem, 1.3125rem);
+
+			@media (width > size.$reference) {
+				font-size: clamp(1rem, 3.5vw, 2rem);
+			}
 		}
 
 		> .hero-action {
-			// 102 reference pixels, less ~8px of line-box space and button border.
-			margin-block-start: calc(6.375rem * 2208 / 2880 - 0.5rem);
+			@extend %o-get-started;
 		}
 
 		> .hero-placeholder {
-			max-inline-size: var(--authwave-frame-max);
-			aspect-ratio: 21 / 9;
-			margin-block-start: 4rem;
-			> login-preview {
-				inline-size: calc(100% * 1144 / 2560);
-				max-inline-size: #{size.from-design(71.5rem)};
+			position: relative;
+			isolation: isolate;
+			display: grid;
+			place-items: center;
+			inline-size: 100%;
+			aspect-ratio: 618 / 692;
+			margin-block-start: var(--authwave-hero-art-space);
+			padding: 0;
+		}
+
+		@media (width > flair.$break-wide) {
+			min-block-size: 0;
+			padding-block: 5rem 6rem;
+
+			> h1 {
+				font-size: size.desktop-type(clamp(6.5rem, 8vw, 7.25rem));
+				text-wrap: balance;
+				max-inline-size: var(--authwave-frame-max);
+			}
+
+			> .hero-tagline {
+				max-inline-size: none;
+				font-size: size.desktop-type(1.5rem);
+				// 35 reference pixels, less the existing ~10px of text line-box space.
+				margin-block-start: calc(2.1875rem * 2208 / 2880 - 0.625rem);
+			}
+
+			> .hero-action {
+				// 102 reference pixels, less ~8px of line-box space and button border.
+				margin-block-start: calc(6.375rem * 2208 / 2880 - 0.5rem);
+			}
+
+			> .hero-placeholder {
+				max-inline-size: var(--authwave-frame-max);
+				aspect-ratio: 21 / 9;
+				margin-block-start: 4rem;
+				> login-preview {
+					inline-size: calc(100% * 1144 / 2560);
+					max-inline-size: #{size.from-design(71.5rem)};
+				}
 			}
 		}
 	}

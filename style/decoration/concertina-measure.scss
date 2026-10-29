@@ -1,5 +1,5 @@
 // Sizing probes need the final geometry, independent of disclosure animations.
-[data-concertina-measure] {
+%d-concertina-measure {
 	&, *, *::before, *::after, details::details-content {
 		animation: none !important;
 		transition: none !important;

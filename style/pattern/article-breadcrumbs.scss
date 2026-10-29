@@ -1,0 +1,15 @@
+@use "../../node_modules/flair/style/lib/flair";
+@use "section-frame";
+
+%p-article-breadcrumbs {
+	@extend %p-breadcrumbs;
+	@extend %p-section-frame;
+	padding-block: var(--theme-space-6);
+	border-block: 0;
+	font-family: var(--theme-font-body);
+	font-size: max(.75rem, var(--authwave-size-unit));
+	font-weight: 500;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	--theme-link-color: var(--theme-color-muted);
+}

@@ -1,5 +1,5 @@
 @use "../../node_modules/flair/style/lib/flair";
-@use "site-badge";
+@use "../object/site-badge";
 
 // The same category and publication-date treatment in every article context.
 %p-article-meta {

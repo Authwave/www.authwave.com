@@ -1,0 +1,8 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%p-articles-toolbar {
+	@extend %p-toolbar;
+	gap: var(--theme-space-4) var(--theme-space-8);
+	padding: var(--theme-space-12) var(--authwave-section-inset) var(--theme-space-8);
+	align-items: flex-start;
+}

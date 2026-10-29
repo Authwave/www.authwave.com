@@ -1,364 +1,354 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../variable/size";
 @use "../pattern/section-frame";
+@use "../pattern/section-guides";
 @use "../object/get-started";
+@use "../decoration/feature-wipe";
 
-.features-area {
-	@extend %p-section-guides;
-	padding-block-start: 5rem;
-
-	> .section-box {
-		@extend %p-section-frame;
-		@extend %p-stack;
-		--theme-stack-gap: 0;
-		align-items: flex-start;
-	}
-
-	.features-action {
-		@extend %o-get-started;
-	}
-
-	.features-carousel {
-		--feature-marker-clearance: calc(var(--theme-highlight-marker-size, 0.25rem) + var(--theme-highlight-border-width, var(--theme-border-width)));
-		position: relative;
-		inline-size: calc(100% + 2 * var(--authwave-section-inset));
-		margin-inline: calc(-1 * var(--authwave-section-inset));
-		margin-block-start: var(--theme-space-12);
-		padding-block-start: var(--theme-space-12);
-		border-block-start: var(--theme-border-width) solid var(--theme-color-border);
-		font-family: var(--theme-font-body);
-	}
-
-	.feature-frames {
-		@extend %p-feature-showcase;
-		display: flex;
-		// Extend the scroll viewport enough to keep all four corner markers visible.
-		inline-size: calc(100% + 2 * var(--feature-marker-clearance));
-		margin-inline: calc(-1 * var(--feature-marker-clearance));
-		gap: var(--theme-space-8);
-		overflow-x: auto;
-		overscroll-behavior-inline: contain;
-		scroll-snap-type: inline mandatory;
-
-		&:focus-visible {
-			@extend %d-focus-ring;
-		}
-	}
-
-	.feature-frame {
-		@extend %p-stack;
-		--theme-stack-gap: var(--theme-space-6);
-		flex: 0 0 100%;
-		min-inline-size: 0;
-		padding-block: var(--feature-marker-clearance);
-		padding-inline: calc(var(--authwave-section-inset) + var(--feature-marker-clearance));
-		scroll-snap-align: start;
-		scroll-snap-stop: always;
-
-		.feature-copy > h3 {
-			margin: 0;
-			font-family: var(--theme-font-body);
-			font-size: max(1rem, calc(1.75 * var(--authwave-size-unit)));
-			font-weight: 400;
-		}
-
-		.feature-copy > p {
-			margin: 0;
-			font-size: max(1rem, calc(1.5 * var(--authwave-size-unit)));
-		}
-
-		@media (orientation: portrait) {
-			// Reserve room for the navigation, its gap and the scroll bar.
-			max-block-size: calc(100svh - max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height))) - 2 * var(--theme-space-8));
-
-			> * {
-				flex-shrink: 0;
-			}
-
-			> .feature-picture {
-				flex-shrink: 1;
-				min-block-size: 0;
-				display: flex;
-
-				> img {
-					min-block-size: 0;
-					block-size: 100%;
-					object-fit: contain;
-				}
-			}
-		}
-	}
-
-	.feature-icon {
-		--theme-icon-size: calc(3 * var(--authwave-size-unit));
-		--theme-icon-gap: 0;
-		display: grid;
-		place-items: center;
-		inline-size: var(--theme-icon-size);
-		block-size: var(--theme-icon-size);
-		flex-shrink: 0;
-	}
-
-	.feature-picture {
-		@extend %d-highlight-centered;
-		margin-inline: calc(-1 * var(--authwave-section-inset));
-		// The gutter guides supply these edges; avoid painting a second line.
-		border-inline-color: transparent;
-		padding: var(--authwave-section-inset);
-
-		&::before {
-			// Centred markers must sit above the continuous gutter guides.
-			z-index: 2;
-		}
-
-		> img {
-			display: block;
-			inline-size: 100%;
-			block-size: auto;
-		}
-	}
-
-	.feature-fallback {
-		display: flex;
-		justify-content: space-between;
-		margin-block-start: var(--theme-space-8);
-		margin-inline: var(--authwave-section-inset);
-
-		> a {
-			@extend %o-button;
-			inline-size: max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height)));
-			block-size: max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height)));
-			flex-shrink: 0;
-			padding: 0;
-		}
-	}
-
-	// Native controls handle scrolling, keyboard activation and disabled ends.
-	@supports selector(::scroll-button(inline-end)) and selector(::scroll-marker:target-before) {
-		.features-carousel {
-			padding-block-end: calc(2.75rem + var(--theme-space-8));
-		}
-
-		.feature-fallback {
-			display: none;
-		}
-
-		.feature-frames {
-			scrollbar-width: none;
-			scroll-marker-group: after;
-
-			&::scroll-button(*) {
-				// Do not extend Flair here: unsupported pseudo-elements would
-				// invalidate the shared selector lists for ordinary buttons.
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				box-sizing: border-box;
-				border: var(--theme-border-width) solid var(--theme-control-border, var(--theme-color-border));
-				border-radius: var(--theme-control-radius, var(--theme-radius));
-				background: var(--theme-button-background, var(--theme-color-surface));
-				color: var(--theme-button-text, var(--theme-color-text));
-				cursor: pointer;
-				position: absolute;
-				inset-block-end: 0;
-				inline-size: 2.75rem;
-				block-size: 2.75rem;
-				padding: 0;
-				font-family: var(--theme-font-body);
-				font-size: 1.5rem;
-
-				&:hover:enabled {
-					background: var(--theme-button-background-hover, var(--theme-color-surface-disabled));
-					border-color: var(--theme-control-border-hover, var(--theme-color-text));
-				}
-
-				&:focus-visible {
-					outline: var(--theme-focus-width) solid var(--theme-focus-color, var(--theme-color-accent));
-					outline-offset: var(--theme-focus-offset);
-				}
-
-				&:disabled {
-					background: var(--theme-control-background-disabled, var(--theme-color-surface-disabled));
-					color: var(--theme-control-text-disabled, var(--theme-color-muted));
-					cursor: not-allowed;
-				}
-			}
-
-			&::scroll-button(inline-start) {
-				content: "←" / "Previous feature";
-				inset-inline-start: 0;
-			}
-
-			&::scroll-button(inline-end) {
-				content: "→" / "Next feature";
-				inset-inline-end: 0;
-			}
-
-			&::scroll-marker-group {
-				position: absolute;
-				inset-block-end: 0;
-				inset-inline: calc(2.75rem + var(--theme-space-4));
-				block-size: 2.75rem;
-				display: flex;
-			}
-		}
-
-		.feature-frame::scroll-marker {
-			content: "" / attr(data-label);
-			flex: 1;
-			min-inline-size: 0;
-			border: 0;
-			padding: 0;
-			background: linear-gradient(var(--theme-color-surface-disabled), var(--theme-color-surface-disabled)) center / 100% calc(0.5 * var(--authwave-size-unit)) no-repeat;
-			cursor: pointer;
-		}
-
-		.feature-frame::scroll-marker:target-current,
-		.feature-frame::scroll-marker:target-before {
-			background-image: linear-gradient(var(--theme-color-text), var(--theme-color-text));
-		}
-	}
-
-	@media (prefers-reduced-motion: no-preference) {
-		.feature-frames {
-			scroll-behavior: smooth;
-		}
-	}
-}
-
-.features-area {
-	.feature-selection { @extend %d-visually-hidden; display: none; }
-	.feature-copy {
-		display: flex;
-		flex-direction: column;
-		gap: var(--theme-space-6);
-
-		&:hover > h3 {
-			text-decoration: underline;
-			text-underline-offset: 0.15em;
-		}
-
-		&:active {
-			filter: brightness(0.9);
-		}
-
-		@media (prefers-reduced-motion: no-preference) {
-			transition: scale 180ms ease-out, filter 180ms ease-out;
-
-			&:active {
-				scale: 0.97;
-				transition-duration: 50ms;
-			}
-		}
-	}
-}
-
-@media (min-width: flair.$break-wide) {
-	.features-area {
-		// End the rails and bottom rule at the feature grid, before the white gap.
-		&::before {
-			inset-block-end: calc(var(--authwave-section-inset) + var(--theme-space-12) + var(--theme-border-width));
-		}
-
-		> .section-box::after {
-			inset-block-end: calc(var(--authwave-section-inset) + var(--theme-space-12));
-		}
+features-area {
+	> section {
+		.feature-frame:has(> .feature-selection:checked) > .feature-picture > img { @extend %d-feature-wipe; }
+		@extend %p-section-guides;
+		padding-block-start: 5rem;
 
 		> .section-box {
-			align-items: center;
-			> .section-heading { align-items: center; text-align: center; }
+			@extend %p-section-frame;
+			@extend %p-stack;
+			--theme-stack-gap: 0;
+			align-items: flex-start;
 		}
 
-		.features-carousel { padding-block: var(--theme-space-12); }
-		.feature-fallback { display: none; }
-		.feature-frames {
-			display: grid;
-			inline-size: 100%;
-			margin-inline: 0;
-			overflow: visible;
-			scroll-snap-type: none;
-			--theme-showcase-media-share: 1.2fr;
-			padding: 0;
-			gap: 0;
-			scroll-marker-group: none;
+		.features-action {
+			@extend %o-get-started;
+		}
 
-			&::scroll-button(*) { display: none; }
+		.features-carousel {
+			--feature-marker-clearance: calc(var(--theme-highlight-marker-size, 0.25rem) + var(--theme-highlight-border-width, var(--theme-border-width)));
+			position: relative;
+			inline-size: calc(100% + 2 * var(--authwave-section-inset));
+			margin-inline: calc(-1 * var(--authwave-section-inset));
+			margin-block-start: var(--theme-space-12);
+			padding-block-start: var(--theme-space-12);
+			border-block-start: var(--theme-border-width) solid var(--theme-color-border);
+			font-family: var(--theme-font-body);
+		}
+
+		.feature-frames {
+			@extend %p-feature-showcase;
+			display: flex;
+			// Extend the scroll viewport enough to keep all four corner markers visible.
+			inline-size: calc(100% + 2 * var(--feature-marker-clearance));
+			margin-inline: calc(-1 * var(--feature-marker-clearance));
+			gap: var(--theme-space-8);
+			overflow-x: auto;
+			overscroll-behavior-inline: contain;
+			scroll-snap-type: inline mandatory;
+
+			&:focus-visible {
+				@extend %d-focus-ring;
+			}
+
+			@media (prefers-reduced-motion: no-preference) {
+				scroll-behavior: smooth;
+			}
 		}
 
 		.feature-frame {
-			display: contents;
-			max-block-size: none;
+			@extend %p-stack;
+			--theme-stack-gap: var(--theme-space-6);
+			flex: 0 0 100%;
+			min-inline-size: 0;
+			padding-block: var(--feature-marker-clearance);
+			padding-inline: calc(var(--authwave-section-inset) + var(--feature-marker-clearance));
+			scroll-snap-align: start;
+			scroll-snap-stop: always;
 
 			.feature-copy > h3 {
-				font-size: calc(2.5rem * 2208 / 2880);
-				font-weight: 500;
-				margin-block-start: auto;
+				margin: 0;
+				font-family: var(--theme-font-body);
+				font-size: max(1rem, calc(1.75 * var(--authwave-size-unit)));
+				font-weight: 400;
 			}
+
 			.feature-copy > p {
-				font-size: var(--authwave-desktop-body-size);
-				line-height: 1.3125;
+				margin: 0;
+				font-size: max(1rem, calc(1.5 * var(--authwave-size-unit)));
 			}
-		}
 
-		.feature-selection {
-			display: block;
-		}
+			@media (orientation: portrait) {
+				// Reserve room for the navigation, its gap and the scroll bar.
+				max-block-size: calc(100svh - max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height))) - 2 * var(--theme-space-8));
 
-		.feature-copy {
-			gap: var(--theme-space-4);
-			// 476px rows with 56px insets in the desktop reference.
-			min-block-size: calc(29.75rem * 2208 / 2880);
-			padding: var(--authwave-section-inset);
-		}
-		.feature-icon { --theme-icon-size: calc(4.5rem * 2208 / 2880); }
-		.feature-picture {
-			margin: 0;
-			border-inline-color: var(--theme-color-border);
-			padding: var(--theme-space-6);
-			align-items: center;
-
-			> img { inline-size: 100%; block-size: auto; object-fit: contain; }
-		}
-
-		@media (prefers-reduced-motion: no-preference) {
-			@supports (clip-path: polygon(0% 0%, 100% 0%, 0% 100%)) {
-				--feature-wipe-duration: 400ms;
-
-				// Choices follow reading order: top-left, bottom-left, top-right, bottom-right.
-				@each $item, $corner, $edge-a, $edge-b in
-					(1, (0% 0%), (200% 0%), (0% 200%)),
-					(2, (0% 100%), (200% 100%), (0% -100%)),
-					(3, (100% 0%), (-100% 0%), (100% 200%)),
-					(4, (100% 100%), (-100% 100%), (100% -100%)) {
-					.feature-frame:nth-child(#{$item}) {
-						--feature-wipe-start: polygon(#{$corner}, #{$corner}, #{$corner});
-						--feature-wipe-end: polygon(#{$corner}, #{$edge-a}, #{$edge-b});
-					}
+				> * {
+					flex-shrink: 0;
 				}
 
-				.feature-frames > .feature-frame > .feature-picture {
-					display: grid;
-					visibility: hidden;
-					z-index: 0;
-					// Retain the previous image underneath until the new wipe completes.
-					transition: visibility 0s linear var(--feature-wipe-duration);
-				}
-
-				.feature-frame:has(> .feature-selection:checked) > .feature-picture {
-					visibility: visible;
-					z-index: 1;
-					transition-delay: 0s;
+				> .feature-picture {
+					flex-shrink: 1;
+					min-block-size: 0;
+					display: flex;
 
 					> img {
-						animation: feature-image-wipe var(--feature-wipe-duration) ease-in-out both;
+						min-block-size: 0;
+						block-size: 100%;
+						object-fit: contain;
 					}
 				}
+			}
+		}
+
+		.feature-icon {
+			--theme-icon-size: calc(3 * var(--authwave-size-unit));
+			--theme-icon-gap: 0;
+			display: grid;
+			place-items: center;
+			inline-size: var(--theme-icon-size);
+			block-size: var(--theme-icon-size);
+			flex-shrink: 0;
+		}
+
+		.feature-picture {
+			@extend %d-highlight-centered;
+			margin-inline: calc(-1 * var(--authwave-section-inset));
+			// The gutter guides supply these edges; avoid painting a second line.
+			border-inline-color: transparent;
+			padding: var(--authwave-section-inset);
+
+			&::before {
+				// Centred markers must sit above the continuous gutter guides.
+				z-index: 2;
+			}
+
+			> img {
+				display: block;
+				inline-size: 100%;
+				block-size: auto;
+			}
+		}
+
+		.feature-fallback {
+			display: flex;
+			justify-content: space-between;
+			margin-block-start: var(--theme-space-8);
+			margin-inline: var(--authwave-section-inset);
+
+			> a {
+				@extend %o-button;
+				inline-size: max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height)));
+				block-size: max(2.75rem, var(--theme-button-min-height, var(--theme-control-min-height)));
+				flex-shrink: 0;
+				padding: 0;
+			}
+		}
+
+		// Native controls handle scrolling, keyboard activation and disabled ends.
+		@supports selector(::scroll-button(inline-end)) and selector(::scroll-marker:target-before) {
+			.features-carousel {
+				padding-block-end: calc(2.75rem + var(--theme-space-8));
+			}
+
+			.feature-fallback {
+				display: none;
+			}
+
+			.feature-frames {
+				scrollbar-width: none;
+				scroll-marker-group: after;
+
+				&::scroll-button(*) {
+					// Do not extend Flair here: unsupported pseudo-elements would
+					// invalidate the shared selector lists for ordinary buttons.
+					display: inline-flex;
+					align-items: center;
+					justify-content: center;
+					box-sizing: border-box;
+					border: var(--theme-border-width) solid var(--theme-control-border, var(--theme-color-border));
+					border-radius: var(--theme-control-radius, var(--theme-radius));
+					background: var(--theme-button-background, var(--theme-color-surface));
+					color: var(--theme-button-text, var(--theme-color-text));
+					cursor: pointer;
+					position: absolute;
+					inset-block-end: 0;
+					inline-size: 2.75rem;
+					block-size: 2.75rem;
+					padding: 0;
+					font-family: var(--theme-font-body);
+					font-size: 1.5rem;
+
+					&:hover:enabled {
+						background: var(--theme-button-background-hover, var(--theme-color-surface-disabled));
+						border-color: var(--theme-control-border-hover, var(--theme-color-text));
+					}
+
+					&:focus-visible {
+						outline: var(--theme-focus-width) solid var(--theme-focus-color, var(--theme-color-accent));
+						outline-offset: var(--theme-focus-offset);
+					}
+
+					&:disabled {
+						background: var(--theme-control-background-disabled, var(--theme-color-surface-disabled));
+						color: var(--theme-control-text-disabled, var(--theme-color-muted));
+						cursor: not-allowed;
+					}
+				}
+
+				&::scroll-button(inline-start) {
+					content: "←" / "Previous feature";
+					inset-inline-start: 0;
+				}
+
+				&::scroll-button(inline-end) {
+					content: "→" / "Next feature";
+					inset-inline-end: 0;
+				}
+
+				&::scroll-marker-group {
+					position: absolute;
+					inset-block-end: 0;
+					inset-inline: calc(2.75rem + var(--theme-space-4));
+					block-size: 2.75rem;
+					display: flex;
+				}
+			}
+
+			.feature-frame::scroll-marker {
+				content: "" / attr(data-label);
+				flex: 1;
+				min-inline-size: 0;
+				border: 0;
+				padding: 0;
+				background: linear-gradient(var(--theme-color-surface-disabled), var(--theme-color-surface-disabled)) center / 100% calc(0.5 * var(--authwave-size-unit)) no-repeat;
+				cursor: pointer;
+			}
+
+			.feature-frame::scroll-marker:target-current,
+			.feature-frame::scroll-marker:target-before {
+				background-image: linear-gradient(var(--theme-color-text), var(--theme-color-text));
+			}
+		}
+
+		.feature-selection { @extend %d-visually-hidden; display: none; }
+		.feature-copy {
+			display: flex;
+			flex-direction: column;
+			gap: var(--theme-space-6);
+
+			&:hover > h3 {
+				text-decoration: underline;
+				text-underline-offset: 0.15em;
+			}
+
+			&:active {
+				filter: brightness(0.9);
+			}
+
+			@media (prefers-reduced-motion: no-preference) {
+				transition: scale 180ms ease-out, filter 180ms ease-out;
+
+				&:active {
+					scale: 0.97;
+					transition-duration: 50ms;
+				}
+			}
+		}
+
+		@media (width > flair.$break-wide) {
+			// End the rails and bottom rule at the feature grid, before the white gap.
+			&::before {
+				inset-block-end: calc(var(--authwave-section-inset) + var(--theme-space-12) + var(--theme-border-width));
+			}
+
+			> .section-box::after {
+				inset-block-end: calc(var(--authwave-section-inset) + var(--theme-space-12));
+			}
+
+			> .section-box {
+				align-items: center;
+				> .section-heading { align-items: center; text-align: center; }
+			}
+
+			.features-carousel { padding-block: var(--theme-space-12); }
+			.feature-fallback { display: none; }
+			.feature-frames {
+				display: grid;
+				inline-size: 100%;
+				margin-inline: 0;
+				overflow: visible;
+				scroll-snap-type: none;
+				--theme-showcase-media-share: 1.2fr;
+				padding: 0;
+				gap: 0;
+				scroll-marker-group: none;
+
+				&::scroll-button(*) { display: none; }
+
+				@media (prefers-reduced-motion: no-preference) {
+					@supports (clip-path: polygon(0% 0%, 100% 0%, 0% 100%)) {
+						--feature-wipe-duration: 400ms;
+
+						// Choices follow reading order: top-left, bottom-left, top-right, bottom-right.
+						@each $item, $corner, $edge-a, $edge-b in
+							(1, (0% 0%), (200% 0%), (0% 200%)),
+							(2, (0% 100%), (200% 100%), (0% -100%)),
+							(3, (100% 0%), (-100% 0%), (100% 200%)),
+							(4, (100% 100%), (-100% 100%), (100% -100%)) {
+							> .feature-frame:nth-child(#{$item}) {
+								--feature-wipe-start: polygon(#{$corner}, #{$corner}, #{$corner});
+								--feature-wipe-end: polygon(#{$corner}, #{$edge-a}, #{$edge-b});
+							}
+						}
+
+						> .feature-frame > .feature-picture {
+							display: grid;
+							visibility: hidden;
+							z-index: 0;
+							// Retain the previous image underneath until the new wipe completes.
+							transition: visibility 0s linear var(--feature-wipe-duration);
+						}
+
+						> .feature-frame:has(> .feature-selection:checked) > .feature-picture {
+							visibility: visible;
+							z-index: 1;
+							transition-delay: 0s;
+						}
+					}
+				}
+			}
+
+			.feature-frame {
+				display: contents;
+				max-block-size: none;
+
+				.feature-copy > h3 {
+					font-size: calc(2.5rem * 2208 / 2880);
+					font-weight: 500;
+					margin-block-start: auto;
+				}
+				.feature-copy > p {
+					font-size: var(--authwave-desktop-body-size);
+					line-height: 1.3125;
+				}
+			}
+
+			.feature-selection {
+				display: block;
+			}
+
+			.feature-copy {
+				gap: var(--theme-space-4);
+				// 476px rows with 56px insets in the desktop reference.
+				min-block-size: calc(29.75rem * 2208 / 2880);
+				padding: var(--authwave-section-inset);
+			}
+			.feature-icon { --theme-icon-size: calc(4.5rem * 2208 / 2880); }
+			.feature-picture {
+				margin: 0;
+				border-inline-color: var(--theme-color-border);
+				padding: var(--theme-space-6);
+				align-items: center;
+
+				> img { inline-size: 100%; block-size: auto; object-fit: contain; }
 			}
 		}
 	}
-}
-
-@keyframes feature-image-wipe {
-	from { clip-path: var(--feature-wipe-start); }
-	to { clip-path: var(--feature-wipe-end); }
 }

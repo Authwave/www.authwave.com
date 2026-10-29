@@ -1,0 +1,14 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%d-feature-wipe {
+	@keyframes feature-image-wipe {
+		from { clip-path: var(--feature-wipe-start); }
+		to { clip-path: var(--feature-wipe-end); }
+	}
+
+	@media (width > flair.$break-wide) and (prefers-reduced-motion: no-preference) {
+		@supports (clip-path: polygon(0% 0%, 100% 0%, 0% 100%)) {
+			animation: feature-image-wipe var(--feature-wipe-duration) ease-in-out both;
+		}
+	}
+}

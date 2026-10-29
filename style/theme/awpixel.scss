@@ -172,8 +172,8 @@
 		color: var(--theme-color-heading);
 	}
 
-	@media (min-width: flair.$break-wide) {
-		.features-area {
+	.features-area {
+		@media (width > flair.$break-wide) {
 			--theme-showcase-inactive-opacity: 0.4;
 		}
 	}
@@ -201,7 +201,7 @@
 			--theme-focus-outline: var(--theme-focus-width) solid var(--theme-focus-color);
 			font-size: size.fluid(1.25rem, 1.75rem);
 
-			@media (min-width: flair.$break-shell) {
+			@media (width > flair.$break-shell) {
 				--theme-color-text: var(--aw-white);
 				--theme-nav-hover-background: #443e3d;
 				--theme-focus-color: var(--aw-blue);
@@ -228,7 +228,7 @@
 		padding: 0;
 		gap: 0;
 
-		@media (min-width: flair.$break-wide) {
+		@media (width > flair.$break-wide) {
 			// The reference square is 74px high beside an 88px pill.
 			--aw-action-icon-size: calc(var(--theme-button-min-height) * 74 / 88);
 		}
@@ -345,23 +345,23 @@
 			box-shadow: 0 0 calc(3 * var(--authwave-size-unit)) calc(0.25 * var(--authwave-size-unit))
 				color-mix(in srgb, var(--aw-panel-colour) 50%, transparent);
 			transition: none;
+
+			@media (prefers-reduced-motion: no-preference) {
+				// Hover responds immediately. After a press, a separate mask keeps
+				// the glow hidden for the 500ms flip, then restores it over 200ms.
+				transition:
+					opacity 200ms ease,
+					--aw-glow-ready 700ms linear(0 0%, 0 71.4286%, 1 100%);
+			}
 		}
 
 		&[open]::before {
 			opacity: 1;
 		}
 
-		@media (hover: hover) {
-			&:hover::before { opacity: 1; }
-		}
-
-		@media (prefers-reduced-motion: no-preference) {
-			&::before {
-				// Hover responds immediately. After a press, a separate mask keeps
-				// the glow hidden for the 500ms flip, then restores it over 200ms.
-				transition:
-					opacity 200ms ease,
-					--aw-glow-ready 700ms linear(0 0%, 0 71.4286%, 1 100%);
+		&:hover::before {
+			@media (hover: hover) {
+				opacity: 1;
 			}
 		}
 

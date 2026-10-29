@@ -5,6 +5,7 @@ import {CircuitShimmer} from "../graphics/circuit-shimmer.es6";
 const namespace = "http://www.w3.org/2000/svg";
 
 for(const background of document.querySelectorAll("[data-circuit-background]")) {
+	const decorative = background.dataset.circuitBackground === "decorative";
 	const config = JSON.parse(background.dataset.circuitConfig);
 	const wires = background.querySelector(".circuit-wires");
 	const connectors = background.querySelector(".circuit-connectors");
@@ -56,7 +57,7 @@ for(const background of document.querySelectorAll("[data-circuit-background]")) 
 	}
 
 	function active() {
-		return visible && !document.hidden && !reducedMotion.matches && slots.length > 0;
+		return config.redraw !== false && visible && !document.hidden && !reducedMotion.matches && slots.length > 0;
 	}
 
 	function schedule() {
@@ -145,9 +146,9 @@ for(const background of document.querySelectorAll("[data-circuit-background]")) 
 		const preview = stage?.querySelector("login-preview");
 		const demo = preview?.getBoundingClientRect();
 		const aroundDemo = Number(style.getPropertyValue("--circuit-around-demo"));
-		const hero = stage?.closest(".hero-area");
-		const button = hero?.querySelector(".hero-action")?.getBoundingClientRect();
-		const tagline = hero?.querySelector(".hero-tagline")?.getBoundingClientRect();
+		const scene = background.closest(".hero-area, .audience-area");
+		const button = scene?.querySelector(".hero-action, .audience-action")?.getBoundingClientRect();
+		const tagline = scene?.querySelector(".hero-tagline")?.getBoundingClientRect();
 		if(button && stage) {
 			// Stop halfway into the gap above the button, below the tagline.
 			const top = tagline ? (tagline.bottom + button.top) / 2 : button.top;
@@ -159,9 +160,12 @@ for(const background of document.querySelectorAll("[data-circuit-background]")) 
 		const relative = b => ({left: b.left - bounds.left, right: b.right - bounds.left, top: b.top - bounds.top, bottom: b.bottom - bounds.top});
 		constraints = {
 			button: button ? relative(button) : null,
-			obstacles: [...hero.querySelectorAll(":scope > h1, :scope > .hero-tagline, :scope > .hero-action")].map(element => relative(element.getBoundingClientRect())),
+			obstacles: [...scene.querySelectorAll(decorative
+				? ".section-heading > .section-badge, .section-heading > h2, .audience-action"
+				: ":scope > h1, :scope > .hero-tagline, :scope > .hero-action")].map(element => relative(element.getBoundingClientRect())),
 		};
-		const nextSize = `${bounds.width}:${bounds.height}:${style.getPropertyValue("--circuit-active-density")}:${aroundDemo}:${demo ? demo.top - bounds.top : 0}:${demo?.height}:${button?.width}:${button ? button.top - bounds.top : 0}`;
+		const contentBounds = constraints.obstacles.map(b => [b.left, b.right, b.top, b.bottom].map(n => Math.round(n * 64)).join(":"));
+		const nextSize = `${bounds.width}:${bounds.height}:${style.getPropertyValue("--circuit-active-density")}:${aroundDemo}:${demo ? demo.top - bounds.top : 0}:${demo?.height}:${contentBounds}`;
 		if(nextSize === size) return;
 		size = nextSize;
 		width = bounds.width;
@@ -197,11 +201,12 @@ for(const background of document.querySelectorAll("[data-circuit-background]")) 
 			top: button.top - bounds.top, bottom: button.bottom - bounds.top,
 		} : null, mirrorMobile) : null;
 		connectors.setAttribute("viewBox", `0 0 ${w} ${height}`);
-		const leftLevel = corridor ? (corridor.mirror ? corridor.lower : corridor.upper) : height * .5;
-		const rightLevel = corridor ? (corridor.mirror ? corridor.upper : corridor.lower) : height * .76;
+		const leftLevel = decorative ? 2 * r : corridor ? (corridor.mirror ? corridor.lower : corridor.upper) : height * .5;
+		const rightLevel = decorative ? 4 * r : corridor ? (corridor.mirror ? corridor.upper : corridor.lower) : height * .76;
+		const start = decorative ? 0 : height;
 		const anchors = [
-			[[0, height], [0, leftLevel], [leftExit, leftLevel]],
-			[[w, height], [w, rightLevel], [rightExit, rightLevel]],
+			[[0, start], [0, leftLevel], [leftExit, leftLevel]],
+			[[w, start], [w, rightLevel], [rightExit, rightLevel]],
 		];
 		connectors.replaceChildren(...anchors.map(points => path(points, r)));
 		anchorRoutes = anchors.map(points => points.map(([x, y]) => [x + anchorBox.left - bounds.left, y]));
@@ -220,7 +225,7 @@ for(const background of document.querySelectorAll("[data-circuit-background]")) 
 		slots = best;
 		// Keep the first replacement clear of passengers from the outset,
 		// rather than waiting for a fully occupied scene to drain a track.
-		if(firstReplacement && slots.length) slots.at(-1).setAttribute("data-circuit-reserved", "");
+		if(config.redraw !== false && firstReplacement && slots.length) slots.at(-1).setAttribute("data-circuit-reserved", "");
 		wires.replaceChildren(...slots);
 		trains.reset();
 		schedule();
@@ -232,7 +237,7 @@ for(const background of document.querySelectorAll("[data-circuit-background]")) 
 
 	function refreshActivity() {
 		trains.setActive(visible && !document.hidden, reducedMotion.matches);
-		shimmer.setActive(visible && !document.hidden && !reducedMotion.matches);
+		shimmer.setActive(config.shimmer !== false && visible && !document.hidden && !reducedMotion.matches);
 		if(!active()) for(const animation of animations) animation.finish();
 		schedule();
 	}
@@ -241,7 +246,7 @@ for(const background of document.querySelectorAll("[data-circuit-background]")) 
 	resize.observe(background);
 	const preview = background.closest(".hero-placeholder")?.querySelector("login-preview");
 	if(preview) resize.observe(preview);
-	const button = background.closest(".hero-area")?.querySelector(".hero-action");
+	const button = background.closest(".hero-area, .audience-area")?.querySelector(".hero-action, .audience-action");
 	if(button) resize.observe(button);
 	new IntersectionObserver(entries => {
 		visible = entries[0].isIntersecting;

@@ -22,16 +22,21 @@ class CircuitBackground {
 		"trainCount" => 4,
 		"mobileTrainCount" => 4,
 		"transitTrainCount" => 2,
+		"mobileTransitTrainCount" => 2,
+		"requireStopAfterTransit" => true,
 		"trainSpeed" => 450,
 		"stopDuration" => 3000,
 		"labelFade" => 600,
 		"gradientEvery" => 12,
 	];
 
-	public function view():array {
-		$config = self::CONFIG;
+	public function view(array $overrides = [], bool $fromTop = false):array {
+		$config = array_replace(self::CONFIG, $overrides);
 		$radius = $config["radius"];
-		$anchorRoutes = [
+		$anchorRoutes = $fromTop ? [
+			[[0, 0], [0, 120], [-2400, 120]],
+			[[1200, 0], [1200, 240], [3600, 240]],
+		] : [
 			[[0, 900], [0, 450], [-2400, 450]],
 			[[1200, 900], [1200, 684], [3600, 684]],
 		];
@@ -62,7 +67,7 @@ class CircuitBackground {
 		$anchors = implode("", array_map(fn(array $points) => self::path($points, $radius), $anchorRoutes));
 		return [
 			"circuitConfiguration" => json_encode($config, JSON_THROW_ON_ERROR),
-			"circuitDensity" => "--circuit-mobile-density: {$config['mobileDensity']}; --circuit-desktop-density: {$config['density']}; --circuit-mobile-trains: {$config['mobileTrainCount']}; --circuit-desktop-trains: {$config['trainCount']};",
+			"circuitDensity" => "--circuit-mobile-density: {$config['mobileDensity']}; --circuit-desktop-density: {$config['density']}; --circuit-mobile-trains: {$config['mobileTrainCount']}; --circuit-desktop-trains: {$config['trainCount']}; --circuit-mobile-transit-trains: {$config['mobileTransitTrainCount']}; --circuit-desktop-transit-trains: {$config['transitTrainCount']};",
 			"circuitSvg" => '<svg class="circuit-wires" viewBox="0 0 1200 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">' . $paths . '</svg>'
 				. '<svg class="circuit-connectors" viewBox="0 0 1200 900" preserveAspectRatio="none" aria-hidden="true" focusable="false">' . $anchors . '</svg>',
 		];

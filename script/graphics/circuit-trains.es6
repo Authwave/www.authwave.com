@@ -33,7 +33,11 @@ export class CircuitTrains {
 		this.reduced = false;
 		this.retryAt = 0;
 		this.count = 0;
+		this.transitCount = 0;
 		this.parkedStarts = 0;
+		// Record successful entries, rather than departures. A following square
+		// must stop even while its non-stopping predecessor is still travelling.
+		this.requiresStop = new WeakSet();
 	}
 
 	uses(group) {
@@ -50,8 +54,11 @@ export class CircuitTrains {
 		this.transitRouteBag = null;
 		this.retryAt = 0;
 		this.count = Number(getComputedStyle(this.background).getPropertyValue("--circuit-active-trains"));
+		this.transitCount = Number(getComputedStyle(this.background).getPropertyValue("--circuit-active-transit-trains"));
 		this.parkedStarts = Math.min(2, this.count);
+		this.initializing = true;
 		this.populate();
+		this.initializing = false;
 		this.setActive(this.active, this.reduced);
 	}
 
@@ -75,7 +82,8 @@ export class CircuitTrains {
 	}
 
 	spawn(transit = false) {
-		const paths = this.tracks();
+		const paths = this.tracks().filter(path => !transit
+			|| !this.config.requireStopAfterTransit || !this.requiresStop.has(path));
 		if(!paths.length) return;
 		const bagKey = transit ? "transitRouteBag" : "routeBag";
 		const routesKey = transit ? "transitRoutes" : "routes";
@@ -88,6 +96,10 @@ export class CircuitTrains {
 		while(shuffled.length < paths.length) {
 			const path = this[bagKey].next();
 			if(!shuffled.includes(path)) shuffled.push(path);
+		}
+		if(!transit && this.config.requireStopAfterTransit) {
+			// Within the same occupancy tier, favour routes waiting for a stop.
+			shuffled.sort((a, b) => Number(this.requiresStop.has(b)) - Number(this.requiresStop.has(a)));
 		}
 		const candidates = preferEmptyTracks(shuffled, this.cars);
 		const node = document.createElement("div");
@@ -121,7 +133,7 @@ export class CircuitTrains {
 		const bounds = this.background.getBoundingClientRect();
 		const labelBox = label.getBoundingClientRect();
 		const size = square.getBoundingClientRect().width;
-		const obstacles = [...document.querySelectorAll(".hero-area .login-preview, .hero-area .hero-notice, .hero-area .hero-action")].flatMap(panel => {
+		const obstacles = transit ? [] : [...document.querySelectorAll(".hero-area .login-preview, .hero-area .hero-notice, .hero-area .hero-action")].flatMap(panel => {
 			const central = panel.classList.contains("login-preview");
 			// The wrapper gives the central panel's final, untransformed bounds.
 			const r = (central ? panel.parentElement : panel).getBoundingClientRect();
@@ -141,10 +153,14 @@ export class CircuitTrains {
 			};
 			const travelTime = distance => 1500 * Math.max(2 * this.config.radius, distance) / this.config.trainSpeed;
 			if(transit) {
-				const car = {node, label, path, point, length, stop: length / 2, age: 0, arrive: travelTime(length), transit: true};
+				const arrive = this.config.transitLinear ? 1000 * length / this.config.trainSpeed : travelTime(length);
+				const age = this.initializing && this.config.transitStagger ? Math.random() * arrive : 0;
+				const car = {node, label, path, point, length, stop: length / 2, age, arrive, transit: true};
 				this.cars.push(car);
+				if(this.config.requireStopAfterTransit) this.requiresStop.add(path);
 				this[pendingKey] = null;
-				this.paint(car, this.reduced ? car.stop : 0, 0);
+				const progress = age / arrive;
+				this.paint(car, this.reduced ? car.stop : length * (this.config.transitLinear ? progress : smooth(progress)), 0);
 				return car;
 			}
 			const stops = new ShuffleBag(Array.from({length: 37}, (_, i) => .05 + i * .025));
@@ -170,6 +186,7 @@ export class CircuitTrains {
 					const parking = {left: Math.min(marker.left, parkedLabel.left) - 12, right: Math.max(marker.right, parkedLabel.right) + 12, top: Math.min(marker.top, parkedLabel.top) - 12, bottom: Math.max(marker.bottom, parkedLabel.bottom) + 12};
 					const car = {node, label, path, point, length, stop, parking, age: 0, arrive: travelTime(stop), depart: travelTime(length - stop)};
 					this.cars.push(car);
+					this.requiresStop.delete(path);
 					this.pendingAppearance = null;
 					const parked = this.reduced || this.parkedStarts > 0;
 					if(parked) car.age = car.arrive + this.config.labelFade;
@@ -186,7 +203,7 @@ export class CircuitTrains {
 		while(this.cars.filter(car => !car.transit).length < this.count) {
 			if(!this.spawn()) break;
 		}
-		while(this.cars.filter(car => car.transit).length < this.config.transitTrainCount) {
+		while(this.cars.filter(car => car.transit).length < this.transitCount) {
 			if(!this.spawn(true)) break;
 		}
 	}
@@ -211,7 +228,7 @@ export class CircuitTrains {
 					car.node.remove();
 					this.cars.splice(this.cars.indexOf(car), 1);
 				}
-				else this.paint(car, car.length * smooth(car.age / car.arrive), 0);
+				else this.paint(car, car.length * (this.config.transitLinear ? car.age / car.arrive : smooth(car.age / car.arrive)), 0);
 				continue;
 			}
 			const departure = car.arrive + 2 * fade + this.config.stopDuration;
@@ -229,7 +246,7 @@ export class CircuitTrains {
 			else distance += (car.length - car.stop) * smooth((car.age - departure) / car.depart);
 			this.paint(car, distance, opacity);
 		}
-		if(this.cars.filter(car => car.transit).length < this.config.transitTrainCount
+		if(this.cars.filter(car => car.transit).length < this.transitCount
 			|| (this.clock >= this.retryAt && this.cars.filter(car => !car.transit).length < this.count)) {
 			this.populate();
 			this.retryAt = this.clock + 2000;

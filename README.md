@@ -218,7 +218,8 @@ Run `node test/circuits.mjs` to check the route geometry and branch connections.
 
 Travelling squares are configured in the same `CONFIG` block: `names` and
 `colours` are independent shuffled round-robin lists, `trainCount` and
-`mobileTrainCount` cap the simultaneous passengers, and `trainSpeed`,
+`mobileTrainCount` cap the stopping passengers. `transitTrainCount` and
+`mobileTransitTrainCount` control the continuously moving squares. `trainSpeed`,
 `stopDuration` and `labelFade` control their journey and label timing.
 `gradientEvery` controls the infrequent two-gradient variant. Palette mappings
 stay in AWPixel; the base component remains monochrome without the theme.
@@ -229,6 +230,20 @@ label outside the demo panels and their floating motion. Occupied tracks are
 not replaced; incomplete tracks cannot receive a passenger. Empty tracks are
 preferred, with the least occupied suitable track as a fallback. A route waiting
 to regenerate closes to new passengers until its current passenger finishes.
+In the hero, a non-stopping entry makes the next entry on that same track a
+stopping one (`requireStopAfterTransit`). The rule applies in either direction;
+if no safe stop fits, another non-stopping square cannot take its place. Track
+history follows the actual SVG path, so a freshly regenerated path starts anew.
 Movement pauses
 when hidden or off-screen, and reduced-motion visitors see stationary squares.
 Run `node test/shuffle-bag.mjs` to verify the selection rounds.
+
+The audience section uses the same renderer, geometry and square animation,
+configured in `page/_component/audience-circuit.php`. Its two gutter connections
+enter from the top; tracks sit behind the cards and avoid the section heading
+and CTA. It has three continuously moving squares on mobile and four on desktop,
+with no stopping squares or labels, and `requireStopAfterTransit` disabled.
+`transitLinear` keeps their speed constant
+and `transitStagger` distributes initial positions along the tracks. `redraw` and
+`shimmer` are disabled for this quieter decorative treatment. Both scenes pause
+off-screen or in hidden tabs and respect reduced-motion preferences.

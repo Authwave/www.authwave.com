@@ -51,6 +51,8 @@
 			position: relative;
 			z-index: 0;
 			display: grid;
+			inline-size: 100%;
+			min-inline-size: 0;
 			grid-template-columns: minmax(0, 1fr) 2.75rem;
 			grid-template-rows: auto 1fr auto;
 			gap: var(--theme-space-2);

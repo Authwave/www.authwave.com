@@ -7,6 +7,7 @@
 	color: var(--theme-color-border);
 	--circuit-active-density: var(--circuit-mobile-density);
 	--circuit-active-trains: var(--circuit-mobile-trains);
+	--circuit-active-transit-trains: var(--circuit-mobile-transit-trains);
 	--circuit-around-demo: 1;
 	--circuit-square-size: calc(1.125 * var(--authwave-size-unit));
 	--circuit-label-size: max(.625rem, calc(1.125 * var(--authwave-size-unit)));
@@ -41,6 +42,7 @@
 	@media (min-width: flair.$break-wide) {
 		--circuit-active-density: var(--circuit-desktop-density);
 		--circuit-active-trains: var(--circuit-desktop-trains);
+		--circuit-active-transit-trains: var(--circuit-desktop-transit-trains);
 		--circuit-around-demo: 0;
 		--circuit-square-size: calc(1.5 * var(--authwave-size-unit));
 		--circuit-label-size: calc(1.5 * var(--authwave-size-unit));

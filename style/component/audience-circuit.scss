@@ -1,0 +1,12 @@
+.audience-area {
+	position: relative;
+	isolation: isolate;
+}
+
+audience-circuit { display: contents; }
+
+.audience-circuit {
+	inset: 0;
+	z-index: -1;
+	--circuit-around-demo: 0;
+}

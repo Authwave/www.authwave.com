@@ -49,6 +49,10 @@
 		--circuit-colour-lime: var(--aw-lime);
 	}
 
+	.introduction-area {
+		--rail-marker-colour: var(--aw-blue);
+	}
+
 	::selection {
 		background: var(--aw-coral);
 		color: var(--aw-ink);
@@ -180,6 +184,12 @@
 
 	.site-header {
 		--authwave-logo-colour: var(--aw-pink);
+		--theme-nav-marker-colour: var(--aw-blue);
+		--theme-nav-marker-highlight-text: var(--aw-ink);
+		--theme-nav-marker-colour-1: var(--aw-blue);
+		--theme-nav-marker-colour-2: var(--aw-pink);
+		--theme-nav-marker-colour-3: var(--aw-coral);
+		--theme-nav-marker-colour-4: var(--aw-lime);
 
 		.site-menu-button {
 			--theme-button-background: var(--aw-blue);
@@ -190,6 +200,11 @@
 
 		.site-menu-popover {
 			// Restore the light palette inside the dark header.
+			--theme-nav-current-background: transparent;
+			--theme-nav-current-text: var(--theme-color-text);
+			--theme-nav-current-weight: 400;
+			--theme-nav-current-shadow: none;
+			--theme-nav-current-hover-background: var(--theme-nav-hover-background);
 			--theme-color-text: var(--pal-1);
 			--theme-color-heading: var(--pal-1);
 			--theme-color-muted: var(--pal-5);

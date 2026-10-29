@@ -1,8 +1,8 @@
 <section class="contribution-area" aria-labelledby="contribution-heading">
 	<div class="section-box">
-		<h2 id="contribution-heading" data-scroll-reveal>Looking to make your first open source contribution?</h2>
-		<p data-scroll-reveal>We will provide free mentorship to help you make your first commit on GitHub.</p>
-		<a class="contribution-action" href="/contribution/" data-scroll-reveal><span class="action-label">Book demo</span><span class="action-icon" data-icon="arrow-right" aria-hidden="true"></span></a>
+		<h2 id="contribution-heading" data-scroll-reveal data-flux="flux-scroll-progress flux-size" data-bind:text="content.home.contribution.mentorship.heading"></h2>
+		<p data-scroll-reveal data-flux="flux-scroll-progress flux-size" data-bind:html="content.home.contribution.mentorship.firstParagraph"></p>
+		<a class="contribution-action" href="/contribution/" data-scroll-reveal data-flux="flux-scroll-progress flux-size"><span class="action-label">Book demo</span><span class="action-icon" data-icon="arrow-right" aria-hidden="true"></span></a>
 		<div class="contribution-placeholder">
 			<contribution-preview inert />
 		</div>

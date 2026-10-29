@@ -3,10 +3,11 @@
 	<button class="site-menu-button" type="button" popovertarget="site-menu">Menu</button>
 	<nav class="site-menu-popover" id="site-menu" popover="auto" aria-label="Main navigation">
 		<ul>
-			<li><a href="/">Home</a></li>
-			<li><a href="/about/">About</a></li>
-			<li><a href="/articles/">Articles</a></li>
-			<li><a href="/help/">Help</a></li>
+			<li><a id="site-link-home" href="/" data-flux="update-attributes">Home</a></li>
+			<li><a id="site-link-about" href="/about/" data-flux="update-attributes">About</a></li>
+			<li><a id="site-link-articles" href="/articles/" data-flux="update-attributes">Articles</a></li>
+			<li><a id="site-link-help" href="/help/" data-flux="update-attributes">Help</a></li>
 		</ul>
+		<span class="site-menu-marker" aria-hidden="true"></span>
 	</nav>
 </header>

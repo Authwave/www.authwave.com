@@ -68,9 +68,87 @@ site-header {
 			@extend %o-popover;
 			@extend %p-navigation;
 			--theme-popover-width: 12rem;
+			--theme-nav-gap: 0;
+			// Split the former space-2 gap between the neighbouring hit areas.
+			--theme-nav-marker-inset: var(--theme-space-1);
+			--theme-nav-padding-inline: calc(var(--theme-space-4) + var(--theme-nav-marker-inset));
+			--theme-nav-marker-size: max(.5rem, var(--theme-highlight-marker-size));
+			// The marker straddles the surface border; keep scrolling inside the list.
+			overflow: visible;
+			max-block-size: none;
+			isolation: isolate;
 
 			> ul {
+				position: relative;
+				z-index: 1;
 				flex-direction: column;
+				max-block-size: max(2.75rem, calc(100dvh - 12rem));
+				overflow: auto;
+			}
+
+			> ul > li > a[aria-current] {
+				text-decoration: underline;
+
+				@supports (anchor-name: --site-current) {
+					anchor-name: --site-current;
+					text-decoration: none;
+				}
+			}
+
+			.site-menu-marker {
+				display: none;
+				position: absolute;
+				position-anchor: --site-current;
+				position-visibility: anchors-visible;
+				inset-inline-start: calc(-.5 * var(--theme-border-width));
+				inset-block-start: anchor(--site-current center);
+				inline-size: var(--theme-nav-marker-size);
+				block-size: var(--theme-nav-marker-size);
+				border-radius: 0;
+				z-index: 0;
+				translate: -50% -50%;
+				background: var(--theme-nav-marker-colour, var(--theme-color-heading));
+				pointer-events: none;
+
+				@media (prefers-reduced-motion: no-preference) {
+					transition: background-color 350ms ease;
+				}
+			}
+
+			&:has(a:is([aria-current], [data-marker-hover])) > .site-menu-marker {
+				@supports (anchor-name: --site-current) {
+					display: block;
+				}
+			}
+
+			&[data-marker-ready] {
+				@supports (anchor-name: --site-current) {
+					> ul > li > a {
+						--theme-nav-hover-background: transparent;
+						--theme-nav-current-hover-background: transparent;
+
+						@media (prefers-reduced-motion: no-preference) {
+							transition: color 350ms ease;
+						}
+					}
+				}
+			}
+
+			&:has(a[data-marker-hover]) {
+				> ul > li > a[aria-current] { anchor-name: none; }
+				> ul > li > a[data-marker-hover] {
+					anchor-name: --site-current;
+					--theme-nav-text: var(--theme-nav-marker-highlight-text, var(--theme-color-surface));
+					--theme-nav-current-text: var(--theme-nav-text);
+				}
+
+				.site-menu-marker {
+					inset-inline-start: anchor(--site-current center);
+					inset-block-start: anchor(--site-current center);
+					inline-size: calc(anchor-size(--site-current width) - 2 * var(--theme-nav-marker-inset));
+					block-size: anchor-size(--site-current height);
+					border-radius: var(--theme-nav-radius, var(--theme-radius));
+				}
 			}
 
 			@supports selector(:popover-open) {
@@ -85,7 +163,6 @@ site-header {
 				inset-block-end: auto;
 				inset-inline-start: auto;
 				margin: 0;
-				max-block-size: calc(100dvh - 12rem);
 			}
 		}
 
@@ -114,6 +191,13 @@ site-header {
 
 				> ul {
 					flex-direction: row;
+					max-block-size: none;
+					overflow: visible;
+				}
+
+				.site-menu-marker {
+					inset-inline-start: anchor(--site-current center);
+					inset-block-start: calc(anchor(--site-current bottom) + var(--theme-space-2));
 				}
 			}
 		}

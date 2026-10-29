@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title data-bind:text="pageTitle">Authwave: Add login to your app in 60 seconds</title>
-	<meta name="description" data-bind:content="pageDescription" content="Add login, signup and identity tools to your application with Authwave." />
+	<title data-flux="update-link" data-bind:text="pageTitle">Authwave: Add login to your app in 60 seconds</title>
+	<meta name="description" data-flux="update-attributes" data-bind:content="pageDescription" content="Add login, signup and identity tools to your application with Authwave." />
 	<script>
 		// Restore an explicit scheme before CSS paints; System needs no override.
 		try {
@@ -23,5 +23,5 @@
 		plausible.init()
 	</script>
 </head>
-<body>
+<body data-flux="update-attributes" data-flux-scroll="auto">
 	<site-header />

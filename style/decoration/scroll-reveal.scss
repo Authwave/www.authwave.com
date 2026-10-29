@@ -1,5 +1,10 @@
 %d-scroll-reveal {
 	@media (prefers-reduced-motion: no-preference) {
+		// Flux passage p = (viewport height - top) / (viewport height + height).
+		// Restore the original reveal distance: clear when fully in view, or
+		// when a taller element's top reaches the viewport's top.
+		--reveal-height: calc(var(--flux-size-y, 0) * 1px);
+		--scroll-reveal: clamp(0, calc(var(--flux-scroll-progress-y, 1) * (100vh + var(--reveal-height)) / max(1px, min(100vh, var(--reveal-height)))), 1);
 		opacity: var(--scroll-reveal, 1);
 		filter: blur(calc((1 - var(--scroll-reveal, 1)) * 18px));
 		transition: opacity .6s ease-out, filter .6s ease-out;

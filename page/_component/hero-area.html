@@ -1,9 +1,9 @@
-<section class="hero-area" aria-labelledby="hero-heading">
-	<h1 id="hero-heading"><span>Simple login for your apps</span></h1>
-	<p class="hero-tagline">Add authentication to a project in 60 seconds.</p>
-	<a class="hero-action" href="/get-started/"><span class="action-label">Get started</span><span class="action-icon" data-icon="arrow-right" aria-hidden="true"></span></a>
+<section class="hero-area" data-flux="flux-pointer-global flux-scroll-progress flux-size" aria-labelledby="hero-heading">
+	<h1 id="hero-heading"><span data-bind:text="content.home.hero.introduction.heading"></span></h1>
+	<p class="hero-tagline" data-bind:html="content.home.hero.introduction.firstParagraph"></p>
+	<a class="hero-action" data-flux="flux-size" href="/get-started/"><span class="action-label">Get started</span><span class="action-icon" data-icon="arrow-right" aria-hidden="true"></span></a>
 	<div class="hero-placeholder">
 		<hero-circuit />
-		<login-preview inert />
+		<login-preview data-flux="flux-size" inert />
 	</div>
 </section>

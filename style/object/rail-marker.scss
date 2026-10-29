@@ -1,0 +1,24 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+%o-rail-marker {
+	position: absolute;
+	inset-block-start: 0;
+	inline-size: var(--rail-marker-size, calc(1.125 * var(--authwave-size-unit)));
+	aspect-ratio: 1;
+	background: var(--rail-marker-colour, var(--theme-color-heading));
+	translate: -50% -50%;
+	z-index: 2;
+	pointer-events: none;
+
+	@media (prefers-reduced-motion: no-preference) {
+		--rail-length: calc(var(--flux-size-y, 0) * 1px);
+		// Start at the viewport's upper quarter; advance 1.5px per scroll pixel.
+		--scroll-rail-offset: clamp(0px, calc((var(--flux-scroll-progress-y, 0) * (100vh + var(--rail-length)) - .75 * 100vh) * 1.5), var(--rail-length));
+		transform: translate3d(0, var(--scroll-rail-offset), 0);
+		transition: transform 2s ease-out;
+	}
+
+	@media (width > flair.$break-wide) {
+		--rail-marker-size: calc(1.5 * var(--authwave-size-unit));
+	}
+}

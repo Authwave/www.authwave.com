@@ -111,18 +111,29 @@ coral accents. Buttons use filled pills for navigation, pricing and the footer,
 and light pills with square arrow accents for the main section CTAs. Each split
 CTA is one native button, with a decorative arrow hidden from screen readers.
 
-Section and navigation controls use HTML and CSS without JavaScript.
-The script bundle loads `@phpgt/flux` from the same GitHub release used by
-`www.php.gt`. Flux does not yet expose pointer/scroll CSS variables, so
-`script/ui/hero-motion.es6` supplies `--hero-pointer-x`, `--hero-pointer-y`
-and `--hero-exit-progress` locally. `style/decoration/hero-motion.scss` controls
-the eased desktop parallax and scroll-away blur; reduced-motion preferences
-disable both effects. The hero retains its layout without JavaScript.
+Section controls use native HTML and CSS. The script bundle loads `@phpgt/flux`
+at a pinned revision containing its CSS-property runtime; v1.1.0 predates these
+features. Flux supplies pointer, scroll, size and visibility measurements through
+`data-flux` directives. CSS controls the effects and reduced-motion preferences.
+The hero retains its layout without JavaScript.
 
 The header uses Flair's panel, navigation and `%o-popover` definitions. Its MENU
 button targets a native `popover="auto"` below 60rem. The browser handles opening,
-Escape and clicking outside. Separate in-flow links are always visible on desktop,
+Escape and clicking outside. The same links remain visible on desktop,
 including when resizing with the mobile popover open.
+
+`page/_component/site-header.php` compares `Uri::getPath()` with the navigation
+paths, choosing the longest matching section. Home matches only `/`. Exact
+matches receive `aria-current="page"`; nested pages use `aria-current="location"`.
+Flux updates each persistent link's attributes. CSS anchors place a shared
+square at the popover's left border on mobile and below the current link on
+desktop. Hovering or keyboard-focusing a link morphs this same marker
+into a coloured highlight behind its text. Each move changes its palette colour.
+Clicking changes colour while retaining the rectangle until the pointer leaves;
+leaving restores the square beneath the current link. Native position and size
+animations use CSS timing and reduced-motion settings consistently across browsers. The shared
+`ShuffleBag` rotates through AWPixel's four marker colours without immediate
+repeats. Browsers without anchors retain an underlined current link.
 
 The hero uses Flair's stack, button and card definitions. Its heading, tagline,
 CTA and illustration placeholder are centred. `style/variable/space.scss`
@@ -181,6 +192,57 @@ Run `npm install`, `gt build`, then `gt run -p 8080` to develop locally. Flair i
 linked from `../../BrightFlair/flair`, with its definitions in `style/lib`.
 
 The earlier design is saved on the local branch `new-design-before-guidance`.
+
+## Flux navigation
+
+The shared footer logic marks internal, root-relative links with
+`data-flux="link"` and the page's `main` with `data-flux="update-link"`.
+External links, downloads, new-tab links and fragment destinations retain native
+browser navigation. Links still work normally without JavaScript.
+
+Flux updates the title, description and body attributes alongside the main
+content. The shared header, footer, theme preference and interactive logo stay
+in place. `data-flux-scroll="auto"` follows the root's CSS `scroll-behavior` after
+the replacement has painted: smooth normally, automatic for reduced motion.
+Modified clicks retain their normal browser behaviour. Shared link processing
+preserves existing CSS-source directives on anchors.
+
+Before Flux inserts a replacement main, its render hook adds `data-view-fade`
+to the new view. The shared `view-fade` decoration fades it in over 500ms using CSS
+`@starting-style`. Initial page loads appear immediately. The persistent header
+and footer stay in place. Reduced-motion preferences disable the transition;
+browsers without starting-style support display the destination immediately.
+
+`script/ui/page-effects.es6` disposes page-owned listeners, observers, timers and
+animations through Flux's `flux:before-render` event, then initialises the
+destination's effects on `flux:after-render`. The shared footer effects initialise
+once. This prevents duplicate animation loops and stale element references.
+
+Run `php test/navigation.php` to check which links receive Flux behaviour.
+
+## Flux CSS effects
+
+- Pricing ticks and crosses declare `flux-first-visible`. The reusable viewport-bounce
+  decoration transitions their scale from 0.5 to 1 on their first appearance.
+- Contribution elements declare `flux-scroll-progress flux-size`. The shared
+  scroll-reveal decoration derives the reveal distance from Flux's passage and
+  element height, retaining independent blur/opacity transitions for each item.
+- Introduction declares the same scroll and size sources. Its rail marker uses
+  CSS arithmetic to start at the viewport's upper quarter, travel 1.5 pixels per
+  scroll pixel and clamp to the section's bottom.
+- The hero declares `flux-pointer-global flux-scroll-progress flux-size`. CSS
+  preserves its eased pointer offsets, reset on mouse leave, and scroll blur.
+- Circuit backgrounds declare `flux-visible flux-size`. Their renderer consumes
+  changed Flux properties through `script/ui/flux-properties.es6`; the same
+  adapter watches demo/control sizes and concertina width. Flux owns the shared
+  intersection and resize observers, and discovers sources after page updates.
+
+Keep custom JavaScript for application behaviour: generated paths, trains and
+shimmers; the interactive logo and favicon; theme preference persistence;
+measuring the tallest concertina state; selecting features on mouse hover; and
+recognising real taps for individual demo blur pulses. Flux supplies measurements
+but does not implement these interactions. The measurement adapter watches Flux
+style outputs only, ignoring its own renderer's unrelated style changes.
 
 ## Hero circuit background
 

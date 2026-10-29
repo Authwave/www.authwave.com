@@ -3,11 +3,18 @@
 @use "../pattern/section-guides";
 @use "../variable/size";
 @use "../decoration/concertina-transition";
+@use "../object/rail-marker";
 
 introduction-area {
 	> section {
 		@extend %p-section-guides;
 		padding-block-start: 5rem;
+
+		> .introduction-rail-marker {
+			@extend %o-rail-marker;
+			// Centre on the left border drawn by the section guides.
+			inset-inline-start: calc(var(--authwave-frame-edge, var(--authwave-section-gutter)) + 1.5 * var(--theme-border-width));
+		}
 
 		> .section-box {
 			@extend %p-section-frame;

@@ -5,18 +5,18 @@
 			<span class="section-badge">Usage</span>
 			<h2 id="audience-heading">Who is Authwave for?</h2>
 		</header>
-		<a class="audience-action" href="/get-started/"><span class="action-label">Get started</span><span class="action-icon" data-icon="arrow-right" aria-hidden="true"></span></a>
+		<a class="audience-action" data-flux="flux-size" href="/get-started/"><span class="action-label">Get started</span><span class="action-icon" data-icon="arrow-right" aria-hidden="true"></span></a>
 		<div class="audience-panels">
 			<details class="audience-panel" name="audience">
 				<summary>
 					<span class="audience-front">
 						<span class="audience-subheading">The best developer experience</span>
-						<span class="audience-heading" role="heading" aria-level="3">Developers</span>
+						<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.developers.heading"></span>
 						<span class="audience-toggle" aria-hidden="true"></span>
 					</span>
 				</summary>
 				<div class="disclosure-content">
-					<p>Build your application first, then add login with a small client library. Keep your own code focused on what your application does best.</p>
+					<p data-bind:html="content.home.audience.developers.firstParagraph"></p>
 					<span class="audience-heading" aria-hidden="true">Developers</span>
 					<span class="audience-toggle" aria-hidden="true"></span>
 				</div>
@@ -25,12 +25,12 @@
 				<summary>
 					<span class="audience-front">
 						<span class="audience-subheading">Easy user management</span>
-						<span class="audience-heading" role="heading" aria-level="3">Administrators</span>
+						<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.administrators.heading"></span>
 						<span class="audience-toggle" aria-hidden="true"></span>
 					</span>
 				</summary>
 				<div class="disclosure-content">
-					<p>Manage users, review usage and adjust project settings from one dashboard. Clear controls help you look after your projects and the people using them.</p>
+					<p data-bind:html="content.home.audience.administrators.firstParagraph"></p>
 					<span class="audience-heading" aria-hidden="true">Administrators</span>
 					<span class="audience-toggle" aria-hidden="true"></span>
 				</div>
@@ -39,12 +39,12 @@
 				<summary>
 					<span class="audience-front">
 						<span class="audience-subheading">Invisible to your app's users</span>
-						<span class="audience-heading" role="heading" aria-level="3">End-users</span>
+						<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.end-users.heading"></span>
 						<span class="audience-toggle" aria-hidden="true"></span>
 					</span>
 				</summary>
 				<div class="disclosure-content">
-					<p>One clear flow guides people through signing up, logging in and recovering access, so they can get back to what they came to do.</p>
+					<p data-bind:html="content.home.audience.end-users.firstParagraph"></p>
 					<span class="audience-heading" aria-hidden="true">End-users</span>
 					<span class="audience-toggle" aria-hidden="true"></span>
 				</div>

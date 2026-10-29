@@ -5,7 +5,19 @@
 	@media (prefers-reduced-motion: no-preference) {
 		--panel-click-blur-strength: 12px;
 		--panel-click-blur-duration: 1400ms;
+		--hero-pointer-strength: 1.5;
+		--hero-height: calc(var(--flux-size-y, 0) * 1px);
+		--hero-exit-progress: clamp(0, calc((var(--flux-scroll-progress-y, 0) * (100vh + var(--hero-height)) - 100vh) / max(1px, var(--hero-height))), 1);
+		--hero-pointer-x: 0;
+		--hero-pointer-y: 0;
 		transition: --hero-pointer-x 1.8s ease-out, --hero-pointer-y 1.8s ease-out;
+
+		&:hover {
+			@media (hover: hover) and (pointer: fine) {
+				--hero-pointer-x: calc((var(--flux-pointer-global-x, .5) * 2 - 1) * var(--hero-pointer-strength));
+				--hero-pointer-y: calc((var(--flux-pointer-global-y, .5) * 2 - 1) * var(--hero-pointer-strength));
+			}
+		}
 
 		login-preview {
 			// Keep the first 20% of scrolling clear, then ease to 14.4px blur.

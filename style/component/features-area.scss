@@ -227,28 +227,29 @@ features-area {
 			}
 		}
 
+		.feature-frames > .feature-frame .feature-copy label {
+			cursor: text;
+			user-select: text;
+
+			// Flair stretches this label over the copy; let text receive selection gestures.
+			&::after {
+				content: none;
+			}
+		}
+
 		.feature-selection { @extend %d-visually-hidden; display: none; }
 		.feature-copy {
 			display: flex;
 			flex-direction: column;
 			gap: var(--theme-space-6);
-
-			&:hover > h3 {
-				text-decoration: underline;
-				text-underline-offset: 0.15em;
-			}
+			cursor: text;
 
 			&:active {
 				filter: brightness(0.9);
 			}
 
 			@media (prefers-reduced-motion: no-preference) {
-				transition: scale 180ms ease-out, filter 180ms ease-out;
-
-				&:active {
-					scale: 0.97;
-					transition-duration: 50ms;
-				}
+				transition: filter 180ms ease-out;
 			}
 		}
 

@@ -1,113 +1,82 @@
-// Flux currently has no pointer/scroll CSS-variable directive. Keep this small
-// bridge local; CSS owns the distances, smoothing, breakpoint and visual effect.
-const hero = document.querySelector(".hero-area");
+export function initHeroMotion({signal, listen, cleanup}) {
+	// Only tap recognition and the individual blur pulse are site-specific.
+	// Flux supplies pointer position and scroll measurements directly to CSS.
+	const hero = document.querySelector(".hero-area");
 
-if(hero) {
-	const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-	const scene = hero.querySelector("login-preview");
-	const blurPulses = new Map();
-	let press = null;
-	const tapSlop = 8; // CSS pixels: allow small finger jitter, not a scroll gesture.
-	let frame = 0;
-	let pointerX = 0;
-	let pointerY = 0;
-	const clamp = (value, minimum, maximum) => Math.min(maximum, Math.max(minimum, value));
-
-	function update() {
-		frame = 0;
-		const bounds = hero.getBoundingClientRect();
-		const progress = reducedMotion.matches ? 0 : clamp(-bounds.top / bounds.height, 0, 1);
-		const visible = bounds.bottom > 0 && bounds.top < innerHeight;
-		hero.style.setProperty("--hero-pointer-x", reducedMotion.matches || !visible ? 0 : pointerX);
-		hero.style.setProperty("--hero-pointer-y", reducedMotion.matches || !visible ? 0 : pointerY);
-		hero.style.setProperty("--hero-exit-progress", progress.toFixed(4));
-	}
-
-	function schedule() {
-		if(!frame) frame = requestAnimationFrame(update);
-	}
-
-	hero.addEventListener("pointermove", event => {
-		if(event.pointerType !== "mouse" || reducedMotion.matches) return;
-		pointerX = clamp(event.clientX / innerWidth * 2 - 1, -1, 1);
-		pointerY = clamp(event.clientY / innerHeight * 2 - 1, -1, 1);
-		schedule();
-	}, {passive: true});
-	hero.addEventListener("pointerleave", () => {
-		pointerX = pointerY = 0;
-		schedule();
-	}, {passive: true});
-	// The preview stays inert. Hit-test its painted panels from the hero,
-	// because pointer events intentionally pass through the example controls.
-	function hitPanel(event) {
-		// Later notices paint above the main panel.
-		return [...(scene?.querySelectorAll(".login-preview, .hero-notice") || [])].reverse().find(panel => {
-			const bounds = panel.getBoundingClientRect();
-			return bounds.width > 0 && bounds.height > 0
-				&& event.clientX >= bounds.left && event.clientX <= bounds.right
-				&& event.clientY >= bounds.top && event.clientY <= bounds.bottom;
-		});
-	}
-
-	function blurPanel(panel) {
-		blurPulses.get(panel)?.cancel();
-		const style = getComputedStyle(panel);
-		const pulse = panel.animate([
-			{"--panel-click-blur": style.getPropertyValue("--panel-click-blur-strength").trim()},
-			{"--panel-click-blur": "0px"},
-		], {
-			duration: parseFloat(style.getPropertyValue("--panel-click-blur-duration")),
-			easing: "ease-out",
-		});
-		blurPulses.set(panel, pulse);
-		const cleanup = () => {
-			if(blurPulses.get(panel) === pulse) blurPulses.delete(panel);
-		};
-		pulse.addEventListener("finish", cleanup, {once: true});
-		pulse.addEventListener("cancel", cleanup, {once: true});
-	}
-
-	hero.addEventListener("pointerdown", event => {
-		press = null;
-		if(reducedMotion.matches || !event.isPrimary || event.button !== 0) return;
-		const panel = hitPanel(event);
-		if(panel) press = {panel, id: event.pointerId, x: event.clientX, y: event.clientY, scrollX, scrollY};
-	}, {passive: true});
-
-	function moved(event) {
-		return Math.hypot(event.clientX - press.x, event.clientY - press.y) > tapSlop;
-	}
-
-	window.addEventListener("pointermove", event => {
-		if(press && (event.pointerId !== press.id || moved(event))) press = null;
-	}, {passive: true});
-	window.addEventListener("pointerup", event => {
-		if(!press) return;
-		const valid = event.pointerId === press.id && !moved(event)
-			&& scrollX === press.scrollX && scrollY === press.scrollY
-			&& hitPanel(event) === press.panel && !reducedMotion.matches;
-		const panel = press.panel;
-		press = null;
-		if(valid) blurPanel(panel);
-	}, {passive: true});
-	window.addEventListener("pointercancel", () => { press = null; }, {passive: true});
-	window.addEventListener("pointerdown", event => {
-		if(!event.isPrimary) press = null;
-	}, {passive: true});
-	window.addEventListener("blur", () => { press = null; });
-	window.addEventListener("scroll", () => {
-		press = null;
-		schedule();
-	}, {passive: true});
-	window.addEventListener("resize", schedule, {passive: true});
-	window.addEventListener("pageshow", schedule);
-	reducedMotion.addEventListener("change", () => {
-		if(reducedMotion.matches) {
-			press = null;
-			for(const pulse of blurPulses.values()) pulse.cancel();
-			blurPulses.clear();
+	if(hero) {
+		const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+		const scene = hero.querySelector("login-preview");
+		const blurPulses = new Map();
+		cleanup(() => { for(const pulse of blurPulses.values()) pulse.cancel(); });
+		let press = null;
+		const tapSlop = 8; // CSS pixels: allow small finger jitter, not a scroll gesture.
+		// The preview stays inert. Hit-test its painted panels from the hero,
+		// because pointer events intentionally pass through the example controls.
+		function hitPanel(event) {
+			// Later notices paint above the main panel.
+			return [...(scene?.querySelectorAll(".login-preview, .hero-notice") || [])].reverse().find(panel => {
+				const bounds = panel.getBoundingClientRect();
+				return bounds.width > 0 && bounds.height > 0
+					&& event.clientX >= bounds.left && event.clientX <= bounds.right
+					&& event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+			});
 		}
-		schedule();
-	});
-	schedule();
+
+		function blurPanel(panel) {
+			blurPulses.get(panel)?.cancel();
+			const style = getComputedStyle(panel);
+			const pulse = panel.animate([
+				{"--panel-click-blur": style.getPropertyValue("--panel-click-blur-strength").trim()},
+				{"--panel-click-blur": "0px"},
+			], {
+				duration: parseFloat(style.getPropertyValue("--panel-click-blur-duration")),
+				easing: "ease-out",
+			});
+			blurPulses.set(panel, pulse);
+			const cleanup = () => {
+				if(blurPulses.get(panel) === pulse) blurPulses.delete(panel);
+			};
+			listen(pulse, "finish", cleanup, {once: true});
+			listen(pulse, "cancel", cleanup, {once: true});
+		}
+
+		listen(hero, "pointerdown", event => {
+			press = null;
+			if(reducedMotion.matches || !event.isPrimary || event.button !== 0) return;
+			const panel = hitPanel(event);
+			if(panel) press = {panel, id: event.pointerId, x: event.clientX, y: event.clientY, scrollX, scrollY};
+		}, {passive: true});
+
+		function moved(event) {
+			return Math.hypot(event.clientX - press.x, event.clientY - press.y) > tapSlop;
+		}
+
+		listen(window, "pointermove", event => {
+			if(press && (event.pointerId !== press.id || moved(event))) press = null;
+		}, {passive: true});
+		listen(window, "pointerup", event => {
+			if(!press) return;
+			const valid = event.pointerId === press.id && !moved(event)
+				&& scrollX === press.scrollX && scrollY === press.scrollY
+				&& hitPanel(event) === press.panel && !reducedMotion.matches;
+			const panel = press.panel;
+			press = null;
+			if(valid) blurPanel(panel);
+		}, {passive: true});
+		listen(window, "pointercancel", () => { press = null; }, {passive: true});
+		listen(window, "pointerdown", event => {
+			if(!event.isPrimary) press = null;
+		}, {passive: true});
+		listen(window, "blur", () => { press = null; });
+		listen(window, "scroll", () => {
+			press = null;
+		}, {passive: true});
+		listen(reducedMotion, "change", () => {
+			if(reducedMotion.matches) {
+				press = null;
+				for(const pulse of blurPulses.values()) pulse.cancel();
+				blurPulses.clear();
+			}
+		});
+	}
 }

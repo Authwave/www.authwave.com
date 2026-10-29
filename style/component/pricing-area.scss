@@ -4,6 +4,7 @@
 @use "../pattern/frame-bridge";
 @use "../object/get-started";
 @use "../object/site-badge";
+@use "../decoration/viewport-bounce";
 
 pricing-area {
 	> section {
@@ -126,9 +127,11 @@ pricing-area {
 			@extend %p-checklist;
 
 			.checklist-marker {
+				@extend %d-viewport-bounce;
 				--theme-icon-size: calc(var(--theme-checklist-marker-size, 1.25rem) - 2 * var(--theme-border-width));
 				--theme-icon-gap: 0;
 				border: var(--theme-border-width) solid var(--theme-color-border);
+
 			}
 		}
 

@@ -41,7 +41,7 @@ login-preview-extras {
 		display: contents;
 	}
 	@media (prefers-reduced-motion: no-preference) and (width > flair.$break-wide) and (hover: hover) and (pointer: fine) {
-		.hero-notice-security { --panel-pointer-distance: calc(16 * var(--notice-unit)); }
+		.hero-notice-security { --panel-pointer-distance: calc(24 * var(--notice-unit)); }
 		.hero-notice-protection { --panel-pointer-distance: calc(-12 * var(--notice-unit)); }
 	}
 }

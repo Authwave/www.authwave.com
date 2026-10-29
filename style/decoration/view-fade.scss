@@ -1,0 +1,11 @@
+%d-view-fade {
+	@media (prefers-reduced-motion: no-preference) {
+		transition: opacity var(--theme-view-fade-duration, 500ms) ease;
+
+		// A newly inserted Flux view transitions from transparent to its normal
+		// opacity. Older browsers simply display the replacement immediately.
+		@starting-style {
+			opacity: 0;
+		}
+	}
+}

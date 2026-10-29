@@ -6,6 +6,7 @@
 @use "../decoration/external-link";
 @use "../decoration/scroll-reveal";
 @use "../decoration/concertina-measure";
+@use "../decoration/view-fade";
 
 body {
 	@extend %d-typography;
@@ -17,6 +18,7 @@ body {
 	a[href*="://"]:not([target="_self"]) { @extend %d-external-link; }
 	[data-scroll-reveal] { @extend %d-scroll-reveal; }
 	[data-concertina-measure] { @extend %d-concertina-measure; }
+	main[data-view-fade] { @extend %d-view-fade; }
 
 	main,
 	.site-footer {

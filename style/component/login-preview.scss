@@ -23,9 +23,13 @@ login-preview {
 	--panel-orbit-duration: 29s;
 	--panel-tilt-angle: .2deg;
 	--panel-enter-angle: -1deg;
-	--panel-enter-delay: .6s;
-	--panel-enter-duration: 6s;
-	--panel-fade-easing: ease-in-out;
+	--panel-enter-delay: 0s;
+	--panel-enter-duration: 1s;
+	--panel-fade-duration: .18s;
+	--panel-fade-easing: ease-out;
+	--panel-unblur-animation: panel-unblur-deep;
+	--panel-unblur-duration: var(--panel-enter-duration);
+	--panel-unblur-easing: ease-in-out;
 	--login-unit: calc(100cqi / 618);
 	--login-rim: 20;
 	// Insets account for the frame and inner panel's own border widths.
@@ -109,10 +113,13 @@ login-preview {
 	}
 	.login-preview-email-icon {
 		position: absolute;
+		display: grid;
+		place-items: center;
 		inset-inline-start: calc(21 * var(--login-unit));
 		inset-block-start: 50%;
 		translate: 0 -50%;
 		--theme-icon-size: calc(22 * var(--login-unit));
+		--theme-icon-gap: 0;
 		pointer-events: none;
 		color: var(--theme-color-muted);
 	}

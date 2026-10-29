@@ -41,6 +41,14 @@
 	--aw-coral: #ff805f;
 	--aw-coral-soft: #fddacf;
 
+	.circuit-background {
+		--circuit-shimmer-colour: color-mix(in srgb, var(--aw-white) 55%, var(--aw-ink));
+		--circuit-colour-blue: var(--aw-blue);
+		--circuit-colour-pink: var(--aw-pink);
+		--circuit-colour-coral: var(--aw-coral);
+		--circuit-colour-lime: var(--aw-lime);
+	}
+
 	::selection {
 		background: var(--aw-coral);
 		color: var(--aw-ink);
@@ -143,7 +151,7 @@
 		--theme-button-background-hover: #f3affb;
 		--theme-button-background-active: #d975e5;
 		--theme-button-text: var(--aw-white);
-		--theme-link-color: var(--aw-blue);
+		--theme-link-color: var(--theme-color-muted);
 		.login-preview-panel { background: #211d1c; border-color: #ffffff0d; }
 		.login-preview-remember { color: var(--theme-color-muted); }
 		:is(.login-preview-options, .login-preview-help) a { text-decoration: none; }

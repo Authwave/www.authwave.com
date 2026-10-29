@@ -172,3 +172,63 @@ Run `npm install`, `gt build`, then `gt run -p 8080` to develop locally. Flair i
 linked from `../../BrightFlair/flair`, with its definitions in `style/lib`.
 
 The earlier design is saved on the local branch `new-design-before-guidance`.
+
+## Hero circuit background
+
+The hero's decorative SVG is rendered with complete paths by
+`class/Graphics/CircuitBackground.php`. Its `CONFIG` block controls the number
+of changing routes (`density` and `mobileDensity`), corner radius in CSS pixels,
+minimum parallel spacing in radii (`spacing`, default 3),
+branch probability per eligible straight segment (`branchChance`, from 0 to 1),
+`maxBranches`, and the replacement interval and erase/draw durations in milliseconds.
+The two permanent gutter connections are additional to the configured density.
+`initialDelay` starts the first replacement after one second; a track is reserved
+at startup so passengers cannot postpone it. Later replacements use `interval`.
+Short shimmer overlays follow complete tracks in either direction at independently
+randomised intervals. `shimmerInterval`, `shimmerDuration` (milliseconds) and
+`shimmerLength` (CSS pixels) control their frequency, maximum travel time and
+length. Shorter tracks use a shorter duration so the shimmer always travels at
+least twice as fast as the squares' peak speed.
+They stop when off-screen, hidden or reduced motion is selected, and are removed
+before their underlying track is erased.
+Density is an upper limit: routes and forks that cannot maintain the spacing
+are omitted. Replacements retract completely before growing when there is not
+enough room to show both paths with the required clearance.
+
+`script/ui/circuit-background.es6` adapts the SVG to the actual drawing area and
+Introduction's gutter stroke centres. It replaces one route at a time using
+normalised SVG dash offsets, drawing forks only once their junction is reached.
+On mobile, the measured demo bounds guide horizontal runs through the open space
+above and below the panel, with their connecting stretch behind it.
+A second mobile route passes behind the demo, with its bends off-screen, to
+leave the gutter connections clear. A third enters beside the CTA and continues
+across the scene to the opposite viewport edge. Desktop uses the same entry rule,
+preferring the available space on either side of the button. Complete rounded
+paths, including forks, are checked against the measured button and hero text
+with a clearance margin. The mobile layout is randomly mirrored to use either
+side. The defaults allow four changing desktop
+routes, three mobile routes, four stopping squares and two continuously travelling
+squares. The two initially parked squares remain ready on page load.
+The two gutter paths are never erased. The drawing area reaches into the gap
+above the CTA on both mobile and desktop. All routes are clipped
+to the drawing area. Animation stops off-screen, in hidden tabs and
+for reduced-motion preferences; without JavaScript the initial SVG stays visible.
+
+Run `node test/circuits.mjs` to check the route geometry and branch connections.
+
+Travelling squares are configured in the same `CONFIG` block: `names` and
+`colours` are independent shuffled round-robin lists, `trainCount` and
+`mobileTrainCount` cap the simultaneous passengers, and `trainSpeed`,
+`stopDuration` and `labelFade` control their journey and label timing.
+`gradientEvery` controls the infrequent two-gradient variant. Palette mappings
+stay in AWPixel; the base component remains monochrome without the theme.
+
+Squares follow SVG path lengths with sub-pixel translations, ease to a stop,
+show their label, then continue. Stops reserve room for both the square and
+label outside the demo panels and their floating motion. Occupied tracks are
+not replaced; incomplete tracks cannot receive a passenger. Empty tracks are
+preferred, with the least occupied suitable track as a fallback. A route waiting
+to regenerate closes to new passengers until its current passenger finishes.
+Movement pauses
+when hidden or off-screen, and reduced-motion visitors see stationary squares.
+Run `node test/shuffle-bag.mjs` to verify the selection rounds.

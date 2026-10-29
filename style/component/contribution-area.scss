@@ -3,6 +3,7 @@
 @use "../pattern/section-frame";
 @use "../pattern/frame-bridge";
 @use "../object/get-started";
+@use "../decoration/scroll-reveal";
 
 .contribution-area {
 	@extend %p-frame-bridge;
@@ -22,6 +23,7 @@
 
 	.contribution-action {
 		@extend %o-get-started;
+		@extend %d-scroll-reveal;
 	}
 
 	.contribution-placeholder {

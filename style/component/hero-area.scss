@@ -19,9 +19,15 @@
 	}
 
 	> h1 {
-		font-size: size.fluid(3.25rem, 5.25rem);
+		// Reduce 320px type from 52px to 40px; taper that correction to zero
+		// at 600px so the existing larger-screen sizes remain unchanged.
+		font-size: calc(#{size.fluid(3.25rem, 5.25rem)} - #{size.fluid(.75rem, 0rem, 37.5rem)});
 		font-weight: 400;
 		line-height: 1.1;
+
+		@media (min-width: 37.5rem) {
+			font-size: size.fluid(3.25rem, 5.25rem);
+		}
 
 		@media (min-width: size.$reference) {
 			font-size: clamp(3rem, 14vw, 6.5rem);

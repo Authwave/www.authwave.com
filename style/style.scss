@@ -20,10 +20,12 @@
 @use "theme/awpixel";
 @use "font/inter";
 @use "font/morion";
+@use "decoration/external-link";
 
 @use "component/interactive-logo";
 @use "component/site-header";
 @use "component/hero-area";
+@use "component/hero-circuit";
 @use "component/login-preview";
 @use "component/login-preview-extras";
 @use "component/hero-motion";

@@ -50,7 +50,7 @@ contribution-preview {
 .contribution-notice-merge {
 	inline-size: calc(512 * var(--notice-unit));
 	inset-inline-start: calc(584 * var(--notice-unit));
-	inset-block-start: calc(-118 * var(--notice-unit));
+	inset-block-start: calc(-2 * var(--notice-rim) * var(--notice-unit));
 	--panel-orbit-radius: calc(8 * var(--notice-unit));
 	--panel-orbit-duration: 23s;
 	--panel-tilt-angle: .4deg;

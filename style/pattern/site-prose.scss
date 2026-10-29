@@ -7,14 +7,23 @@
 	--theme-font-size: max(1rem, calc(1.5 * var(--authwave-size-unit)));
 	--theme-heading-weight: 400;
 	--theme-heading-2: max(1.75rem, calc(2.75 * var(--authwave-size-unit)));
-	--theme-heading-3: max(1.25rem, calc(1.75 * var(--authwave-size-unit)));
+	// Style-guide proportions: H1 : H2 : H3 = 32 : 24 : 20.
+	// Derive the scale together so a breakpoint cannot invert the hierarchy.
+	--theme-heading-1: calc(var(--theme-heading-2) * 4 / 3);
+	--theme-heading-3: calc(var(--theme-heading-2) * 5 / 6);
+	--theme-heading-4: calc(var(--theme-heading-2) * 3 / 4);
 	--theme-text-leading: 1.6;
 	color: var(--theme-color-muted);
 
-	a[href*="://"] {
-		@extend %p-icon-end;
-		--theme-icon-end: url("/asset/icon/external-link.svg");
-	}
+	:where(h1) { line-height: 1.05; text-wrap: balance; }
+	:where(h4, h5, h6) { font-family: var(--theme-font-body); }
+	:where(h4) { font-weight: 500; }
+	:where(h5) { font-size: max(1rem, calc(var(--theme-heading-2) / 2)); }
+	:where(h6) { font-size: max(1rem, calc(var(--theme-heading-2) * 5 / 12)); }
+
+	// Markdown links can opt into the shared button treatment with
+	// {.content-action}, without page-specific HTML or styling.
+	.content-action { @extend %o-button; }
 
 	> * { max-inline-size: var(--theme-prose-measure, 65ch); }
 	:where(h2, h3) { scroll-margin-block-start: 10rem; }
@@ -36,7 +45,6 @@
 	@media (min-width: flair.$break-wide) {
 		--theme-font-size: var(--authwave-desktop-body-size);
 		--theme-heading-2: #{size.desktop-type(2.75rem)};
-		--theme-heading-3: #{size.desktop-type(1.75rem)};
 		.article-picture { --theme-article-picture-ratio: 12 / 5; }
 		:where(h2, h3) { scroll-margin-block-start: var(--theme-space-8); }
 	}

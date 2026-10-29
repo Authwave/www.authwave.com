@@ -37,7 +37,12 @@ class MarkdownRenderer {
 	public function render(string $markdown):string {
 		$document = new HTMLDocument((string)$this->converter->convert($markdown));
 		foreach($document->querySelectorAll('a[href*="://"]') as $link) {
-			$link->setAttribute("target", "_blank");
+			if(!$link->hasAttribute("target")) {
+				$link->setAttribute("target", "_blank");
+			}
+			if($link->getAttribute("target") !== "_blank") {
+				continue;
+			}
 			$relations = preg_split('/\s+/', trim($link->getAttribute("rel") ?? ""), flags: PREG_SPLIT_NO_EMPTY);
 			$relations []= "noopener";
 			$link->setAttribute("rel", implode(" ", array_unique($relations)));

@@ -55,8 +55,15 @@
 			grid-template-rows: auto 1fr auto;
 			gap: var(--theme-space-2);
 			aspect-ratio: 620 / 474;
+			// At 320px: seven 14px body lines, two title lines, insets and a
+			// gap need 256.8px. Taper the guard until the aspect ratio has room.
+			min-block-size: size.fluid(16.05rem, 13.5rem, 24.375rem);
 			padding: var(--authwave-section-inset);
 			background: var(--theme-color-surface);
+
+			@media (min-width: 37.5rem) {
+				min-block-size: 0;
+			}
 
 			> .audience-subheading {
 				grid-column: 1 / -1;
@@ -123,6 +130,11 @@
 
 			> p {
 				margin: 0;
+				font-size: .875em;
+
+				@media (min-width: 37.5rem) {
+					font-size: inherit;
+				}
 			}
 
 			> .audience-heading {

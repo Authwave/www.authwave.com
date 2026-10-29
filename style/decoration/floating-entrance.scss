@@ -17,17 +17,24 @@
 		// vanishing point, rather than scaling each panel around its own centre.
 		--panel-depth: -10rem;
 		rotate: var(--panel-enter-angle, -3deg);
-		--panel-intro-blur: 18px;
 	}
 	to {
 		--panel-depth: 0px;
 		rotate: 0deg;
-		--panel-intro-blur: 0px;
 	}
 }
 
-// Opacity has its own easing so a panel can fade gradually while its depth
-// and blur settle more quickly.
+// Keep opacity and focus independent of the entrance's depth and rotation.
+@keyframes panel-unblur {
+	from { --panel-intro-blur: 18px; }
+	to { --panel-intro-blur: 0px; }
+}
+
+@keyframes panel-unblur-deep {
+	from { --panel-intro-blur: 32px; }
+	to { --panel-intro-blur: 0px; }
+}
+
 @keyframes panel-fade {
 	from { opacity: 0; }
 	to { opacity: 1; }
@@ -65,7 +72,8 @@
 		filter: blur(max(var(--panel-intro-blur), var(--panel-click-blur, 0px)));
 		animation:
 			panel-enter var(--panel-enter-duration, 4s) cubic-bezier(.16, 1, .3, 1) var(--panel-enter-delay, .1s) backwards,
-			panel-fade var(--panel-enter-duration, 4s) var(--panel-fade-easing, cubic-bezier(.16, 1, .3, 1)) var(--panel-enter-delay, .1s) backwards,
+			var(--panel-unblur-animation, panel-unblur) var(--panel-unblur-duration, var(--panel-enter-duration, 4s)) var(--panel-unblur-easing, cubic-bezier(.16, 1, .3, 1)) var(--panel-enter-delay, .1s) backwards,
+			panel-fade var(--panel-fade-duration, var(--panel-enter-duration, 4s)) var(--panel-fade-easing, cubic-bezier(.16, 1, .3, 1)) var(--panel-enter-delay, .1s) backwards,
 			panel-orbit var(--panel-orbit-duration, 23s) linear calc(var(--panel-enter-delay, .1s) + var(--panel-enter-duration, 4s)) infinite,
 			panel-tilt var(--panel-tilt-duration, 37s) ease-in-out calc(var(--panel-enter-delay, .1s) + var(--panel-enter-duration, 4s)) infinite;
 	}

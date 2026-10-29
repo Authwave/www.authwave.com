@@ -6,6 +6,8 @@ if(hero) {
 	const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 	const scene = hero.querySelector("login-preview");
 	const blurPulses = new Map();
+	let press = null;
+	const tapSlop = 8; // CSS pixels: allow small finger jitter, not a scroll gesture.
 	let frame = 0;
 	let pointerX = 0;
 	let pointerY = 0;
@@ -37,17 +39,17 @@ if(hero) {
 	}, {passive: true});
 	// The preview stays inert. Hit-test its painted panels from the hero,
 	// because pointer events intentionally pass through the example controls.
-	hero.addEventListener("pointerdown", event => {
-		if(!scene || reducedMotion.matches || (event.pointerType === "mouse" && event.button !== 0)) return;
-		// Later notices paint above the main panel: hit-test front to back so
-		// overlapping panels only blur the one the visitor sees on top.
-		const panel = [...scene.querySelectorAll(".login-preview, .hero-notice")].reverse().find(panel => {
+	function hitPanel(event) {
+		// Later notices paint above the main panel.
+		return [...(scene?.querySelectorAll(".login-preview, .hero-notice") || [])].reverse().find(panel => {
 			const bounds = panel.getBoundingClientRect();
 			return bounds.width > 0 && bounds.height > 0
 				&& event.clientX >= bounds.left && event.clientX <= bounds.right
 				&& event.clientY >= bounds.top && event.clientY <= bounds.bottom;
 		});
-		if(!panel) return;
+	}
+
+	function blurPanel(panel) {
 		blurPulses.get(panel)?.cancel();
 		const style = getComputedStyle(panel);
 		const pulse = panel.animate([
@@ -63,12 +65,45 @@ if(hero) {
 		};
 		pulse.addEventListener("finish", cleanup, {once: true});
 		pulse.addEventListener("cancel", cleanup, {once: true});
+	}
+
+	hero.addEventListener("pointerdown", event => {
+		press = null;
+		if(reducedMotion.matches || !event.isPrimary || event.button !== 0) return;
+		const panel = hitPanel(event);
+		if(panel) press = {panel, id: event.pointerId, x: event.clientX, y: event.clientY, scrollX, scrollY};
 	}, {passive: true});
-	window.addEventListener("scroll", schedule, {passive: true});
+
+	function moved(event) {
+		return Math.hypot(event.clientX - press.x, event.clientY - press.y) > tapSlop;
+	}
+
+	window.addEventListener("pointermove", event => {
+		if(press && (event.pointerId !== press.id || moved(event))) press = null;
+	}, {passive: true});
+	window.addEventListener("pointerup", event => {
+		if(!press) return;
+		const valid = event.pointerId === press.id && !moved(event)
+			&& scrollX === press.scrollX && scrollY === press.scrollY
+			&& hitPanel(event) === press.panel && !reducedMotion.matches;
+		const panel = press.panel;
+		press = null;
+		if(valid) blurPanel(panel);
+	}, {passive: true});
+	window.addEventListener("pointercancel", () => { press = null; }, {passive: true});
+	window.addEventListener("pointerdown", event => {
+		if(!event.isPrimary) press = null;
+	}, {passive: true});
+	window.addEventListener("blur", () => { press = null; });
+	window.addEventListener("scroll", () => {
+		press = null;
+		schedule();
+	}, {passive: true});
 	window.addEventListener("resize", schedule, {passive: true});
 	window.addEventListener("pageshow", schedule);
 	reducedMotion.addEventListener("change", () => {
 		if(reducedMotion.matches) {
+			press = null;
 			for(const pulse of blurPulses.values()) pulse.cancel();
 			blurPulses.clear();
 		}

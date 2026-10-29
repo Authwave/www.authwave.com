@@ -59,11 +59,6 @@
 		@extend %d-visually-hidden;
 	}
 
-	a[href*="://"] {
-		@extend %p-icon-end;
-		--theme-icon-end: url("/asset/icon/external-link.svg");
-	}
-
 	.footer-brand {
 		display: flex;
 		justify-content: center;

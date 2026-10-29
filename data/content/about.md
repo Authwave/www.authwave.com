@@ -1,4 +1,4 @@
-# About Authwave
+# About
 
 Authwave is an open-source authentication service, developed by Bright Flair in Derby, UK. It gives developers a straightforward way to add login to their applications, with intuitive controls for users and an extensive administration area for the people running the application.
 

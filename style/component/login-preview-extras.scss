@@ -11,8 +11,8 @@ login-preview-extras { display: none; }
 }
 
 .hero-notice-security {
-	--panel-enter-delay: .1s;
-	--panel-enter-duration: 4.6s;
+	--panel-enter-delay: .25s;
+	--panel-enter-duration: 1.25s;
 	--panel-enter-angle: 2deg;
 	--panel-orbit-radius: calc(10 * var(--notice-unit));
 	--panel-orbit-duration: 23s;
@@ -24,8 +24,8 @@ login-preview-extras { display: none; }
 	inset-block-start: calc(-68 * var(--notice-unit));
 }
 .hero-notice-protection {
-	--panel-enter-delay: .2s;
-	--panel-enter-duration: 4.6s;
+	--panel-enter-delay: .5s;
+	--panel-enter-duration: 1.5s;
 	--panel-enter-angle: -1.5deg;
 	--panel-orbit-radius: calc(-8 * var(--notice-unit));
 	--panel-orbit-duration: 31s;

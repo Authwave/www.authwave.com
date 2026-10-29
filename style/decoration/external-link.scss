@@ -1,0 +1,8 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+// Match the renderer's external-link default, respecting an explicit same-tab
+// target. One rule covers prose, navigation and calls to action alike.
+a[href*="://"]:not([target="_self"]) {
+	@extend %p-icon-end;
+	--theme-icon-end: url("/asset/icon/external-link.svg");
+}

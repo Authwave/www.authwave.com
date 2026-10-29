@@ -44,7 +44,10 @@
 
 			> summary {
 				@extend %d-highlight;
-				display: inline-block;
+				display: inline-flex;
+				// Centre short labels inside Flair's minimum touch target, while
+				// keeping wrapped text and the highlight in one fitted box.
+				align-items: center;
 				max-inline-size: 100%;
 				margin-block-start: calc(4 * var(--authwave-size-unit));
 				margin-block-end: calc(4 * var(--authwave-size-unit));

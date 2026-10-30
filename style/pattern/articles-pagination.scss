@@ -33,7 +33,13 @@
 	.page-picker { @extend %o-page-picker; }
 	.pagination-previous { order: 0; }
 	.pagination-next { order: 110; }
-	.articles-previous > span { rotate: 180deg; }
+	:is(.articles-previous, .articles-next) > span {
+		// Avoid the inline glyph's baseline gap inside the centred flex item.
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.articles-previous > span { scale: -1 1; }
 	[aria-disabled="true"] { opacity: .35; cursor: default; }
 	.page-picker[open] > summary { outline: var(--theme-focus-outline); }
 }

@@ -2,6 +2,7 @@
 @use "../pattern/section-frame";
 @use "../object/get-started";
 @use "../variable/size";
+@use "../decoration/scroll-arrive";
 
 audience-area {
 	> section {
@@ -25,6 +26,23 @@ audience-area {
 				--theme-stack-gap: var(--authwave-audience-panel-gap);
 				inline-size: 100%;
 				margin-block-start: var(--authwave-section-block-space);
+			}
+		}
+
+		.audience-panel-track {
+			@extend %d-scroll-arrive;
+			min-inline-size: 0;
+
+			&:nth-child(2) { --arrive-angle: 3deg; }
+
+			@media (width > flair.$break-wide) {
+				--arrive-scale: 1;
+				--arrive-angle: 0deg;
+				--arrive-x: -6rem;
+				--arrive-y: -3rem;
+
+				&:nth-child(2) { --arrive-x: 6rem; --arrive-angle: 0deg; }
+				&:nth-child(3) { --arrive-x: 0rem; --arrive-y: 6rem; }
 			}
 		}
 
@@ -165,11 +183,11 @@ audience-area {
 			}
 
 			@media (prefers-reduced-motion: no-preference) {
-				transition: transform 200ms ease-out;
+				transition: transform 200ms ease-out, var(--arrive-transition);
 
 				&:has(> summary:active) {
 					transform: scale(0.9);
-					transition-duration: 80ms;
+					transition: transform 80ms ease-out, var(--arrive-transition);
 				}
 
 				@supports selector(details::details-content) {
@@ -240,7 +258,7 @@ audience-area {
 				> .audience-panels { display: contents; }
 			}
 
-			.audience-panel {
+			.audience-panel-track {
 				min-inline-size: 0;
 				inline-size: 100%;
 
@@ -284,7 +302,7 @@ audience-area {
 				> .audience-action { margin-block-start: var(--theme-space-3); }
 			}
 
-			.audience-panel {
+			.audience-panel-track {
 				// Reference panels are about 534 × 464 pixels, all the same size.
 				inline-size: min(100%, calc(33.375rem * 2208 / 2880));
 				justify-self: center;

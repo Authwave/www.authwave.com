@@ -335,6 +335,12 @@
 		}
 	}
 
+	.audience-panel-track {
+		&:nth-child(1) { --aw-panel-colour: var(--aw-pink); }
+		&:nth-child(2) { --aw-panel-colour: var(--aw-lime); }
+		&:nth-child(3) { --aw-panel-colour: var(--aw-blue); }
+	}
+
 	.audience-panel {
 		--theme-color-text: var(--aw-ink);
 		--theme-color-heading: var(--aw-ink);
@@ -388,9 +394,6 @@
 			transition: none;
 		}
 
-		&:nth-child(1) { --aw-panel-colour: var(--aw-pink); }
-		&:nth-child(2) { --aw-panel-colour: var(--aw-lime); }
-		&:nth-child(3) { --aw-panel-colour: var(--aw-blue); }
 
 		.audience-subheading {
 			--theme-color-border: color-mix(in srgb, #000 12%, transparent);

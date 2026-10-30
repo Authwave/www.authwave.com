@@ -1,0 +1,18 @@
+// Measure a stationary wrapper with Flux; animate its child so transforms
+// cannot feed back into the scroll measurements or alter the page layout.
+%d-scroll-arrive {
+	@media (prefers-reduced-motion: no-preference) {
+		--arrive-height: calc(var(--flux-size-y, 0) * 1px);
+		// Complete on full visibility; taller cards complete at the viewport top.
+		--arrive-progress: clamp(0, calc(var(--flux-scroll-progress-y, 1) * (100vh + var(--arrive-height)) / max(1px, min(100vh, var(--arrive-height)))), 1);
+		--arrive-transition: scale var(--arrive-duration, 600ms) ease-out, rotate var(--arrive-duration, 600ms) ease-out, translate var(--arrive-duration, 600ms) ease-out;
+		--arrive-remaining: calc(1 - var(--arrive-progress));
+
+		> * {
+			scale: calc(1 - (1 - var(--arrive-scale, .9)) * var(--arrive-remaining));
+			rotate: calc(var(--arrive-angle, -3deg) * var(--arrive-remaining));
+			translate: calc(var(--arrive-x, 0rem) * var(--arrive-remaining)) calc(var(--arrive-y, 0rem) * var(--arrive-remaining));
+			transition: var(--arrive-transition);
+		}
+	}
+}

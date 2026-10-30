@@ -7,48 +7,54 @@
 		</header>
 		<a class="audience-action" data-flux="flux-size" href="/get-started/"><span class="action-label">Get started</span><span class="action-icon" data-icon="arrow-right" aria-hidden="true"></span></a>
 		<div class="audience-panels">
-			<details class="audience-panel" name="audience">
-				<summary>
-					<span class="audience-front">
-						<span class="audience-subheading">The best developer experience</span>
-						<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.developers.heading"></span>
+			<div class="audience-panel-track" data-flux="flux-scroll-progress flux-size">
+				<details class="audience-panel" name="audience">
+					<summary>
+						<span class="audience-front">
+							<span class="audience-subheading">The best developer experience</span>
+							<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.developers.heading"></span>
+							<span class="audience-toggle" aria-hidden="true"></span>
+						</span>
+					</summary>
+					<div class="disclosure-content">
+						<p data-bind:html="content.home.audience.developers.firstParagraph"></p>
+						<span class="audience-heading" aria-hidden="true">Developers</span>
 						<span class="audience-toggle" aria-hidden="true"></span>
-					</span>
-				</summary>
-				<div class="disclosure-content">
-					<p data-bind:html="content.home.audience.developers.firstParagraph"></p>
-					<span class="audience-heading" aria-hidden="true">Developers</span>
-					<span class="audience-toggle" aria-hidden="true"></span>
-				</div>
-			</details>
-			<details class="audience-panel" name="audience">
-				<summary>
-					<span class="audience-front">
-						<span class="audience-subheading">Easy user management</span>
-						<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.administrators.heading"></span>
+					</div>
+				</details>
+			</div>
+			<div class="audience-panel-track" data-flux="flux-scroll-progress flux-size">
+				<details class="audience-panel" name="audience">
+					<summary>
+						<span class="audience-front">
+							<span class="audience-subheading">Easy user management</span>
+							<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.administrators.heading"></span>
+							<span class="audience-toggle" aria-hidden="true"></span>
+						</span>
+					</summary>
+					<div class="disclosure-content">
+						<p data-bind:html="content.home.audience.administrators.firstParagraph"></p>
+						<span class="audience-heading" aria-hidden="true">Administrators</span>
 						<span class="audience-toggle" aria-hidden="true"></span>
-					</span>
-				</summary>
-				<div class="disclosure-content">
-					<p data-bind:html="content.home.audience.administrators.firstParagraph"></p>
-					<span class="audience-heading" aria-hidden="true">Administrators</span>
-					<span class="audience-toggle" aria-hidden="true"></span>
-				</div>
-			</details>
-			<details class="audience-panel" name="audience">
-				<summary>
-					<span class="audience-front">
-						<span class="audience-subheading">Invisible to your app's users</span>
-						<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.end-users.heading"></span>
+					</div>
+				</details>
+			</div>
+			<div class="audience-panel-track" data-flux="flux-scroll-progress flux-size">
+				<details class="audience-panel" name="audience">
+					<summary>
+						<span class="audience-front">
+							<span class="audience-subheading">Invisible to your app's users</span>
+							<span class="audience-heading" role="heading" aria-level="3" data-bind:text="content.home.audience.end-users.heading"></span>
+							<span class="audience-toggle" aria-hidden="true"></span>
+						</span>
+					</summary>
+					<div class="disclosure-content">
+						<p data-bind:html="content.home.audience.end-users.firstParagraph"></p>
+						<span class="audience-heading" aria-hidden="true">End-users</span>
 						<span class="audience-toggle" aria-hidden="true"></span>
-					</span>
-				</summary>
-				<div class="disclosure-content">
-					<p data-bind:html="content.home.audience.end-users.firstParagraph"></p>
-					<span class="audience-heading" aria-hidden="true">End-users</span>
-					<span class="audience-toggle" aria-hidden="true"></span>
-				</div>
-			</details>
+					</div>
+				</details>
+			</div>
 		</div>
 	</div>
 </section>

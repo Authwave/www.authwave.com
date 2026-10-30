@@ -1,6 +1,6 @@
 %d-viewport-bounce {
 	@media (prefers-reduced-motion: no-preference) {
 		scale: calc(.5 + .5 * var(--flux-first-visible, 1));
-		transition: scale var(--theme-bounce-duration, 450ms) cubic-bezier(.34, 1.56, .64, 1);
+		transition: scale var(--theme-bounce-duration, 450ms) cubic-bezier(.34, 1.56, .64, 1) var(--theme-bounce-delay, 0ms);
 	}
 }

@@ -128,10 +128,15 @@ pricing-area {
 
 			.checklist-marker {
 				@extend %d-viewport-bounce;
+				--theme-bounce-delay: 150ms;
 				--theme-icon-size: calc(var(--theme-checklist-marker-size, 1.25rem) - 2 * var(--theme-border-width));
 				--theme-icon-gap: 0;
 				border: var(--theme-border-width) solid var(--theme-color-border);
 
+				@media (width > flair.$break-wide) {
+					--theme-bounce-delay: 300ms;
+					--theme-bounce-duration: 900ms;
+				}
 			}
 		}
 

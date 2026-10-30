@@ -1,0 +1,9 @@
+@use "../../node_modules/flair/style/lib/flair";
+
+// Covers retain their intrinsic proportions in heroes and article cards.
+%o-article-cover {
+	@extend %o-article-picture;
+	--theme-article-picture-ratio: auto;
+	block-size: auto;
+	object-fit: contain;
+}

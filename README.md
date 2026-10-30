@@ -51,6 +51,10 @@ Write the article in **Markdown**, with [links](https://authwave.com).
 > A quotation.
 ```
 
+`cover` optionally selects an SVG filename from `asset/illustration/articles`
+(for example, `cover: hosting.svg`) for the article header and listing cards.
+It defaults to `web-screen.svg` when omitted.
+
 `title`, `category` and `summary` are required. Category must be `guides`,
 `tutorials`, `product`, or `engineering`. The title is rendered by the article
 header, so begin the body with `##` section headings. A multi-line YAML summary

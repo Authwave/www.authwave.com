@@ -1,5 +1,6 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "article-meta";
+@use "../object/article-cover";
 @use "../variable/size";
 
 %p-article-header {
@@ -40,7 +41,7 @@
 		border-block-start: var(--theme-border-width) solid var(--theme-color-border);
 	}
 
-	.article-picture { @extend %o-article-picture; }
+	.article-picture { @extend %o-article-cover; }
 
 	@media (width > flair.$break-wide) {
 		--authwave-article-title-size: #{size.desktop-type(5.25rem)};

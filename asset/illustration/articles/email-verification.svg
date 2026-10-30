@@ -1,0 +1,15 @@
+<svg width="378" height="254" viewBox="0 0 378 254" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Email and message verification</title>
+  <defs>
+    <pattern id="email-verification-grid" width="15.16" height="15.08" patternUnits="userSpaceOnUse"><rect width="8.715" height="8.715" fill="white"/></pattern>
+    <radialGradient id="email-verification-fade" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(203.524 140.073) rotate(90) scale(132.428 441.508)">
+      <stop stop-color="#2B2524"/><stop offset="0.5" stop-color="#2B2524" stop-opacity="0.15"/><stop offset="0.75" stop-color="#2B2524" stop-opacity="0.075"/><stop offset="1" stop-color="#2B2524" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="email-verification-texture"><rect width="378" height="254" fill="url(#email-verification-grid)"/></mask>
+  </defs>
+  <rect width="378" height="254" fill="white"/>
+  <rect width="378" height="254" fill="#F8825F" fill-opacity="0.2"/>
+  <rect width="378" height="254" fill="url(#email-verification-fade)" opacity="0.04" mask="url(#email-verification-texture)"/>
+  <rect x="76" y="63" width="226" height="128" rx="0" fill="white" fill-opacity="1" stroke="#2B2524" stroke-opacity="0.3" stroke-width="0.5"/><rect x="73.6" y="60.6" width="4.8" height="4.8" rx="0" fill="#2B2524" fill-opacity="1"/><rect x="299.6" y="60.6" width="4.8" height="4.8" rx="0" fill="#2B2524" fill-opacity="1"/><rect x="73.6" y="188.6" width="4.8" height="4.8" rx="0" fill="#2B2524" fill-opacity="1"/><rect x="299.6" y="188.6" width="4.8" height="4.8" rx="0" fill="#2B2524" fill-opacity="1"/><rect x="115" y="93" width="148" height="72" rx="3" fill="white" fill-opacity="1" stroke="#2B2524" stroke-opacity="0.3" stroke-width="0.5"/><path d="M116 95L189 140L262 95" fill="#F8825F" fill-opacity="0.12" stroke="#2B2524" stroke-opacity="0.35" stroke-width="0.7"/><path d="M116 163L164 125M262 163L214 125" stroke="#2B2524" stroke-opacity="0.2" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/><rect x="165" y="83" width="48" height="6" rx="0" fill="#F8825F" fill-opacity="0.2"/><circle cx="251" cy="158" r="18" fill="white" fill-opacity="1"/><circle cx="251" cy="158" r="15" fill="#D7FD9A" fill-opacity="0.5"/><path d="M244 158L249 163L258 153" stroke="#2B2524" stroke-opacity="0.7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="0.5" y="0.5" width="377" height="253" stroke="black" stroke-opacity="0.1"/>
+</svg>

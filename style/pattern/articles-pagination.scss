@@ -17,6 +17,10 @@
 
 	.page-link {
 		@extend %o-button;
+		// Override the navigation link display so icons and numbers stay centred.
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 		--theme-button-font-size: 1rem;
 		--theme-button-radius: .125rem;
 		inline-size: 2.75rem;

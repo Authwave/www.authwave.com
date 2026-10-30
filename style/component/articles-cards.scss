@@ -1,5 +1,6 @@
 @use "../../node_modules/flair/style/lib/flair";
 @use "../pattern/article-meta";
+@use "../object/article-cover";
 
 articles-cards {
 	> div {
@@ -8,6 +9,17 @@ articles-cards {
 		--theme-grid-gap: var(--theme-border-width);
 		--theme-grid-min: 25rem;
 		--theme-grid-columns: 3;
+		// Preserve empty columns so short result pages keep full-page card widths.
+		grid-template-columns: repeat(
+			auto-fill,
+			minmax(
+				min(100%, max(
+					var(--theme-grid-min),
+					calc((100% - (var(--theme-grid-columns) - 1) * var(--theme-grid-gap)) / var(--theme-grid-columns))
+				)),
+				1fr
+			)
+		);
 		background: var(--theme-color-border);
 		border-block: var(--theme-border-width) solid var(--theme-color-border);
 	}
@@ -23,6 +35,7 @@ articles-cards {
 		font-family: var(--theme-font-body);
 		background: var(--theme-color-surface);
 
+		.article-picture { @extend %o-article-cover; }
 		.article-meta { @extend %p-article-meta; }
 		.article-summary { font-size: max(1rem, calc(1.25 * var(--authwave-size-unit))); }
 

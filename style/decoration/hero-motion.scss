@@ -21,8 +21,10 @@
 
 		login-preview {
 			// Keep the first 20% of scrolling clear, then ease to 14.4px blur.
-			filter: blur(calc(clamp(0, (var(--hero-exit-progress, 0) - .2) / .8, 1) * 14.4px));
-			transition: filter .25s linear;
+			// Filter each glass panel rather than its ancestor: an ancestor filter
+			// prevents Chromium's backdrop blur from reaching the tracks behind it.
+			--panel-scroll-blur: calc(clamp(0, (var(--hero-exit-progress, 0) - .2) / .8, 1) * 14.4px);
+			transition: --panel-scroll-blur .25s linear;
 		}
 	}
 }

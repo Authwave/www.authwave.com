@@ -58,7 +58,7 @@ Another section with the same heading.
 
 An explicitly named anchor.
 MARKDOWN;
-	file_put_contents("$directory/2026-10-26-hello-world.md", $document("Hello: world", "guides", $markdown));
+	file_put_contents("$directory/2026-10-26-hello-world.md", str_replace("category: guides", "category: guides\ncover: integrations.svg", $document("Hello: world", "guides", $markdown)));
 	file_put_contents("$directory/2026-10-25-other-article.md", $document("Another article", "engineering", "## Another section\n\nDifferent **body**."));
 	file_put_contents("$directory/2026-10-24-third-article.md", $document("Third article", "tutorials", "## Third section\n\nThird body."));
 	file_put_contents("$directory/2026-10-23-fourth-article.md", $document("Fourth article", "product", "## Fourth section\n\nFourth body."));
@@ -66,6 +66,8 @@ MARKDOWN;
 	$stored = $repository->all();
 	check(count($stored) === 4 && $stored[0]["slug"] === "hello-world", "Dated files must be discovered and sorted newest first.");
 	check($stored[0]["published"] === "2026-10-26" && $stored[0]["title"] === "Hello: world", "Filename dates and YAML metadata must supply the catalogue.");
+	check(ArticleView::data($stored[0])["cover"] === "/asset/illustration/articles/integrations.svg", "Selected covers must reach article headers and cards.");
+	check($stored[1]["cover"] === "/asset/illustration/articles/web-screen.svg", "Articles without a cover must use the default illustration.");
 	check(ArticleView::data($stored[0])["url"] === "/articles/hello-world/", "The date prefix must not change the existing slug URL format.");
 	$html = $repository->content("hello-world");
 	check(str_contains($html, "<strong>Hello</strong>") && str_contains($html, "<em>welcome</em>"), "CommonMark must render inline formatting.");
@@ -83,6 +85,8 @@ MARKDOWN;
 	check($repository->related("hello-world", 0) === [], "A zero related limit must return no articles.");
 
 	$invalidFiles = [
+		"2026-10-27-invalid-cover.md" => str_replace("category: guides", "category: guides\ncover: ../../config.svg", $document("Title", "guides", "Body")),
+		"2026-10-27-missing-cover.md" => str_replace("category: guides", "category: guides\ncover: missing.svg", $document("Title", "guides", "Body")),
 		"undated.md" => $document("Title", "guides", "Body"),
 		"2026-02-30-invalid-date.md" => $document("Title", "guides", "Body"),
 		"2026-10-27-hello-world.md" => $document("Duplicate slug", "guides", "Body"),

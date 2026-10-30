@@ -1,7 +1,8 @@
 ---
-title: "Authentication without the extra forms"
-category: "product"
-summary: "Build a consistent experience for new users, returning users and password recovery."
+title: "Your first Authwave integration"
+category: "tutorials"
+cover: "integrations.svg"
+summary: "Start with a working application, then add login and signup with a few lines of code."
 ---
 
 ## Start with your application

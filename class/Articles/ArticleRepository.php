@@ -44,7 +44,12 @@ class ArticleRepository {
 			}
 			if(!isset(ArticleListing::CATEGORIES[$metadata["category"]])) throw new RuntimeException("Unknown article category: $name");
 			if(trim($parsed["body"]) === "") throw new RuntimeException("Article body is empty: $name");
-			$articles []= ["slug" => $slug, "published" => $published, "title" => $metadata["title"], "summary" => $metadata["summary"], "category" => $metadata["category"]];
+			$cover = $metadata["cover"] ?? "web-screen.svg";
+			if(!is_string($cover) || !preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*\.svg$/D', $cover)
+				|| !is_file(__DIR__ . "/../../asset/illustration/articles/$cover")) {
+				throw new RuntimeException("Unknown article cover: $name");
+			}
+			$articles []= ["cover" => "/asset/illustration/articles/$cover", "slug" => $slug, "published" => $published, "title" => $metadata["title"], "summary" => $metadata["summary"], "category" => $metadata["category"]];
 			$this->markdown[$slug] = $parsed["body"];
 		}
 		usort($articles, static fn($a, $b) => strcmp($b["published"], $a["published"]) ?: strcmp($a["slug"], $b["slug"]));

@@ -5,47 +5,115 @@ cover: "integrations.svg"
 summary: "Start with a working application, then add login and signup with a few lines of code."
 ---
 
-## Start with your application
+## Start with a page worth returning to
 
-Build the part of your application that makes it useful. When you are ready to add authentication, start with the journey your users will take: where they arrive, when they need to sign in, and where they should return afterwards.
+Before adding authentication, get your application doing something useful. A dashboard with sample records or a project page with dummy data gives you somewhere concrete to return to after login. You can use a development-only test identity while working on those features.
+
+Choose the first action that needs a real identity. Reading a public page may not require an account, while opening a private project does. Starting with one protected part of the application makes it easier to see what the integration needs to achieve.
 
 <figure>
-	<div class="article-picture" role="img" aria-label="Placeholder for an application screenshot"></div>
-	<figcaption>Source: <a href="https://github.com/Authwave/provider">Authwave provider</a>.</figcaption>
+	<div class="article-picture" role="img" aria-label="Placeholder for an application dashboard ready to receive an authenticated user"></div>
+	<figcaption>A working application dashboard ready to connect to Authwave.</figcaption>
 </figure>
 
-A clear starting point makes the rest of the flow easier to understand. Someone reading a public page may not need an account at all. Someone opening their own dashboard needs a reliable way to identify themselves.
+Think through the journey from that page: what prompts someone to sign in, how they reach the provider and where they should return. Cancellation and sign-out belong in that plan too, particularly when someone began from a bookmarked private page.
 
-## Connect your provider
+## Register the application
 
-The provider handles authentication, while your application decides what the authenticated person can do. Keep those responsibilities distinct as you connect the two parts.
+In the Authwave control panel, create an application with a name people will recognise. Add a development deployment and configure the client address and return path for your local application. You can test the integration on `localhost` before deploying the application anywhere else.
 
-### Choose your login address
+The provider handles authentication; your application uses the resulting identity. You can use the hosted provider or your own instance without changing that division of responsibility.
 
-Decide where people will sign in and which application they should return to. A familiar address and clear application name help users understand the journey.
+### Choose the login address
 
-### Keep your configuration private
+Decide which address people will visit to authenticate. A recognisable application name and a familiar login address help the change of page make sense. If you use a domain such as `login.example.com`, complete its DNS and HTTPS setup before asking people to use it.
 
-Store deployment secrets on the server. They should not appear in browser code, screenshots, public repositories or support messages.
+The PHP client defaults to the hosted login address. For a provider on another hostname, supply that hostname through the constructor's `authwaveHost` argument. Keep this setting alongside the deployment key so it is easy to see which provider a deployment uses.
 
-### Check the return journey
+### Store the client key privately
 
-Signing in is only one part of the experience. Plan what happens when someone returns to a page they were already using, cancels a login, or signs out.
+Copy the development deployment's client key into your server-side configuration. It belongs with the settings your server reads, rather than in browser code or a source file committed to a public repository.
 
-- Start the login journey from a clear action in your application.
-- Use an identifiable application name on the provider.
-- Keep the return destination under your application’s control.
-- Handle cancellation without losing the user’s place.
-- Check that a signed-out visitor cannot access private application data.
+Use different configuration for development and production from the beginning. This lets you keep testing locally without changing the provider connection used by real accounts.
 
-## Make login feel familiar
+## Connect the PHP client
 
-Use concise labels, readable text and a consistent visual language. People should be able to complete the flow with a keyboard, on a small screen, and with the colour scheme they prefer.
+Install the library through Composer:
 
-> Good authentication helps people get back to what they came to do. Keep the journey clear, and let the application take centre stage.
+```sh
+composer require authwave/php-client
+```
 
-## Keep the next steps simple
+Your application can keep its existing framework, routes and templates. The client needs a session and an opportunity to handle the request before page output begins.
 
-Review the complete journey before launch. Test a new account, a returning user, an unsuccessful attempt and a cancelled login. Your application’s account settings, access permissions and privacy information should be ready alongside the sign-in flow.
+If your application already starts a PHP session, use that session. Otherwise, start one in the early request handling, then construct the authenticator after loading Composer's autoloader:
 
-For the provider’s source and implementation details, see the [Authwave repository](https://github.com/Authwave/provider). Keep integration secrets out of any code examples you share, including values used in `configuration` files.
+```php
+use Authwave\Authenticator;
+
+require __DIR__ . "/vendor/autoload.php";
+
+if(session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+$auth = new Authenticator(
+    clientKey: $clientKey,
+    currentUriPath: $_SERVER["REQUEST_URI"],
+);
+```
+
+Here, `$clientKey` is the value loaded from your private configuration. The current request address lets the client process the authentication response when the browser returns. Place this setup on the return route as well as the page that begins login, or in shared request handling used by both.
+
+Creating the authenticator can cause a redirect while it completes authentication, so it needs to happen before rendering the page or sending other output.
+
+### Start login from an application action
+
+Connect your application's sign-in action to:
+
+```php
+$auth->login();
+```
+
+The client sends the browser to the provider and handles the return exchange. Your application doesn't need its own registration, email verification or password recovery forms to complete that journey.
+
+Try it with an email address that hasn't used the application before. Authwave begins signup and login at the same screen, so a new user can follow the instructions without first choosing a registration page. Then repeat the journey with the same account to see how it works for someone returning.
+
+## Use the authenticated identity
+
+On the return request, check the login state before asking for the identity:
+
+```php
+if($auth->isLoggedIn()) {
+    $authUser = $auth->getAuthUser();
+    $ownerId = $authUser->id;
+}
+```
+
+The identity provides the authenticated ID and email address. Use the ID to find the associated account in your application database, creating that application record on the first visit where appropriate. The email address can change, so it shouldn't be the only connection between someone's authentication identity and their existing records.
+
+Your own user model can continue to hold preferences, memberships and other application data. `AuthUser` describes the identity returned by the provider; it doesn't need to replace that model.
+
+### Check access before loading private data
+
+Authentication answers which identity is making the request. The application still needs to check whether that identity can open a particular project or perform an action.
+
+If a request includes a project ID, look up the project together with the user's membership or ownership. Don't assume that being signed in gives access to any project whose address can be guessed. Apply the check to requests for data and changes as well as the page that displays it.
+
+This is a useful first integration test: sign in as one account, open its project, then try the same project address from a different account. The result should follow your application's permission rules.
+
+## Join up the return journey
+
+Bring someone back to the page that prompted login where possible. If the application remembers an onward destination, keep that destination within routes it controls, rather than accepting an arbitrary external address supplied in a request.
+
+Handle cancellation without losing the person's place or leaving them at a page that assumes authentication succeeded. Give them a clear way to continue on public pages or try signing in again when the next action requires it.
+
+Try sign-out too, then open the private page directly and repeat any request it uses to load data. A hidden link is only a navigation choice; the request itself still needs to reject access when the person is no longer authenticated.
+
+## Prepare the same journey for production
+
+Once the connection works, add the application name, logo and colours that people should see during authentication. Check email-code login alongside the password route, and try both a new account and an existing one.
+
+Create a production deployment with its own key and HTTPS return address when you're ready to launch. Repeat the journey in that environment so configuration differences are caught before other people encounter them.
+
+The application code has a small set of responsibilities: start authentication, check the returned state and associate the identity with the right records and permissions. The [first-time setup guide](/articles/setting-up-authwave-for-the-first-time/) covers the surrounding configuration in more detail, while the [PHP client repository](https://github.com/Authwave/php-client) provides the implementation and further examples.

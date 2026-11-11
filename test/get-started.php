@@ -14,7 +14,7 @@ foreach([null, "self-hosted", "professional", "enterprise", "invalid", ["enterpr
 	$login = $content->querySelector(".content-action");
 	$valid = in_array($plan, ["self-hosted", "professional", "enterprise"], true);
 	$query = $valid ? "?plan=$plan" : "";
-	check($login->getAttribute("href") === "https://login.authwave.com/admin/$query", "Only valid plan selections must carry through to login.");
+	check($login->getAttribute("href") === "https://admin.authwave.com/admin/$query", "Only valid plan selections must carry through to login.");
 	check($login->getAttribute("target") === "_self", "Login must stay in the same tab.");
 	check($content->querySelectorAll("h2")->length === 3, "Each section must appear once.");
 	check($content->querySelectorAll("p")->length === $default->querySelectorAll("p")->length, "Reordering must preserve all paragraphs.");

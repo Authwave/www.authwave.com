@@ -12,7 +12,7 @@ Privacy and legal enquiries: [legal@brightflair.com](mailto:legal@brightflair.co
 
 ## What this policy covers
 
-Authwave provides login and account authentication for other applications. The hosted provider already handles real users of internal systems and has not yet launched for general public use. These users’ privacy rights apply now. This policy explains the Authwave website at `www.authwave.com` and the provider service operated by Authwave, including `login.authwave.com` and customer login domains served by Authwave.
+Authwave provides login and account authentication for other applications. The hosted provider already handles real users of internal systems and has not yet launched for general public use. These users’ privacy rights apply now. This policy explains the Authwave website at `www.authwave.com` and the provider service operated by Authwave, including `admin.authwave.com` and customer login domains served by Authwave.
 
 The application you sign into has its own purposes for using your information and its own privacy notice. Authwave provides authentication; the application operator decides how to use that identity within its own service and what additional information to collect, store, disclose or retain. For example, Authwave may help you sign into a shop, but the shop controls its order records. Those application decisions and records are outside Authwave's control as an authentication provider. This policy does not replace the application's notice or cover everything it does after you sign in. This boundary does not remove our responsibility for information we actually process or our own legal duties.
 
@@ -101,7 +101,7 @@ The intended website policy is **no cookies**. Serving informational pages does 
 
 The provider needs one first-party session cookie to connect requests within the authentication flow. The cookie contains a session identifier; the email address, login state and other session data are held on the server. It is not an advertising cookie.
 
-It is set on the provider host being visited: for example `login.authwave.com` or the consuming application's login domain. The default configuration restricts the cookie to the login host rather than a parent domain. The cookie is first-party when the browser visits that login host as part of the redirect flow. The application may separately need its own session cookie after login; one provider cookie is not a promise that the entire application uses only one cookie.
+It is set on the provider host being visited: for example `admin.authwave.com` or the consuming application's login domain. The default configuration restricts the cookie to the login host rather than a parent domain. The cookie is first-party when the browser visits that login host as part of the redirect flow. The application may separately need its own session cookie after login; one provider cookie is not a promise that the entire application uses only one cookie.
 
 | Cookie | Purpose | Duration and scope |
 | --- | --- | --- |

@@ -6,7 +6,7 @@ Your first step is to log in and set up a project for your application. Choose o
 
 With the hosted service, we run the authentication provider for you. Log in to Authwave to get your first application set up.
 
-[Log in to Authwave](https://login.authwave.com/admin/){.content-action target="_self"}
+[Log in to Authwave](https://admin.authwave.com/admin/){.content-action target="_self"}
 
 1. Enter the email address you want to use to administer your projects. Choose an address whose inbox you can access.
 2. We will send a security code to that email address.

@@ -34,7 +34,7 @@ Questions like these shaped Authwave's default login experience. We brought sign
 
 > “What's the difference between signing up and logging in?” - an explanation of the decisions behind Authwave's unified flow.
 
-Try it yourself by [logging into Authwave](https://login.authwave.com/). You can experience the login flow and explore the dashboard we have built alongside it.
+Try it yourself by [logging into Authwave](https://admin.authwave.com/). You can experience the login flow and explore the dashboard we have built alongside it.
 
 ## Written with care, developed in the open
 

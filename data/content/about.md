@@ -22,7 +22,7 @@ Its users included engineers and landowners with turbines on their land, many of
 
 Since then, Authwave has handled millions of authentications across multiple projects. Those years of use have helped us measure, refine and simplify the experience.
 
-> **Photo placeholder:** A real photograph of the hydroelectric equipment or its setting, if you have permission to share one. Show the work the application supports, without exposing customer details or account information.
+> **Photo placeholder:** Photograph of authentication within a hydroelectric power room.
 
 ## A login flow that meets people wherever they are
 
@@ -32,7 +32,7 @@ Then come the other questions: What if I cannot remember my password? What if I 
 
 Questions like these shaped Authwave's default login experience. We brought signing up, logging in and recovery into one fluid flow, so people can begin with their email address and be guided through the steps they need. It is an unconventional decision to merge the different auth flows into one, and one we stand by. We've spent years paying attention to the details, testing how the flow works and making it easier to use.
 
-> **Article link placeholder:** “What's the difference between signing up and logging in?” — a forthcoming explanation of the decisions behind Authwave's unified flow.
+> “What's the difference between signing up and logging in?” - an explanation of the decisions behind Authwave's unified flow.
 
 Try it yourself by [logging into Authwave](https://login.authwave.com/). You can experience the login flow and explore the dashboard we have built alongside it.
 
@@ -60,11 +60,11 @@ Keeping the scope clear gives us room to keep improving the details that matter.
 
 Authwave is developed by Bright Flair Ltd in Derby, UK. Greg Bowler is our director and lead developer.
 
-> **Photo placeholder:** Greg speaking at a conference, ideally photographed mid-talk with enough of the stage visible to give it context. Add the event name, location and year as a caption, and credit the photographer where required.
+> **Photo placeholder:** Greg speaking at PHP EM conference.
 
 Our work on Authwave grows out of the applications we build and the problems we encounter while building them. It is a product we use ourselves, maintain over time, and enjoy working on.
 
-> **Optional photo placeholder:** A candid photograph of Greg working in the shared office. A recognisable, lived-in workspace would suit this page better than a posed team photograph. Check that anyone pictured is happy to appear and that screens contain no private information.
+> **Optional photo placeholder:** A candid photograph of development work in the shared Bright Flair office.
 
 ## Let's talk about the code
 

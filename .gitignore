@@ -2,3 +2,5 @@
 /vendor/
 /node_modules/
 /www/
+/data/cache/
+/config.*.ini

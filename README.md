@@ -25,59 +25,66 @@ All removes the category filter.
 The ellipsis is a native `details` disclosure containing a keyboard-accessible,
 scrollable list of all pages; no JavaScript handles these controls.
 
-Each article lives in one Markdown file directly inside `data/articles`, named
-`YYYY-MM-DD-slug.md`, for example `2026-10-26-hello-world.md`. The date and slug
-come from the filename; the URL stays `/articles/hello-world/`. Files are sorted
-newest first and URL slugs must be unique, even if dates differ.
+Articles are loaded from the repository's [Articles discussions](https://github.com/Authwave/www.authwave.com/discussions/categories/articles)
+using GitHub's GraphQL API. `config.ini` declares an empty `github.token` setting.
+Set the real token in your ignored `config.dev.ini`:
 
-Start each file with YAML front matter:
-
-```markdown
----
-title: Hello world
-category: guides
-summary: A short description for the article header and listing cards.
----
-
-## Your first section
-
-Write the article in **Markdown**, with [links](https://authwave.com).
-
-### A subsection
-
-- One point
-- Another point
-
-> A quotation.
+```ini
+[github]
+token="your-github-token"
 ```
 
-`cover` optionally selects an SVG filename from `asset/illustration/articles`
-(for example, `cover: hosting.svg`) for the article header and listing cards.
-It defaults to `web-screen.svg` when omitted.
+Use a token with read access to repository discussions. WebEngine loads its usual
+configuration overrides; deployed environments can use their corresponding
+configuration file. `ServiceLoader` passes the configured token to `GitHubArticles`
+and provides a shared `ArticleRepository` for typed injection into page functions.
+PHP cURL is required. The runtime calls the API directly; it does not invoke `gh`.
 
-`title`, `category` and `summary` are required. Category must be `guides`,
-`tutorials`, `product`, or `engineering`. The title is rendered by the article
-header, so begin the body with `##` section headings. A multi-line YAML summary
-can use `summary: >-` followed by indented text.
+Every discussion in that category needs exactly one category label:
 
-PHP uses League CommonMark with the core, attributes and front-matter
-extensions, following TrackShift's content-rendering approach. Markdown images,
-links, lists, quotes and fenced code are supported. Attributes such as
-`## A section {#my-section}` can set explicit anchors; the generated contents
-navigation preserves them and makes repeated IDs unique. Raw HTML is allowed
-for trusted repository-authored markup such as figures and captions, as in
-TrackShift; this is not a sanitiser for untrusted uploads.
+| Discussion label | Website category |
+| --- | --- |
+| `www:guide` | `guides` |
+| `www:tutorial` | `tutorials` |
+| `www:product` | `product` |
+| `www:engineering` | `engineering` |
 
-The nine prototype articles are all standalone Markdown files. Adding or
-editing a file updates its listing metadata and article body without a JSON
-registry, separate HTML body or preview switch. Keep unfinished drafts outside
-this directory. Twelve-page pagination remains covered by in-memory test data,
-so the number of editable sample files does not dictate pagination behaviour.
+The discussion title supplies the article title. Its title before a colon becomes
+the URL slug (lowercase, with punctuation/spaces replaced by hyphens). Slugs must
+be unique. The creation date supplies the publication date, and the first prose
+paragraph supplies the summary. An optional `www:label:<image-name>` label selects the matching SVG in
+`asset/illustration/articles`, for example `www:label:hosting` selects `hosting.svg`.
+Use at most one illustration label per discussion. Unknown image names and
+multiple illustration labels are rejected before the snapshot is cached. Articles
+without an illustration label use `web-screen.svg`.
+The discussion body is rendered with CommonMark, including tables, authored HTML
+and explicit heading anchors. Begin with `##` headings because the website renders
+the title separately.
+
+`GitHubArticles` paginates the API and caches a complete successful snapshot for
+one hour using GT FileCache. `data/cache/articles` holds readable `.md` files with
+generated YAML front matter; the `index` subdirectory holds the FileCache snapshot.
+The directory must be writable by PHP and is ignored by Git. Markdown cache names
+include a content hash to avoid serving an old body after a discussion edit.
+Only articles present in the current snapshot are listed, so deleting or moving
+a discussion removes it on the next refresh. An API failure keeps serving the
+last successful snapshot; a first-load failure raises an error. Delete
+`data/cache/articles/index/articles` to request a refresh on the next page load.
+
+`data/articles` is no longer loaded by the website. Markdown fixtures live only
+in tests; the application repository requires its GitHub source. Existing URLs
+stay the same for matching discussion titles, while publication dates, summaries
+and covers follow the GitHub metadata rules above.
 
 The article body, sticky contents navigation and related cards use the same
 HTML on every viewport. The related cards and listing expand the shared
-`page/_component/articles-cards.html` template. `ArticleView` supplies their common
-URL/date/category fields. Flair provides the reading layout, prose, contents,
+`page/_component/articles-cards.html` template. `Article` exposes typed metadata (including a publication date and category enum)
+and the shared URL/date/category labels. Each article owns an `ArticleContent`
+containing the original body Markdown, rendered HTML and typed heading links;
+page logic binds that content directly. `ArticleRepository::find()` returns an
+`Article` or `null`; `all()` returns an iterable, countable `ArticleList`. Filtering,
+pagination and related article selection return new lists without changing the
+original collection. Pagination links and category filters are typed objects. Flair provides the reading layout, prose, contents,
 article media and highlight-frame primitives; AWPixel supplies colour accents.
 The same highlight frame is used by pricing, the footer and the article body.
 
@@ -97,7 +104,7 @@ compose Flair's existing objects and the upstream article-preview/page-picker
 objects; AWPixel owns category tints and selected states.
 
 Run `composer install` after pulling the Markdown dependencies, then
-`php test/articles.php` for Markdown, catalogue, filtering, pagination and article
+`php test/articles.php` and `php test/github-articles.php` for API caching, Markdown, catalogue, filtering, pagination and article
 checks. `gt build` compiles the site assets.
 
 The homepage contains `site-header`, `hero-area`, `introduction-area`,

@@ -1,10 +1,10 @@
 <?php
 use Authwave\Articles\ArticleRepository;
-use Authwave\Articles\ArticleView;
+use Authwave\Articles\ArticleList;
 use Authwave\Content\ContentRepository;
-use Gt\DomTemplate\Binder;
+use GT\DomTemplate\Binder;
 
-function go(Binder $binder):void {
+function go(Binder $binder, ArticleRepository $repository):void {
 	$binder->bindData([
 		"pageTitle" => "Help with Authwave | Authwave",
 		"pageDescription" => "Helpful guides for setting up Authwave, technical questions and reporting security concerns.",
@@ -17,11 +17,13 @@ function go(Binder $binder):void {
 		"make-login-your-own",
 		"running-your-own-provider",
 	];
-	$repository = new ArticleRepository();
 	$articles = [];
 	foreach($slugs as $slug) {
 		$article = $repository->find($slug);
-		if($article) $articles []= ArticleView::data($article);
+		if($article !== null) {
+			array_push($articles, $article);
+		}
 	}
-	$binder->bindList($articles, templateName: "help-articles");
+
+	$binder->bindList(new ArticleList($articles), templateName: "help-articles");
 }

@@ -6,11 +6,11 @@
 		</ol>
 	</nav>
 	<article class="article-frame" aria-labelledby="article-title">
-		<header class="article-header" data-bind:data-category="category">
+		<header class="article-header" data-bind:data-category="categorySlug">
 			<div class="article-heading">
 				<div class="article-meta">
 					<span class="article-category" data-bind:text="categoryLabel">Guides</span>
-					<time data-bind:datetime="published" data-bind:text="publishedLabel">27 Oct 2026</time>
+					<time data-bind:datetime="publishedDate" data-bind:text="publishedLabel">27 Oct 2026</time>
 				</div>
 				<h1 id="article-title" data-bind:text="title">Add authentication in minutes</h1>
 				<p class="article-lead" data-bind:text="summary">A step-by-step guide to integrating Authwave into your application with minimal effort.</p>
@@ -19,20 +19,30 @@
 		</header>
 		<div class="article-reading-frame">
 			<div class="article-layout">
-				<aside class="article-sidebar" data-bind:hidden="?!hasContents">
+				<aside class="article-sidebar" data-bind:hidden="?!content.contents">
 					<nav class="article-contents" aria-labelledby="article-contents-heading">
 						<h2 id="article-contents-heading">In this article</h2>
-						<ol><li data-list="article-contents"><a data-bind:href="url" data-bind:text="label">Heading</a></li></ol>
+						<ol>
+							<li data-list="article-contents">
+								<a data-bind:href="url" data-bind:text="label">Heading</a>
+							</li>
+						</ol>
 					</nav>
 				</aside>
-				<div class="article-prose reading-content" data-bind:html="articleBody"></div>
+				<div class="article-prose reading-content" data-bind:html="content.html"></div>
 			</div>
 		</div>
 	</article>
+
 	<contribution-area />
-	<section class="articles-area related-articles" aria-labelledby="related-heading" data-bind:hidden="?!hasRelated">
+
+	<section class="articles-area related-articles" aria-labelledby="related-heading" data-bind:hidden="?!relatedCount">
 		<div class="section-box">
-			<header class="related-header"><h2 id="related-heading">Don’t miss these</h2><a href="/articles/">See all<span class="visually-hidden"> articles</span></a></header>
+			<header class="related-header">
+				<h2 id="related-heading">Don’t miss these</h2>
+				<a href="/articles/">See all<span class="visually-hidden"> articles</span></a>
+			</header>
+
 			<articles-cards />
 		</div>
 	</section>

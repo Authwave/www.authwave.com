@@ -1,13 +1,15 @@
 <?php
-use Authwave\Articles\ArticleListing;
+use Authwave\Articles\ArticleCategory;
 use Authwave\Articles\ArticleRepository;
-use Gt\Dom\HTMLDocument;
-use Gt\DomTemplate\Binder;
-use Gt\Http\ServerRequest;
+use GT\Dom\HTMLDocument;
+use GT\DomTemplate\Binder;
+use GT\Http\ServerRequest;
 
-function go(Binder $binder, ServerRequest $request, HTMLDocument $document):void {
-	$repository = new ArticleRepository();
-	$listing = new ArticleListing($repository->all(), $request->getQueryParams());
+function go(Binder $binder, ServerRequest $request, HTMLDocument $document, ArticleRepository $repository):void {
+	$query = $request->getQueryParams();
+	$category = is_string($query["category"] ?? null) ? ArticleCategory::tryFrom($query["category"]) : null;
+	$page = is_scalar($query["page"] ?? null) ? filter_var($query["page"], FILTER_VALIDATE_INT) : false;
+	$listing = $repository->all()->filter($category)->paginate($page ?: 1);
 	$binder->bindData([
 		"pageTitle" => "Guides, ideas and updates | Authwave" . ($listing->page > 1 ? " — Page $listing->page" : ""),
 		"hasArticles" => $listing->total > 0,
@@ -18,9 +20,9 @@ function go(Binder $binder, ServerRequest $request, HTMLDocument $document):void
 		"resultSummary" => $listing->total ? sprintf("Showing %d–%d of %d articles. Page %d of %d.", ($listing->page - 1) * $listing->pageSize + 1, min($listing->page * $listing->pageSize, $listing->total), $listing->total, $listing->page, $listing->pageCount) : "No articles match these filters.",
 	]);
 	$binder->bindList($listing->filters(), templateName: "articles-filters");
-	$binder->bindList($listing->articles, templateName: "articles");
+	$binder->bindList($listing, templateName: "articles");
 	$binder->bindList($listing->pages(), templateName: "articles-pages");
-	$binder->bindList($listing->pages(true), templateName: "articles-all-pages");
+	$binder->bindList($listing->allPages(), templateName: "articles-all-pages");
 
 	foreach(["previous" => -1, "next" => 1] as $direction => $offset) {
 		$link = $document->querySelector(".articles-$direction");

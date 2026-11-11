@@ -1,14 +1,20 @@
 <?php
 namespace Authwave\Articles;
 
-use Gt\Dom\HTMLDocument;
+use Authwave\Content\MarkdownRenderer;
+use GT\Dom\HTMLDocument;
 
-/** Add contents links to the HTML rendered by CommonMark. */
-class ArticleContent {
-	public readonly string $html;
-	public readonly array $contents;
+/** Own the authored Markdown, rendered HTML and its matching contents links. */
+readonly class ArticleContent {
+	public string $html;
+	/** @var list<ArticleHeading> */
+	public array $contents;
 
-	public function __construct(string $html) {
+	public function __construct(
+		public string $markdown,
+		MarkdownRenderer $renderer = new MarkdownRenderer(),
+	) {
+		$html = $renderer->render($markdown);
 		$document = new HTMLDocument("<article>$html</article>");
 		$contents = [];
 		$used = [];
@@ -18,11 +24,15 @@ class ArticleContent {
 			// Keep explicit Markdown {#anchor} attributes, while still deduplicating.
 			$base = $heading->getAttribute("id") ?: "article-section-$slug";
 			$id = $base;
-			for($suffix = 2; isset($used[$id]); $suffix++) $id = "$base-$suffix";
+			for($suffix = 2; isset($used[$id]); $suffix++) {
+				$id = "$base-$suffix";
+			}
+
 			$used[$id] = true;
 			$heading->id = $id;
-			$contents []= ["label" => $title, "url" => "#" . rawurlencode($id)];
+			array_push($contents, new ArticleHeading($title, "#" . rawurlencode($id)));
 		}
+
 		$this->contents = $contents;
 		$this->html = $document->querySelector("article")->innerHTML;
 	}

@@ -60,7 +60,7 @@ Keeping the scope clear gives us room to keep improving the details that matter.
 
 Authwave is developed by Bright Flair Ltd in Derby, UK. Greg Bowler is our director and lead developer.
 
-![Greg speaking at Hack 24 conference](/asset/photo/hack24.webp)
+![Greg speaking at Hack 24 conference in Nottingham](/asset/photo/hack24.webp)
 
 Our work on Authwave grows out of the applications we build and the problems we encounter while building them. It is a product we use ourselves, maintain over time, and enjoy working on.
 

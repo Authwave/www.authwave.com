@@ -16,13 +16,13 @@ We decided to build something with a clear scope: authentication - nothing more,
 
 ## Built for people with other things to do
 
-In 2019, we released the first version of the Authwave provider and put it into production in a logging and analytics application for hydroelectric power generation.
+In 2019, we released the first version of the Authwave provider and put it into production within an analytics application for hydroelectric power generation.
 
-Its users included engineers and landowners with turbines on their land, many of them farmers - the kind of user that don't give much of a thought towards authentication systems. They needed to see how their equipment was performing, and the login screen was a necessary step to get there.
+Early users included engineers monitoring production and farmers selling power to the grid. They wanted to check how their equipment was performing, and were the kind of users that didn't give much thought towards authentication systems.
 
-Since then, Authwave has handled millions of authentications across multiple projects. Those years of use have helped us measure, refine and simplify the experience.
+Since then, Authwave has handled millions of authentications across a range of high-traffic production applications. That experience has helped us refine the system and make signing in simpler.
 
-> **Photo placeholder:** Photograph of authentication within a hydroelectric power room.
+![Authentication in action within a hydroelectric power room at Belper East Mill](/asset/photo/hydro.webp)
 
 ## A login flow that meets people wherever they are
 
@@ -60,11 +60,9 @@ Keeping the scope clear gives us room to keep improving the details that matter.
 
 Authwave is developed by Bright Flair Ltd in Derby, UK. Greg Bowler is our director and lead developer.
 
-> **Photo placeholder:** Greg speaking at PHP EM conference.
+![Greg speaking at Hack 24 conference](/asset/photo/hack24.webp)
 
 Our work on Authwave grows out of the applications we build and the problems we encounter while building them. It is a product we use ourselves, maintain over time, and enjoy working on.
-
-> **Optional photo placeholder:** A candid photograph of development work in the shared Bright Flair office.
 
 ## Let's talk about the code
 

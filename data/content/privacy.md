@@ -10,9 +10,11 @@ For privacy matters, email [legal@brightflair.com](mailto:legal@brightflair.com)
 
 This policy covers our website and hosted authentication service.
 
-We decide how information is used for our website and customer relationships. In data protection terms, we are the **controller** for that work.
+Bright Flair Ltd is responsible for information collected through our website and customer relationships.
 
-When we authenticate users for your application, you decide why those accounts are needed and we follow your instructions under our data processing agreement. You are the controller and we are the **processor**.
+For people signing into a customer’s application, the application owner decides why accounts are needed. We handle authentication information on their behalf and follow their instructions under our data processing agreement.
+
+Data protection law calls the organisation making those decisions the “controller”, and an organisation acting on its instructions the “processor”. For authentication in your application, you are the controller and we are the processor.
 
 Your application’s privacy notice covers what happens within it. For independently hosted Authwave installations, contact their operator; we cannot access their database.
 
